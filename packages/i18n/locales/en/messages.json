@@ -1,11 +1,11 @@
 {
   "extensionDescription": {
     "description": "Extension description",
-    "message": "Chrome extension boilerplate developed with Vite, React and Typescript"
+    "message": "QRhythm - 1‑Click QR Code Generator for Marketers"
   },
   "extensionName": {
     "description": "Extension name",
-    "message": "Chrome extension boilerplate"
+    "message": "QRhythm - QR Code Generator"
   },
   "toggleTheme": {
     "message": "Toggle theme"
