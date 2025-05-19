@@ -1,9 +1,20 @@
 import '@src/Popup.css';
 import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared';
 import { exampleThemeStorage } from '@extension/storage';
-// import { t } from '@extension/i18n';
+import { t } from '@extension/i18n';
 // import { ToggleButton } from '@extension/ui';
-import { useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
+import type {
+  DrawType,
+  TypeNumber,
+  Mode,
+  ErrorCorrectionLevel,
+  DotType,
+  CornerSquareType,
+  CornerDotType,
+  // Options,
+} from 'qr-code-styling';
+import QRCodeStyling from 'qr-code-styling';
 
 const Popup = () => {
   const theme = useStorage(exampleThemeStorage);
@@ -11,15 +22,86 @@ const Popup = () => {
 
   // State for URL input
   const [url, setUrl] = useState('');
-  const settings = (
-    <div
-      title="Settings"
+  const settingsText = t('settingsText');
+  // type Extension = 'svg' | 'png' | 'jpeg' | 'webp';
+  const options = useMemo(
+    () => ({
+      width: 300,
+      height: 300,
+      type: 'svg' as DrawType,
+      data: 'http://qr-code-styling.com',
+      margin: 10,
+      qrOptions: {
+        typeNumber: 0 as TypeNumber,
+        mode: 'Byte' as Mode,
+        errorCorrectionLevel: 'Q' as ErrorCorrectionLevel,
+      },
+      imageOptions: {
+        hideBackgroundDots: true,
+        imageSize: 0.4,
+        margin: 20,
+        crossOrigin: 'anonymous',
+      },
+      dotsOptions: {
+        color: '#222222',
+        // gradient: {
+        //   type: 'linear', // 'radial'
+        //   rotation: 0,
+        //   colorStops: [{ offset: 0, color: '#8688B2' }, { offset: 1, color: '#77779C' }]
+        // },
+        type: 'rounded' as DotType,
+      },
+      backgroundOptions: {
+        color: '#5FD4F3',
+        // gradient: {
+        //   type: 'linear', // 'radial'
+        //   rotation: 0,
+        //   colorStops: [{ offset: 0, color: '#ededff' }, { offset: 1, color: '#e6e7ff' }]
+        // },
+      },
+      cornersSquareOptions: {
+        color: '#222222',
+        type: 'extra-rounded' as CornerSquareType,
+        // gradient: {
+        //   type: 'linear', // 'radial'
+        //   rotation: 180,
+        //   colorStops: [{ offset: 0, color: '#25456e' }, { offset: 1, color: '#4267b2' }]
+        // },
+      },
+      cornersDotOptions: {
+        color: '#222222',
+        type: 'dot' as CornerDotType,
+        // gradient: {
+        //   type: 'linear', // 'radial'
+        //   rotation: 180,
+        //   colorStops: [{ offset: 0, color: '#00266e' }, { offset: 1, color: '#4060b3' }]
+        // },
+      },
+    }),
+    [],
+  );
+  // const [fileExt, setFileExt] = useState<Extension>('svg');
+  const [qrCode] = useState<QRCodeStyling>(new QRCodeStyling(options));
+  const qrRef = useRef<HTMLDivElement>(null);
+
+  const settingsButton = (
+    <button
+      title={settingsText}
+      aria-label={settingsText}
       style={{
         position: 'absolute',
         top: 10,
         right: 10,
         cursor: 'pointer',
-      }}>
+        background: 'none',
+        border: 'none',
+        padding: 0,
+      }}
+      onClick={() => {
+        chrome.runtime.openOptionsPage();
+      }}
+      tabIndex={0}
+      type="button">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -27,9 +109,11 @@ const Popup = () => {
         viewBox="0 0 44 41"
         fill="none"
         stroke="gray"
-        stroke-width="3"
-        stroke-linecap="round"
-        stroke-linejoin="round">
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+        focusable="false">
         <line x1="4" y1="12" x2="22" y2="12" />
         <line x1="30" y1="12" x2="40" y2="12" />
         <circle cx="26" cy="12" r="4" />
@@ -42,31 +126,7 @@ const Popup = () => {
         <line x1="32" y1="34" x2="40" y2="34" />
         <circle cx="28" cy="34" r="4" />
       </svg>
-    </div>
-  );
-  // Placeholder QR code generator (replace with real QR code component as needed)
-  const QRCodeBox = (
-    <div
-      style={{
-        position: 'relative',
-        background: '#fff',
-        borderRadius: 16,
-        boxShadow: '0 2px 8px #0001',
-        padding: 16,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 260,
-        height: 260,
-        margin: '0 auto',
-      }}>
-      {/* Placeholder QR code image */}
-      <img
-        src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://example.com"
-        alt="QR code"
-        style={{ width: 220, height: 220, background: '#fff' }}
-      />
-    </div>
+    </button>
   );
 
   // Download button component
@@ -88,13 +148,24 @@ const Popup = () => {
     </button>
   );
 
+  useEffect(() => {
+    if (qrRef.current) {
+      qrCode.append(qrRef.current);
+    }
+  }, [qrCode, qrRef]);
+
+  useEffect(() => {
+    if (!qrCode) return;
+    qrCode.update(options);
+  }, [qrCode, options]);
+
   return (
     <div
       className={`App ${isLight ? 'bg-slate-50' : 'bg-gray-800'}`}
       style={{ minWidth: 340, minHeight: 480, padding: 24 }}>
-      {settings}
+      {settingsButton}
       {/* QR code box with settings icon */}
-      {QRCodeBox}
+      <div ref={qrRef} />
 
       {/* URL input */}
       <div style={{ marginTop: 32, marginBottom: 24 }}>

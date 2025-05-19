@@ -10,6 +10,9 @@
   "toggleTheme": {
     "message": "Toggle theme"
   },
+  "settingsText": {
+    "message": "Settings"
+  },
   "loading": {
     "message": "Loading..."
   },
