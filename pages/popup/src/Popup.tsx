@@ -13,15 +13,34 @@ const Popup = () => {
   const [url, setUrl] = useState('');
   const settings = (
     <div
+      title="Settings"
       style={{
         position: 'absolute',
         top: 10,
         right: 10,
         cursor: 'pointer',
       }}>
-      <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
-        <circle cx="12" cy="12" r="3" />
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 8.6 15a1.65 1.65 0 0 0-1.82-.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 15 8.6c.22 0 .43.03.64.08" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 44 41"
+        fill="none"
+        stroke="gray"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round">
+        <line x1="4" y1="12" x2="22" y2="12" />
+        <line x1="30" y1="12" x2="40" y2="12" />
+        <circle cx="26" cy="12" r="4" />
+
+        <line x1="4" y1="23" x2="12" y2="23" />
+        <line x1="20" y1="23" x2="40" y2="23" />
+        <circle cx="16" cy="23" r="4" />
+
+        <line x1="4" y1="34" x2="24" y2="34" />
+        <line x1="32" y1="34" x2="40" y2="34" />
+        <circle cx="28" cy="34" r="4" />
       </svg>
     </div>
   );
