@@ -21,7 +21,7 @@ const Popup = () => {
   const isLight = theme === 'light';
 
   // State for URL input
-  const [url, setUrl] = useState('');
+  const [url, setUrl] = useState('https://google.com');
   const settingsText = t('settingsText');
   // type Extension = 'svg' | 'png' | 'jpeg' | 'webp';
   const options = useMemo(
@@ -29,7 +29,7 @@ const Popup = () => {
       width: 300,
       height: 300,
       type: 'svg' as DrawType,
-      data: 'http://qr-code-styling.com',
+      data: url,
       margin: 10,
       qrOptions: {
         typeNumber: 0 as TypeNumber,
@@ -78,7 +78,7 @@ const Popup = () => {
         // },
       },
     }),
-    [],
+    [url],
   );
   // const [fileExt, setFileExt] = useState<Extension>('svg');
   const [qrCode] = useState<QRCodeStyling>(new QRCodeStyling(options));
@@ -131,22 +131,21 @@ const Popup = () => {
 
   // Download button component
   const DownloadButton = ({ label }: { label: string }) => (
-    <button
-      style={{
-        background: '#F97316',
-        color: '#fff',
-        border: 'none',
-        borderRadius: 24,
-        padding: '10px 24px',
-        margin: '0 8px',
-        fontWeight: 600,
-        fontSize: 16,
-        cursor: 'pointer',
-        minWidth: 80,
-      }}>
+    <button className="bg-orange-500 text-white border-none rounded-full px-6 py-2.5 mx-2 font-semibold text-base cursor-pointer min-w-[80px]">
       {label}
     </button>
   );
+
+  // Populate URL from the active tab on mount
+  useEffect(() => {
+    if (typeof chrome !== 'undefined' && chrome.tabs) {
+      chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+        if (tabs[0]?.url) {
+          setUrl(tabs[0].url);
+        }
+      });
+    }
+  }, []);
 
   useEffect(() => {
     if (qrRef.current) {
@@ -168,20 +167,13 @@ const Popup = () => {
       <div ref={qrRef} />
 
       {/* URL input */}
-      <div style={{ marginTop: 32, marginBottom: 24 }}>
+      <div className="mt-8 mb-6">
         <input
           type="text"
           placeholder="Enter URL here..."
           value={url}
           onChange={e => setUrl(e.target.value)}
-          style={{
-            width: '100%',
-            padding: '14px 18px',
-            borderRadius: 24,
-            border: '1px solid #e5e7eb',
-            fontSize: 18,
-            outline: 'none',
-          }}
+          className="w-full px-4 py-3.5 rounded-3xl border border-gray-200 text-lg outline-none"
         />
       </div>
 
