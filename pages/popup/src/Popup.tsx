@@ -23,6 +23,7 @@ const Popup = () => {
   // State for URL input
   const [url, setUrl] = useState('https://google.com');
   const settingsText = t('settingsText');
+  const extension = 'svg';
   // type Extension = 'svg' | 'png' | 'jpeg' | 'webp';
   const options = useMemo(
     () => ({
@@ -130,11 +131,53 @@ const Popup = () => {
   );
 
   // Download button component
-  const DownloadButton = ({ label }: { label: string }) => (
-    <button className="bg-orange-500 text-white border-none rounded-full px-6 py-2.5 mx-2 font-semibold text-base cursor-pointer min-w-[80px]">
+  const DownloadButton = ({ label, onClick }: { label: string; onClick?: () => void }) => (
+    <button
+      className="bg-orange-500 text-white border-none rounded-full px-6 py-2.5 mx-2 font-semibold text-base cursor-pointer min-w-[80px]"
+      onClick={onClick}>
       {label}
     </button>
   );
+
+  // Copy to clipboard button component
+  const CopyButton = ({ onClick }: { onClick?: () => void }) => (
+    <button
+      style={{
+        background: '#6CB33F',
+        border: 'none',
+        borderRadius: 8,
+        padding: 8,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minWidth: 44,
+        minHeight: 44,
+        cursor: 'pointer',
+      }}
+      onClick={onClick}
+      aria-label="Copy to clipboard"
+      title="Copy to clipboard">
+      {/* SVG icon from provided image */}
+      <svg width="28" height="27" viewBox="0 0 28 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="7" width="16" height="16" rx="2" fill="white" />
+        <rect x="8" y="3" width="16" height="16" rx="2" fill="white" stroke="#6CB33F" strokeWidth="2" />
+      </svg>
+    </button>
+  );
+
+  // Download handler (downloads as SVG)
+  const handleDownload = () => {
+    qrCode.download({ extension: extension });
+  };
+
+  // Copy to clipboard handler (copies SVG to clipboard)
+  const handleCopy = async () => {
+    const svgData = await qrCode.getRawData(extension);
+    if (svgData instanceof Blob) {
+      const text = await svgData.text();
+      await navigator.clipboard.writeText(text);
+    }
+  };
 
   // Populate URL from the active tab on mount
   useEffect(() => {
@@ -161,13 +204,20 @@ const Popup = () => {
   return (
     <div
       className={`App ${isLight ? 'bg-slate-50' : 'bg-gray-800'}`}
-      style={{ minWidth: 340, minHeight: 480, padding: 24 }}>
+      style={{ minWidth: 400, minHeight: 500, padding: 24 }}>
       {settingsButton}
       {/* QR code box with settings icon */}
-      <div ref={qrRef} />
-
+      <div
+        ref={qrRef}
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: 340,
+        }}
+      />
       {/* URL input */}
-      <div className="mt-8 mb-6">
+      <div className="mb-6">
         <input
           type="text"
           placeholder="Enter URL here..."
@@ -179,9 +229,8 @@ const Popup = () => {
 
       {/* Download buttons */}
       <div style={{ display: 'flex', justifyContent: 'center', gap: 12 }}>
-        <DownloadButton label="SVG" />
-        <DownloadButton label="PNG" />
-        <DownloadButton label="PDF" />
+        <DownloadButton label={`Download ${extension.toUpperCase()}`} onClick={handleDownload} />
+        {/* <CopyButton onClick={handleCopy} /> */}
       </div>
     </div>
   );
