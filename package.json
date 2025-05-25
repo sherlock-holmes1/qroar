@@ -1,13 +1,13 @@
 {
-  "name": "qrhythm-qr-code-generator",
+  "name": "qroar-qr-code-generator",
   "version": "0.1.0",
-  "description": "qrhythm - 1‑Click QR Code Generator for Marketers",
+  "description": "qroar - 1‑Click QR Code Generator for Marketers",
   "license": "MIT",
   "private": true,
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/sherlock-holmes1/qrhythm.git"
+    "url": "https://github.com/sherlock-holmes1/qroar.git"
   },
   "type": "module",
   "scripts": {
