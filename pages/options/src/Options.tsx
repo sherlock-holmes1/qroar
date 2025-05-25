@@ -1,23 +1,12 @@
 import '@src/Options.css';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
 import { useState } from 'react';
-
-const colorOptions = [
-  { name: 'Green', value: 'green', color: '#22c55e' },
-  { name: 'Blue', value: 'blue', color: '#3b82f6' },
-  { name: 'Red', value: 'red', color: '#ef4444' },
-  { name: 'Yellow', value: 'yellow', color: '#eab308' },
-  { name: 'Pink', value: 'pink', color: '#ec4899' },
-  { name: 'Purple', value: 'purple', color: '#8b5cf6' },
-  { name: 'Black', value: 'black', color: '#000000' },
-];
+import { ErrorDisplay, LoadingSpinner, ColorSelector } from '@extension/ui';
 
 const Options = () => {
   const [foreground, setForeground] = useState('green');
-  const [foregroundDropdownOpen, setForegroundDropdownOpen] = useState(false);
+  const [background, setBackground] = useState('white');
   const [gradient, setGradient] = useState(true);
-
-  const selectedForegroundColor = colorOptions.find(c => c.value === foreground);
 
   return (
     <div
@@ -115,25 +104,7 @@ const Options = () => {
               }}>
               Background
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <div
-                style={{
-                  color: '#ef4444',
-                  fontSize: '16px',
-                  fontWeight: '400',
-                }}>
-                Red
-              </div>
-              <div
-                style={{
-                  width: '24px',
-                  height: '24px',
-                  backgroundColor: '#ef4444',
-                  border: '1px solid #e9ecef',
-                  borderRadius: '4px',
-                }}
-              />
-            </div>
+            <ColorSelector value={background} onChange={setBackground} />
           </div>
 
           {/* Foreground */}
@@ -147,106 +118,7 @@ const Options = () => {
               }}>
               Foreground
             </div>
-            <div style={{ position: 'relative', width: '200px' }}>
-              <button
-                onClick={() => setForegroundDropdownOpen(!foregroundDropdownOpen)}
-                style={{
-                  width: '100%',
-                  padding: '12px 16px',
-                  backgroundColor: '#ffffff',
-                  border: '1px solid #e9ecef',
-                  borderRadius: '8px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  fontSize: '16px',
-                  color: selectedForegroundColor?.value === 'green' ? '#22c55e' : '#212529',
-                  cursor: 'pointer',
-                  outline: 'none',
-                }}>
-                <span>{selectedForegroundColor?.name}</span>
-                <span
-                  style={{
-                    fontSize: '12px',
-                    color: '#6c757d',
-                    transform: foregroundDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                    transition: 'transform 0.2s',
-                  }}>
-                  ▼
-                </span>
-              </button>
-
-              {foregroundDropdownOpen && (
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '100%',
-                    left: '0',
-                    right: '0',
-                    backgroundColor: '#ffffff',
-                    border: '1px solid #e9ecef',
-                    borderRadius: '8px',
-                    marginTop: '4px',
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                    zIndex: 10,
-                    maxHeight: '200px',
-                    overflowY: 'auto',
-                  }}>
-                  {colorOptions.map(option => (
-                    <button
-                      key={option.value}
-                      onClick={() => {
-                        setForeground(option.value);
-                        setForegroundDropdownOpen(false);
-                      }}
-                      style={{
-                        width: '100%',
-                        padding: '12px 16px',
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        fontSize: '16px',
-                        color:
-                          option.value === 'green'
-                            ? '#22c55e'
-                            : option.value === 'blue'
-                              ? '#3b82f6'
-                              : option.value === 'red'
-                                ? '#ef4444'
-                                : option.value === 'yellow'
-                                  ? '#eab308'
-                                  : option.value === 'pink'
-                                    ? '#ec4899'
-                                    : option.value === 'purple'
-                                      ? '#8b5cf6'
-                                      : '#000000',
-                        cursor: 'pointer',
-                        textAlign: 'left',
-                        outline: 'none',
-                      }}
-                      onMouseEnter={e => {
-                        e.currentTarget.style.backgroundColor = '#f8f9fa';
-                      }}
-                      onMouseLeave={e => {
-                        e.currentTarget.style.backgroundColor = 'transparent';
-                      }}>
-                      <span>{option.name}</span>
-                      <div
-                        style={{
-                          width: '20px',
-                          height: '20px',
-                          backgroundColor: option.color,
-                          border: '1px solid #e9ecef',
-                          borderRadius: '4px',
-                        }}
-                      />
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+            <ColorSelector value={foreground} onChange={setForeground} />
           </div>
 
           {/* Foreground Gradient */}
@@ -330,4 +202,4 @@ const Options = () => {
   );
 };
 
-export default withErrorBoundary(withSuspense(Options, <div> Loading ... </div>), <div> Error Occur </div>);
+export default withErrorBoundary(withSuspense(Options, <LoadingSpinner />), <ErrorDisplay />);

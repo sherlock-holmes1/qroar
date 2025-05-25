@@ -26,6 +26,8 @@
   "dependencies": {
     "@extension/storage": "workspace:*",
     "@extension/shared": "workspace:*",
+    "@extension/i18n": "workspace:*",
+    "react-spinners": "^0.17.0",
     "clsx": "^2.1.1",
     "tailwind-merge": "^2.4.0"
   },
