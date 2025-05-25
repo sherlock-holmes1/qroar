@@ -1,7 +1,7 @@
 import '@src/Options.css';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
 import { useState } from 'react';
-import { ErrorDisplay, LoadingSpinner, ColorSelector, ToggleSwitch } from '@extension/ui';
+import { QRCodeBox, ErrorDisplay, LoadingSpinner, ColorSelector, ToggleSwitch } from '@extension/ui';
 
 const Options = () => {
   const [foreground, setForeground] = useState('green');
@@ -10,78 +10,30 @@ const Options = () => {
   const [gradient, setGradient] = useState('blue');
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        minHeight: '100vh',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        backgroundColor: '#ffffff',
-      }}>
+    <div className="flex min-h-screen font-sans bg-white">
       {/* Sidebar */}
-      <aside
-        style={{
-          width: '280px',
-          backgroundColor: '#f8f9fa',
-          padding: '32px 24px',
-          display: 'flex',
-          flexDirection: 'column',
-          borderRight: '1px solid #e9ecef',
-        }}>
-        <nav style={{ marginBottom: '60px' }}>
-          <div
-            style={{
-              fontSize: '16px',
-              marginBottom: '24px',
-              fontWeight: '500',
-              color: '#212529',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
+      <aside className="w-[280px] bg-gray-50 p-8 flex flex-col border-r border-gray-200">
+        <nav className="mb-16">
+          <div className="text-base mb-6 font-medium text-gray-900 flex items-center justify-between">
             Color settings
-            <span style={{ fontSize: '18px', color: '#6c757d' }}>›</span>
+            <span className="text-lg text-gray-400">›</span>
           </div>
-          <div style={{ fontSize: '16px', marginBottom: '20px', color: '#6c757d', fontWeight: '400' }}>
-            Logo settings
-          </div>
-          <div style={{ fontSize: '16px', marginBottom: '20px', color: '#6c757d', fontWeight: '400' }}>
-            Customize design
-          </div>
-          <div style={{ fontSize: '16px', color: '#6c757d', fontWeight: '400' }}>Themes</div>
+          <div className="text-base mb-5 text-gray-400 font-normal">Logo settings</div>
+          <div className="text-base mb-5 text-gray-400 font-normal">Customize design</div>
+          <div className="text-base text-gray-400 font-normal">Themes</div>
         </nav>
 
-        <div style={{ marginTop: 'auto' }}>
-          <div style={{ fontSize: '16px', marginBottom: '16px', color: '#212529', fontWeight: '500' }}>Preview</div>
-          <div
-            style={{
-              backgroundColor: '#ffffff',
-              padding: '20px',
-              borderRadius: '8px',
-              border: '1px solid #e9ecef',
-              display: 'flex',
-              justifyContent: 'center',
-              marginBottom: '20px',
-            }}>
+        <div className="mt-auto">
+          <div className="text-base mb-4 text-gray-900 font-medium">Preview</div>
+          <div className="bg-white p-5 rounded-lg border border-gray-200 flex justify-center mb-5">
             <div>QR code</div>
           </div>
-          <div
-            style={{
-              color: '#6c757d',
-              fontSize: '16px',
-              fontWeight: '400',
-            }}>
-            Saved!
-          </div>
+          <div className="text-gray-400 text-base font-normal">Saved!</div>
         </div>
       </aside>
 
       {/* Main Content */}
-      <main
-        style={{
-          flex: 1,
-          padding: '48px 56px',
-          backgroundColor: '#ffffff',
-        }}>
+      <main className="flex-1 p-[48px_56px] bg-white">
         <h1 className="text-4xl font-normal mb-14 text-gray-900">Color settings</h1>
 
         <div className="max-w-[500px]">
