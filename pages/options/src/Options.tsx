@@ -1,12 +1,13 @@
 import '@src/Options.css';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
 import { useState } from 'react';
-import { ErrorDisplay, LoadingSpinner, ColorSelector } from '@extension/ui';
+import { ErrorDisplay, LoadingSpinner, ColorSelector, ToggleSwitch } from '@extension/ui';
 
 const Options = () => {
   const [foreground, setForeground] = useState('green');
   const [background, setBackground] = useState('white');
-  const [gradient, setGradient] = useState(true);
+  const [showGradient, setShowGradient] = useState(true);
+  const [gradient, setGradient] = useState('blue');
 
   return (
     <div
@@ -81,121 +82,40 @@ const Options = () => {
           padding: '48px 56px',
           backgroundColor: '#ffffff',
         }}>
-        <h1
-          style={{
-            fontSize: '36px',
-            fontWeight: '400',
-            marginBottom: '56px',
-            color: '#212529',
-            margin: '0 0 56px 0',
-          }}>
-          Color settings
-        </h1>
+        <h1 className="text-4xl font-normal mb-14 text-gray-900">Color settings</h1>
 
-        <div style={{ maxWidth: '500px' }}>
+        <div className="max-w-[500px]">
           {/* Background */}
-          <div style={{ marginBottom: '40px' }}>
-            <div
-              style={{
-                marginBottom: '16px',
-                fontSize: '16px',
-                color: '#212529',
-                fontWeight: '400',
-              }}>
-              Background
+          <div className="mb-10">
+            <div className="flex items-center gap-[150px]">
+              <span className="text-base text-gray-900 font-normal w-[150px] text-left">Background</span>
+              <ColorSelector value={background} onChange={setBackground} />
             </div>
-            <ColorSelector value={background} onChange={setBackground} />
           </div>
 
           {/* Foreground */}
-          <div style={{ marginBottom: '40px' }}>
-            <div
-              style={{
-                marginBottom: '16px',
-                fontSize: '16px',
-                color: '#212529',
-                fontWeight: '400',
-              }}>
-              Foreground
+          <div className="mb-10">
+            <div className="flex items-center gap-[150px]">
+              <span className="text-base text-gray-900 font-normal w-[150px] text-left">Foreground</span>
+              <ColorSelector value={foreground} onChange={setForeground} />
             </div>
-            <ColorSelector value={foreground} onChange={setForeground} />
           </div>
 
           {/* Foreground Gradient */}
-          <div style={{ marginBottom: '24px' }}>
-            <div
-              style={{
-                marginBottom: '16px',
-                fontSize: '16px',
-                color: '#212529',
-                fontWeight: '400',
-              }}>
-              Foreground Gradient
+          <div className="mb-10">
+            <div className="flex items-center gap-[10px] h-[50px]">
+              <span className="text-base text-gray-900 font-normal w-[300px] text-left flex items-center">
+                Foreground gradient
+                <ToggleSwitch
+                  checked={showGradient}
+                  onChange={setShowGradient}
+                  ariaLabel="Toggle foreground gradient"
+                />
+              </span>
+              {/* Gradient Color Selector */}
+              {showGradient && <ColorSelector value={gradient} onChange={setGradient} />}
             </div>
-            <label
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                cursor: 'pointer',
-              }}>
-              <div
-                style={{
-                  width: '44px',
-                  height: '24px',
-                  backgroundColor: gradient ? '#3b82f6' : '#e9ecef',
-                  borderRadius: '12px',
-                  position: 'relative',
-                  transition: 'background-color 0.2s ease',
-                  marginRight: '12px',
-                }}>
-                <input
-                  type="checkbox"
-                  checked={gradient}
-                  onChange={e => setGradient(e.target.checked)}
-                  style={{ display: 'none' }}
-                />
-                <div
-                  style={{
-                    width: '20px',
-                    height: '20px',
-                    backgroundColor: '#ffffff',
-                    borderRadius: '50%',
-                    position: 'absolute',
-                    top: '2px',
-                    left: gradient ? '22px' : '2px',
-                    transition: 'left 0.2s ease',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
-                  }}
-                />
-              </div>
-              <span className="sr-only">Toggle foreground gradient</span>
-            </label>
           </div>
-
-          {/* Gradient Color Selector */}
-          {gradient && (
-            <div style={{ width: '200px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <div
-                  style={{
-                    color: '#ec4899',
-                    fontSize: '16px',
-                    fontWeight: '400',
-                  }}>
-                  Pink
-                </div>
-                <div
-                  style={{
-                    width: '24px',
-                    height: '24px',
-                    backgroundColor: '#ec4899',
-                    border: '1px solid #e9ecef',
-                    borderRadius: '4px',
-                  }}
-                />
-              </div>
-            </div>
-          )}
         </div>
       </main>
     </div>
