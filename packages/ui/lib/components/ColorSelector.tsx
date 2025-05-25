@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 interface ColorSelectorProps {
   value: string;
@@ -7,6 +7,22 @@ interface ColorSelectorProps {
 
 export const ColorSelector = ({ value, onChange }: ColorSelectorProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
   const colorOptions = [
     { name: 'Green', value: 'green', color: '#22c55e' },
     { name: 'Blue', value: 'blue', color: '#3b82f6' },
@@ -15,12 +31,13 @@ export const ColorSelector = ({ value, onChange }: ColorSelectorProps) => {
     { name: 'Pink', value: 'pink', color: '#ec4899' },
     { name: 'Purple', value: 'purple', color: '#8b5cf6' },
     { name: 'Black', value: 'black', color: '#000000' },
+    { name: 'White', value: 'white', color: '#ffffff' },
   ];
 
   const selectedColor = colorOptions.find(c => c.value === value);
 
   return (
-    <div style={{ position: 'relative', width: '200px' }}>
+    <div ref={dropdownRef} style={{ position: 'relative', width: '200px' }}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         style={{
@@ -32,12 +49,24 @@ export const ColorSelector = ({ value, onChange }: ColorSelectorProps) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
+          textAlign: 'left',
           fontSize: '16px',
-          color: selectedColor?.color || '#212529',
+          // color: selectedColor?.color || '#212529',
           cursor: 'pointer',
           outline: 'none',
         }}>
         <span>{selectedColor?.name}</span>
+        <div
+          style={{
+            width: '20px',
+            height: '20px',
+            backgroundColor: selectedColor?.color,
+            border: '1px solid black',
+            borderRadius: '4px',
+            marginLeft: 'auto',
+            marginRight: '16px',
+          }}
+        />
         <span
           style={{
             fontSize: '12px',
@@ -81,7 +110,7 @@ export const ColorSelector = ({ value, onChange }: ColorSelectorProps) => {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 fontSize: '16px',
-                color: option.color,
+                // color: option.color,
                 cursor: 'pointer',
                 textAlign: 'left',
                 outline: 'none',
@@ -98,7 +127,7 @@ export const ColorSelector = ({ value, onChange }: ColorSelectorProps) => {
                   width: '20px',
                   height: '20px',
                   backgroundColor: option.color,
-                  border: '1px solid #e9ecef',
+                  border: '1px solid black',
                   borderRadius: '4px',
                 }}
               />
