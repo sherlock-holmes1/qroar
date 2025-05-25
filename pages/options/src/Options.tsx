@@ -1,182 +1,327 @@
 import '@src/Options.css';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
-// import { exampleThemeStorage } from '@extension/storage';
-// import { ToggleButton } from '@extension/ui';
-// import { t } from '@extension/i18n';
 import { useState } from 'react';
 
 const colorOptions = [
-  { name: 'Green', value: 'green', color: '#206a2c' },
-  { name: 'Blue', value: 'blue', color: '#2552c4' },
-  { name: 'Red', value: 'red', color: '#e74c3c' },
-  { name: 'Yellow', value: 'yellow', color: '#ffe600' },
-  { name: 'Pink', value: 'pink', color: '#e97cfb' },
-  { name: 'Purple', value: 'purple', color: '#4b2676' },
-  { name: 'Black', value: 'black', color: '#111' },
+  { name: 'Green', value: 'green', color: '#22c55e' },
+  { name: 'Blue', value: 'blue', color: '#3b82f6' },
+  { name: 'Red', value: 'red', color: '#ef4444' },
+  { name: 'Yellow', value: 'yellow', color: '#eab308' },
+  { name: 'Pink', value: 'pink', color: '#ec4899' },
+  { name: 'Purple', value: 'purple', color: '#8b5cf6' },
+  { name: 'Black', value: 'black', color: '#000000' },
 ];
 
 const Options = () => {
-  // const theme = useStorage(exampleThemeStorage);
-  const [background, setBackground] = useState('red');
   const [foreground, setForeground] = useState('green');
+  const [foregroundDropdownOpen, setForegroundDropdownOpen] = useState(false);
   const [gradient, setGradient] = useState(true);
-  const [gradientColor, setGradientColor] = useState('pink');
+
+  const selectedForegroundColor = colorOptions.find(c => c.value === foreground);
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', fontFamily: 'Quicksand, sans-serif' }}>
+    <div
+      style={{
+        display: 'flex',
+        minHeight: '100vh',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        backgroundColor: '#ffffff',
+      }}>
       {/* Sidebar */}
       <aside
         style={{
-          width: 240,
-          background: '#f7f8fa',
-          padding: 32,
+          width: '280px',
+          backgroundColor: '#f8f9fa',
+          padding: '32px 24px',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'flex-start',
-          borderRight: '1px solid #eee',
+          borderRight: '1px solid #e9ecef',
         }}>
-        <nav style={{ width: '100%' }}>
-          <div style={{ fontSize: 18, marginBottom: 24, fontWeight: 500 }}>
-            Color settings <span style={{ float: 'right' }}>{'>'}</span>
-          </div>
-          <div style={{ marginBottom: 18, color: '#444' }}>Logo settings</div>
-          <div style={{ marginBottom: 18, color: '#444' }}>Customize design</div>
-          <div style={{ color: '#444' }}>Themes</div>
-        </nav>
-        <div style={{ marginTop: 'auto', width: '100%' }}>
-          <div style={{ fontSize: 16, marginBottom: 8 }}>Preview</div>
+        <nav style={{ marginBottom: '60px' }}>
           <div
             style={{
-              background: '#fff',
-              padding: 8,
-              borderRadius: 8,
-              border: '1px solid #eee',
+              fontSize: '16px',
+              marginBottom: '24px',
+              fontWeight: '500',
+              color: '#212529',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+            Color settings
+            <span style={{ fontSize: '18px', color: '#6c757d' }}>›</span>
+          </div>
+          <div style={{ fontSize: '16px', marginBottom: '20px', color: '#6c757d', fontWeight: '400' }}>
+            Logo settings
+          </div>
+          <div style={{ fontSize: '16px', marginBottom: '20px', color: '#6c757d', fontWeight: '400' }}>
+            Customize design
+          </div>
+          <div style={{ fontSize: '16px', color: '#6c757d', fontWeight: '400' }}>Themes</div>
+        </nav>
+
+        <div style={{ marginTop: 'auto' }}>
+          <div style={{ fontSize: '16px', marginBottom: '16px', color: '#212529', fontWeight: '500' }}>Preview</div>
+          <div
+            style={{
+              backgroundColor: '#ffffff',
+              padding: '20px',
+              borderRadius: '8px',
+              border: '1px solid #e9ecef',
               display: 'flex',
               justifyContent: 'center',
+              marginBottom: '20px',
             }}>
-            {/* Placeholder QR code */}
-            <img
-              src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=example"
-              alt="QR Preview"
-              style={{ width: 120, height: 120 }}
-            />
+            <div>QR code</div>
           </div>
-          <div style={{ marginTop: 16, color: '#7c7c7c', fontSize: 16 }}>Saved!</div>
+          <div
+            style={{
+              color: '#6c757d',
+              fontSize: '16px',
+              fontWeight: '400',
+            }}>
+            Saved!
+          </div>
         </div>
       </aside>
+
       {/* Main Content */}
-      <main style={{ flex: 1, padding: '48px 40px' }}>
-        <h1 style={{ fontSize: 36, fontWeight: 400, marginBottom: 40 }}>Color settings</h1>
-        <div style={{ maxWidth: 400 }}>
+      <main
+        style={{
+          flex: 1,
+          padding: '48px 56px',
+          backgroundColor: '#ffffff',
+        }}>
+        <h1
+          style={{
+            fontSize: '36px',
+            fontWeight: '400',
+            marginBottom: '56px',
+            color: '#212529',
+            margin: '0 0 56px 0',
+          }}>
+          Color settings
+        </h1>
+
+        <div style={{ maxWidth: '500px' }}>
           {/* Background */}
-          <div style={{ marginBottom: 32 }}>
-            <div style={{ marginBottom: 8 }}>Background</div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <select
-                value={background}
-                onChange={e => setBackground(e.target.value)}
+          <div style={{ marginBottom: '40px' }}>
+            <div
+              style={{
+                marginBottom: '16px',
+                fontSize: '16px',
+                color: '#212529',
+                fontWeight: '400',
+              }}>
+              Background
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div
                 style={{
-                  fontSize: 18,
-                  padding: '8px 16px',
-                  borderRadius: 8,
-                  border: '1px solid #eee',
-                  marginRight: 12,
-                  minWidth: 120,
+                  color: '#ef4444',
+                  fontSize: '16px',
+                  fontWeight: '400',
                 }}>
-                {colorOptions.map(opt => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.name}
-                  </option>
-                ))}
-              </select>
-              <span
+                Red
+              </div>
+              <div
                 style={{
-                  display: 'inline-block',
-                  width: 28,
-                  height: 28,
-                  borderRadius: 6,
-                  background: colorOptions.find(c => c.value === background)?.color,
-                  border: '1px solid #ddd',
+                  width: '24px',
+                  height: '24px',
+                  backgroundColor: '#ef4444',
+                  border: '1px solid #e9ecef',
+                  borderRadius: '4px',
                 }}
               />
             </div>
           </div>
+
           {/* Foreground */}
-          <div style={{ marginBottom: 32 }}>
-            <div style={{ marginBottom: 8 }}>Foreground</div>
-            <div style={{ position: 'relative', width: 180 }}>
-              <select
-                value={foreground}
-                onChange={e => setForeground(e.target.value)}
+          <div style={{ marginBottom: '40px' }}>
+            <div
+              style={{
+                marginBottom: '16px',
+                fontSize: '16px',
+                color: '#212529',
+                fontWeight: '400',
+              }}>
+              Foreground
+            </div>
+            <div style={{ position: 'relative', width: '200px' }}>
+              <button
+                onClick={() => setForegroundDropdownOpen(!foregroundDropdownOpen)}
                 style={{
-                  fontSize: 18,
-                  padding: '8px 16px',
-                  borderRadius: 8,
-                  border: '1px solid #eee',
                   width: '100%',
+                  padding: '12px 16px',
+                  backgroundColor: '#ffffff',
+                  border: '1px solid #e9ecef',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  fontSize: '16px',
+                  color: selectedForegroundColor?.value === 'green' ? '#22c55e' : '#212529',
+                  cursor: 'pointer',
+                  outline: 'none',
                 }}>
-                {colorOptions.map(opt => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.name}
-                  </option>
-                ))}
-              </select>
-              <span
-                style={{
-                  position: 'absolute',
-                  right: 8,
-                  top: 8,
-                  width: 28,
-                  height: 28,
-                  borderRadius: 6,
-                  background: colorOptions.find(c => c.value === foreground)?.color,
-                  border: '1px solid #ddd',
-                }}
-              />
+                <span>{selectedForegroundColor?.name}</span>
+                <span
+                  style={{
+                    fontSize: '12px',
+                    color: '#6c757d',
+                    transform: foregroundDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.2s',
+                  }}>
+                  ▼
+                </span>
+              </button>
+
+              {foregroundDropdownOpen && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: '0',
+                    right: '0',
+                    backgroundColor: '#ffffff',
+                    border: '1px solid #e9ecef',
+                    borderRadius: '8px',
+                    marginTop: '4px',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                    zIndex: 10,
+                    maxHeight: '200px',
+                    overflowY: 'auto',
+                  }}>
+                  {colorOptions.map(option => (
+                    <button
+                      key={option.value}
+                      onClick={() => {
+                        setForeground(option.value);
+                        setForegroundDropdownOpen(false);
+                      }}
+                      style={{
+                        width: '100%',
+                        padding: '12px 16px',
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        fontSize: '16px',
+                        color:
+                          option.value === 'green'
+                            ? '#22c55e'
+                            : option.value === 'blue'
+                              ? '#3b82f6'
+                              : option.value === 'red'
+                                ? '#ef4444'
+                                : option.value === 'yellow'
+                                  ? '#eab308'
+                                  : option.value === 'pink'
+                                    ? '#ec4899'
+                                    : option.value === 'purple'
+                                      ? '#8b5cf6'
+                                      : '#000000',
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                        outline: 'none',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.backgroundColor = '#f8f9fa';
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                      }}>
+                      <span>{option.name}</span>
+                      <div
+                        style={{
+                          width: '20px',
+                          height: '20px',
+                          backgroundColor: option.color,
+                          border: '1px solid #e9ecef',
+                          borderRadius: '4px',
+                        }}
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
+
           {/* Foreground Gradient */}
-          <div style={{ marginBottom: 16 }}>
-            <div style={{ marginBottom: 8 }}>Foreground Gradient</div>
-            <label style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <input
-                type="checkbox"
-                checked={gradient}
-                onChange={e => setGradient(e.target.checked)}
-                style={{ width: 32, height: 18, accentColor: '#7c7cfa' }}
-              />
-              <span style={{ fontSize: 18 }}>{gradient ? '' : ''}</span>
+          <div style={{ marginBottom: '24px' }}>
+            <div
+              style={{
+                marginBottom: '16px',
+                fontSize: '16px',
+                color: '#212529',
+                fontWeight: '400',
+              }}>
+              Foreground Gradient
+            </div>
+            <label
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                cursor: 'pointer',
+              }}>
+              <div
+                style={{
+                  width: '44px',
+                  height: '24px',
+                  backgroundColor: gradient ? '#3b82f6' : '#e9ecef',
+                  borderRadius: '12px',
+                  position: 'relative',
+                  transition: 'background-color 0.2s ease',
+                  marginRight: '12px',
+                }}>
+                <input
+                  type="checkbox"
+                  checked={gradient}
+                  onChange={e => setGradient(e.target.checked)}
+                  style={{ display: 'none' }}
+                />
+                <div
+                  style={{
+                    width: '20px',
+                    height: '20px',
+                    backgroundColor: '#ffffff',
+                    borderRadius: '50%',
+                    position: 'absolute',
+                    top: '2px',
+                    left: gradient ? '22px' : '2px',
+                    transition: 'left 0.2s ease',
+                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+                  }}
+                />
+              </div>
+              <span className="sr-only">Toggle foreground gradient</span>
             </label>
           </div>
+
+          {/* Gradient Color Selector */}
           {gradient && (
-            <div style={{ marginBottom: 32 }}>
-              <select
-                value={gradientColor}
-                onChange={e => setGradientColor(e.target.value)}
-                style={{
-                  fontSize: 18,
-                  padding: '8px 16px',
-                  borderRadius: 8,
-                  border: '1px solid #eee',
-                  minWidth: 120,
-                }}>
-                {colorOptions.map(opt => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.name}
-                  </option>
-                ))}
-              </select>
-              <span
-                style={{
-                  display: 'inline-block',
-                  width: 28,
-                  height: 28,
-                  borderRadius: 6,
-                  background: colorOptions.find(c => c.value === gradientColor)?.color,
-                  border: '1px solid #ddd',
-                  marginLeft: 12,
-                }}
-              />
+            <div style={{ width: '200px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <div
+                  style={{
+                    color: '#ec4899',
+                    fontSize: '16px',
+                    fontWeight: '400',
+                  }}>
+                  Pink
+                </div>
+                <div
+                  style={{
+                    width: '24px',
+                    height: '24px',
+                    backgroundColor: '#ec4899',
+                    border: '1px solid #e9ecef',
+                    borderRadius: '4px',
+                  }}
+                />
+              </div>
             </div>
           )}
         </div>
