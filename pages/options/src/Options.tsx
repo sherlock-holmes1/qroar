@@ -6,7 +6,7 @@ import { QRCodeBox, ErrorDisplay, LoadingSpinner, ColorSelector, ToggleSwitch } 
 const Options = () => {
   const [foreground, setForeground] = useState('green');
   const [background, setBackground] = useState('white');
-  const [showGradient, setShowGradient] = useState(true);
+  const [showGradient, setShowGradient] = useState(false);
   const [gradient, setGradient] = useState('blue');
 
   return (
@@ -26,7 +26,15 @@ const Options = () => {
         <div className="mt-auto">
           <div className="text-base mb-4 text-gray-900 font-medium">Preview</div>
           <div className="bg-white p-5 rounded-lg border border-gray-200 flex justify-center mb-5">
-            <div>QR code</div>
+            <div>
+              <QRCodeBox
+                url="google.com"
+                backgroundColor={background}
+                foregroundColor={foreground}
+                showGradient={showGradient}
+                gradientColor={gradient}
+              />
+            </div>
           </div>
           <div className="text-gray-400 text-base font-normal">Saved!</div>
         </div>

@@ -14,7 +14,9 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ checked, onChange, a
       <input
         type="checkbox"
         checked={checked}
-        onChange={e => onChange(e.target.checked)}
+        onChange={e => {
+          onChange(e.target.checked);
+        }}
         className="sr-only"
         aria-label={ariaLabel}
       />
