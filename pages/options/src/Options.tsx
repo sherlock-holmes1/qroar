@@ -1,13 +1,44 @@
 import '@src/Options.css';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { QRCodeBox, ErrorDisplay, LoadingSpinner, ColorSelector, ToggleSwitch } from '@extension/ui';
+import { colorSettingsStorage } from '@extension/storage';
 
 const Options = () => {
   const [foreground, setForeground] = useState('green');
   const [background, setBackground] = useState('white');
   const [showGradient, setShowGradient] = useState(false);
   const [gradient, setGradient] = useState('blue');
+
+  // Load settings from storage on mount
+  useEffect(() => {
+    let ignore = false;
+    colorSettingsStorage.get().then(settings => {
+      if (!ignore && settings) {
+        setForeground(settings.foreground);
+        setBackground(settings.background);
+        setShowGradient(settings.showGradient);
+        setGradient(settings.gradient);
+      }
+    });
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
+  // Save to storage when values change
+  useEffect(() => {
+    colorSettingsStorage.setForeground(foreground);
+  }, [foreground]);
+  useEffect(() => {
+    colorSettingsStorage.setBackground(background);
+  }, [background]);
+  useEffect(() => {
+    colorSettingsStorage.setShowGradient(showGradient);
+  }, [showGradient]);
+  useEffect(() => {
+    colorSettingsStorage.setGradient(gradient);
+  }, [gradient]);
 
   return (
     <div className="flex min-h-screen font-sans bg-white">

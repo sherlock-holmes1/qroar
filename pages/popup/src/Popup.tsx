@@ -1,6 +1,6 @@
 import '@src/Popup.css';
 import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared';
-import { exampleThemeStorage } from '@extension/storage';
+import { exampleThemeStorage, colorSettingsStorage } from '@extension/storage';
 import { t } from '@extension/i18n';
 import { useEffect, useState, useRef } from 'react';
 import { QRCodeBox } from '@extension/ui';
@@ -8,6 +8,10 @@ import { QRCodeBox } from '@extension/ui';
 const Popup = () => {
   const theme = useStorage(exampleThemeStorage);
   const isLight = theme === 'light';
+
+  // Get color settings from storage
+  const colorSettings = useStorage(colorSettingsStorage);
+  const { foreground, background, showGradient, gradient } = colorSettings || {};
 
   // State for URL input
   const [url, setUrl] = useState('https://google.com');
@@ -74,10 +78,22 @@ const Popup = () => {
   return (
     <div
       className={`App ${isLight ? 'bg-slate-50' : 'bg-gray-800'}`}
-      style={{ minWidth: 400, minHeight: 500, padding: 24 }}>
+      style={{
+        minWidth: 400,
+        minHeight: 500,
+        padding: 24,
+      }}>
       {settingsButton}
       {/* QR code box with settings icon */}
-      <QRCodeBox ref={qrCodeRef} url={url} extension={extension} />
+      <QRCodeBox
+        ref={qrCodeRef}
+        url={url}
+        extension={extension}
+        foregroundColor={foreground}
+        backgroundColor={background}
+        showGradient={showGradient}
+        gradientColor={gradient}
+      />
       {/* URL input */}
       <div className="mb-6">
         <input
