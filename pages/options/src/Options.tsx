@@ -1,8 +1,9 @@
 import '@src/Options.css';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
-import { useState, useEffect } from 'react';
-import { QRCodeBox, ErrorDisplay, LoadingSpinner, ColorSelector, ToggleSwitch } from '@extension/ui';
+import { QRCodeBox, ErrorDisplay, LoadingSpinner } from '@extension/ui';
 import { colorSettingsStorage } from '@extension/storage';
+import { useState, useEffect } from 'react';
+import { ColorSettings } from './ColorSettings';
 
 const Options = () => {
   const [foreground, setForeground] = useState('green');
@@ -26,20 +27,6 @@ const Options = () => {
     };
   }, []);
 
-  // Save to storage when values change
-  useEffect(() => {
-    colorSettingsStorage.setForeground(foreground);
-  }, [foreground]);
-  useEffect(() => {
-    colorSettingsStorage.setBackground(background);
-  }, [background]);
-  useEffect(() => {
-    colorSettingsStorage.setShowGradient(showGradient);
-  }, [showGradient]);
-  useEffect(() => {
-    colorSettingsStorage.setGradient(gradient);
-  }, [gradient]);
-
   return (
     <div className="flex min-h-screen font-sans bg-white">
       {/* Sidebar */}
@@ -49,9 +36,9 @@ const Options = () => {
             Color settings
             <span className="text-lg text-gray-400">›</span>
           </div>
-          <div className="text-base mb-5 text-gray-400 font-normal">Logo settings</div>
-          <div className="text-base mb-5 text-gray-400 font-normal">Customize design</div>
-          <div className="text-base text-gray-400 font-normal">Themes</div>
+          <div className="text-base mb-5 text-gray-400 font-normal text-left">Logo settings</div>
+          <div className="text-base mb-5 text-gray-400 font-normal text-left">Customize design</div>
+          <div className="text-base text-gray-400 font-normal text-left">Themes</div>
         </nav>
 
         <div className="mt-auto">
@@ -72,43 +59,28 @@ const Options = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-[48px_56px] bg-white">
-        <h1 className="text-4xl font-normal mb-14 text-gray-900">Color settings</h1>
-
-        <div className="max-w-[500px]">
-          {/* Background */}
-          <div className="mb-10">
-            <div className="flex items-center gap-[150px]">
-              <span className="text-base text-gray-900 font-normal w-[150px] text-left">Background</span>
-              <ColorSelector value={background} onChange={setBackground} />
-            </div>
-          </div>
-
-          {/* Foreground */}
-          <div className="mb-10">
-            <div className="flex items-center gap-[150px]">
-              <span className="text-base text-gray-900 font-normal w-[150px] text-left">Foreground</span>
-              <ColorSelector value={foreground} onChange={setForeground} />
-            </div>
-          </div>
-
-          {/* Foreground Gradient */}
-          <div className="mb-10">
-            <div className="flex items-center gap-[10px] h-[50px]">
-              <span className="text-base text-gray-900 font-normal w-[300px] text-left flex items-center">
-                Foreground gradient
-                <ToggleSwitch
-                  checked={showGradient}
-                  onChange={setShowGradient}
-                  ariaLabel="Toggle foreground gradient"
-                />
-              </span>
-              {/* Gradient Color Selector */}
-              {showGradient && <ColorSelector value={gradient} onChange={setGradient} />}
-            </div>
-          </div>
-        </div>
-      </main>
+      <ColorSettings
+        initialForeground={foreground}
+        initialBackground={background}
+        initialShowGradient={showGradient}
+        initialGradient={gradient}
+        onChange={({
+          foreground,
+          background,
+          showGradient,
+          gradient,
+        }: {
+          foreground: string;
+          background: string;
+          showGradient: boolean;
+          gradient: string;
+        }) => {
+          setForeground(foreground);
+          setBackground(background);
+          setShowGradient(showGradient);
+          setGradient(gradient);
+        }}
+      />
     </div>
   );
 };
