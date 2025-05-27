@@ -27,6 +27,20 @@ const Options = () => {
     };
   }, []);
 
+  // Save to storage when values change
+  useEffect(() => {
+    colorSettingsStorage.setForeground(foreground);
+  }, [foreground]);
+  useEffect(() => {
+    colorSettingsStorage.setBackground(background);
+  }, [background]);
+  useEffect(() => {
+    colorSettingsStorage.setShowGradient(showGradient);
+  }, [showGradient]);
+  useEffect(() => {
+    colorSettingsStorage.setGradient(gradient);
+  }, [gradient]);
+
   return (
     <div className="flex min-h-screen font-sans bg-white">
       {/* Sidebar */}
