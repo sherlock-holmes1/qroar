@@ -27,20 +27,6 @@ const Options = () => {
     };
   }, []);
 
-  // Save to storage when values change
-  useEffect(() => {
-    colorSettingsStorage.setForeground(foreground);
-  }, [foreground]);
-  useEffect(() => {
-    colorSettingsStorage.setBackground(background);
-  }, [background]);
-  useEffect(() => {
-    colorSettingsStorage.setShowGradient(showGradient);
-  }, [showGradient]);
-  useEffect(() => {
-    colorSettingsStorage.setGradient(gradient);
-  }, [gradient]);
-
   return (
     <div className="flex min-h-screen font-sans bg-white">
       {/* Sidebar */}
@@ -68,31 +54,30 @@ const Options = () => {
               />
             </div>
           </div>
-          <div className="text-gray-400 text-base font-normal">Saved!</div>
         </div>
       </aside>
 
       {/* Main Content */}
       <ColorSettings
-        initialForeground={foreground}
-        initialBackground={background}
-        initialShowGradient={showGradient}
-        initialGradient={gradient}
-        onChange={({
-          foreground,
-          background,
-          showGradient,
-          gradient,
-        }: {
-          foreground: string;
-          background: string;
-          showGradient: boolean;
-          gradient: string;
-        }) => {
-          setForeground(foreground);
-          setBackground(background);
-          setShowGradient(showGradient);
-          setGradient(gradient);
+        foreground={foreground}
+        background={background}
+        showGradient={showGradient}
+        gradient={gradient}
+        onForegroundChange={color => {
+          setForeground(color);
+          colorSettingsStorage.setForeground(color);
+        }}
+        onBackgroundChange={color => {
+          setBackground(color);
+          colorSettingsStorage.setBackground(color);
+        }}
+        onShowGradientChange={show => {
+          setShowGradient(show);
+          colorSettingsStorage.setShowGradient(show);
+        }}
+        onGradientChange={color => {
+          setGradient(color);
+          colorSettingsStorage.setGradient(color);
         }}
       />
     </div>
