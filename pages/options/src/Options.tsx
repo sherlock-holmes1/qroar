@@ -4,6 +4,7 @@ import { QRCodeBox, ErrorDisplay, LoadingSpinner } from '@extension/ui';
 import { colorSettingsStorage } from '@extension/storage';
 import { useState, useEffect } from 'react';
 import { ColorSettings } from './ColorSettings';
+import { LogoSettings } from './LogoSettings';
 
 const Options = () => {
   const [foreground, setForeground] = useState('green');
@@ -58,28 +59,31 @@ const Options = () => {
       </aside>
 
       {/* Main Content */}
-      <ColorSettings
-        foreground={foreground}
-        background={background}
-        showGradient={showGradient}
-        gradient={gradient}
-        onForegroundChange={color => {
-          setForeground(color);
-          colorSettingsStorage.setForeground(color);
-        }}
-        onBackgroundChange={color => {
-          setBackground(color);
-          colorSettingsStorage.setBackground(color);
-        }}
-        onShowGradientChange={show => {
-          setShowGradient(show);
-          colorSettingsStorage.setShowGradient(show);
-        }}
-        onGradientChange={color => {
-          setGradient(color);
-          colorSettingsStorage.setGradient(color);
-        }}
-      />
+      <main className="flex-1 p-[48px_56px] bg-white">
+        <ColorSettings
+          foreground={foreground}
+          background={background}
+          showGradient={showGradient}
+          gradient={gradient}
+          onForegroundChange={color => {
+            setForeground(color);
+            colorSettingsStorage.setForeground(color);
+          }}
+          onBackgroundChange={color => {
+            setBackground(color);
+            colorSettingsStorage.setBackground(color);
+          }}
+          onShowGradientChange={show => {
+            setShowGradient(show);
+            colorSettingsStorage.setShowGradient(show);
+          }}
+          onGradientChange={color => {
+            setGradient(color);
+            colorSettingsStorage.setGradient(color);
+          }}
+        />
+        <LogoSettings />
+      </main>
     </div>
   );
 };

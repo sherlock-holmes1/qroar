@@ -22,7 +22,7 @@ export const ColorSettings = ({
   onGradientChange,
 }: ColorSettingsProps) => {
   return (
-    <main className="flex-1 p-[48px_56px] bg-white">
+    <>
       <h1 className="text-4xl font-normal mb-14 text-gray-900 text-left">Color settings</h1>
 
       <div className="max-w-[500px]">
@@ -58,6 +58,6 @@ export const ColorSettings = ({
           </div>
         </div>
       </div>
-    </main>
+    </>
   );
 };
