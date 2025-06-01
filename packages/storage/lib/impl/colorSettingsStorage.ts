@@ -6,6 +6,7 @@ export type ColorSettings = {
   background: string;
   showGradient: boolean;
   gradient: string;
+  logo?: string | null; // add logo property
 };
 
 export type ColorSettingsStorage = BaseStorage<ColorSettings> & {
@@ -13,6 +14,7 @@ export type ColorSettingsStorage = BaseStorage<ColorSettings> & {
   setBackground: (color: string) => Promise<void>;
   setShowGradient: (show: boolean) => Promise<void>;
   setGradient: (color: string) => Promise<void>;
+  setLogo: (logo: string | null) => Promise<void>; // add setLogo
   reset: () => Promise<void>;
 };
 
@@ -21,6 +23,7 @@ const defaultSettings: ColorSettings = {
   background: 'white',
   showGradient: false,
   gradient: 'blue',
+  logo: null, // default logo is null
 };
 
 const storage = createStorage<ColorSettings>('color-settings-storage-key', defaultSettings, {
@@ -41,6 +44,9 @@ export const colorSettingsStorage: ColorSettingsStorage = {
   },
   setGradient: async color => {
     await storage.set(settings => ({ ...settings, gradient: color }));
+  },
+  setLogo: async logo => {
+    await storage.set(settings => ({ ...settings, logo }));
   },
   reset: async () => {
     await storage.set(() => defaultSettings);

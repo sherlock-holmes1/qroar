@@ -1,5 +1,4 @@
 import type React from 'react';
-import { useState } from 'react';
 
 const logoOptions = [
   { id: 'none', label: 'None', icon: '🚫' },
@@ -16,22 +15,22 @@ const logoOptions = [
   { id: 'wifi', label: 'Wi-Fi', url: 'logo/wifi.svg' },
 ];
 
-export const LogoSettings = () => {
-  const [selected, setSelected] = useState<string>('none');
-  const [uploadedLogo, setUploadedLogo] = useState<string | null>(null);
+export type LogoSettingsProps = {
+  selected: string | null;
+  //   uploadedLogo: string | null;
+  onLogoSelect: (id: string) => void;
+  //   onLogoUpload: (file: File) => void;
+};
 
+export const LogoSettings: React.FC<LogoSettingsProps> = ({ selected, onLogoSelect }) => {
   const handleLogoClick = (id: string) => {
-    setSelected(id);
-    setUploadedLogo(null);
+    onLogoSelect(id);
   };
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => setUploadedLogo(reader.result as string);
-      reader.readAsDataURL(file);
-      setSelected('uploaded');
+      //   onLogoUpload(file);
     }
   };
 
@@ -39,10 +38,7 @@ export const LogoSettings = () => {
     e.preventDefault();
     const file = e.dataTransfer.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => setUploadedLogo(reader.result as string);
-      reader.readAsDataURL(file);
-      setSelected('uploaded');
+      //   onLogoUpload(file);
     }
   };
 
@@ -67,14 +63,14 @@ export const LogoSettings = () => {
         className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-8 cursor-pointer hover:border-blue-400 transition"
         onDrop={handleDrop}
         onDragOver={e => e.preventDefault()}>
-        {uploadedLogo ? (
+        {/* {uploadedLogo ? (
           <img src={uploadedLogo} alt="Uploaded logo" className="h-16 mb-2" />
         ) : (
           <>
             <span className="text-gray-500 mb-2">Drag & drop or click to upload a logo</span>
             <span className="text-xs text-gray-400 mb-2">Supported file formats: JPG, JPEG, or PNG | 2MB max</span>
           </>
-        )}
+        )} */}
         <input type="file" accept="image/png, image/jpeg" className="hidden" onChange={handleUpload} />
       </label>
     </>

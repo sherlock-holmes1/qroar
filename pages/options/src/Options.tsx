@@ -11,6 +11,7 @@ const Options = () => {
   const [background, setBackground] = useState('white');
   const [showGradient, setShowGradient] = useState(false);
   const [gradient, setGradient] = useState('blue');
+  const [logo, setLogo] = useState<string | null>(null);
 
   // Load settings from storage on mount
   useEffect(() => {
@@ -21,6 +22,7 @@ const Options = () => {
         setBackground(settings.background);
         setShowGradient(settings.showGradient);
         setGradient(settings.gradient);
+        setLogo(settings.logo ?? null); // load logo
       }
     });
     return () => {
@@ -47,7 +49,7 @@ const Options = () => {
           <div className="bg-white p-5 rounded-lg border border-gray-200 flex justify-center mb-5">
             <div>
               <QRCodeBox
-                url="google.com"
+                url="https://qroar.com"
                 backgroundColor={background}
                 foregroundColor={foreground}
                 showGradient={showGradient}
@@ -82,7 +84,13 @@ const Options = () => {
             colorSettingsStorage.setGradient(color);
           }}
         />
-        <LogoSettings />
+        <LogoSettings
+          selected={logo}
+          onLogoSelect={newLogo => {
+            setLogo(newLogo);
+            colorSettingsStorage.setLogo(newLogo);
+          }}
+        />
       </main>
     </div>
   );
