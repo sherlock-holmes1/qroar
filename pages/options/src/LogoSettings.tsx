@@ -30,10 +30,6 @@ export const LogoSettings: React.FC<LogoSettingsProps> = ({ selected, onLogoSele
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 2 * 1024 * 1024) {
-        alert('File size exceeds 2 MB. Please select a smaller file.');
-        return;
-      }
       onLogoUpload(file);
     }
   };
@@ -42,28 +38,42 @@ export const LogoSettings: React.FC<LogoSettingsProps> = ({ selected, onLogoSele
     e.preventDefault();
     const file = e.dataTransfer.files?.[0];
     if (file) {
-      if (file.size > 2 * 1024 * 1024) {
-        alert('File size exceeds 2 MB. Please select a smaller file.');
-        return;
-      }
       onLogoUpload(file);
     }
+  };
+
+  const handleDetectFromSite = () => {
+    onLogoSelect('detect');
   };
 
   return (
     <>
       <h1 className="text-4xl font-normal mb-14 mt-20 text-gray-900 text-left">Logo settings</h1>
       <div className="grid grid-cols-7 gap-4 mb-8">
+        <button
+          className={`flex flex-col items-center justify-center border rounded-lg p-4 transition w-20 h-20
+            ${selected === 'detect' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 bg-white'}
+            hover:border-blue-400`}
+          onClick={handleDetectFromSite}
+          aria-label="Detect from site"
+          type="button">
+          <span className="text-3xl mb-2">🔍</span>
+          <span className="text-xs">Auto detect</span>
+        </button>
         {logoOptions.map(opt => (
           <button
             key={opt.id}
-            className={`flex flex-col items-center justify-center border rounded-lg p-4 transition
+            className={`flex flex-col items-center justify-center border rounded-lg p-4 transition w-20 h-20
               ${selected === opt.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200 bg-white'}
               hover:border-blue-400`}
             onClick={() => handleLogoClick(opt.id)}
             aria-label={opt.label}
             type="button">
-            {opt.icon ? <span className="text-3xl mb-2">{opt.icon}</span> : <img src={opt.url} alt={opt.label} />}
+            {opt.icon ? (
+              <span className="text-3xl mb-2">{opt.icon}</span>
+            ) : (
+              <img src={opt.url} alt={opt.label} width="56px" height="56px" />
+            )}
           </button>
         ))}
       </div>
