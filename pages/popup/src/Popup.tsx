@@ -11,7 +11,7 @@ const Popup = () => {
 
   // Get color settings from storage
   const colorSettings = useStorage(colorSettingsStorage);
-  const { foreground, background, showGradient, gradient } = colorSettings || {};
+  const { foreground, background, showGradient, gradient, logo } = colorSettings || {};
 
   // State for URL input
   const [url, setUrl] = useState('https://google.com');
@@ -74,7 +74,7 @@ const Popup = () => {
       });
     }
   }, []);
-
+  console.log(logo);
   return (
     <div
       className={`App ${isLight ? 'bg-slate-50' : 'bg-gray-800'}`}
@@ -88,7 +88,7 @@ const Popup = () => {
       <QRCodeBox
         ref={qrCodeRef}
         url={url}
-        image="undefined"
+        image={logo != 'none' ? 'logo/' + logo + '.svg' : undefined}
         extension={extension}
         foregroundColor={foreground}
         backgroundColor={background}
