@@ -14,7 +14,8 @@ const Popup = () => {
   const { foreground, background, showGradient, gradient, logo } = colorSettings || {};
 
   // State for URL input
-  const [url, setUrl] = useState('https://google.com');
+  const [url, setUrl] = useState('https://qroar.com');
+  const [favicon, setFavicon] = useState<string | null>(null);
   const settingsText = t('settingsText');
   const extension = 'svg';
   const qrCodeRef = useRef<{ download: () => void }>(null);
@@ -71,10 +72,14 @@ const Popup = () => {
         if (tabs[0]?.url) {
           setUrl(tabs[0].url);
         }
+        // Try to get favicon from tab
+        if (tabs[0]?.favIconUrl) {
+          setFavicon(tabs[0].favIconUrl);
+        }
       });
     }
   }, []);
-  console.log(logo);
+  console.log(favicon);
   return (
     <div
       className={`App ${isLight ? 'bg-slate-50' : 'bg-gray-800'}`}
@@ -88,7 +93,13 @@ const Popup = () => {
       <QRCodeBox
         ref={qrCodeRef}
         url={url}
-        image={logo && logo.startsWith('data:') ? logo : logo && logo !== 'none' ? 'logo/' + logo + '.svg' : undefined}
+        image={
+          logo && logo.startsWith('data:')
+            ? logo
+            : logo && logo !== 'none'
+              ? 'logo/' + logo + '.svg'
+              : favicon || undefined
+        }
         extension={extension}
         foregroundColor={foreground}
         backgroundColor={background}
