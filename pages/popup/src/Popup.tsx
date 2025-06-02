@@ -88,6 +88,7 @@ const Popup = () => {
       <QRCodeBox
         ref={qrCodeRef}
         url={url}
+        image="undefined"
         extension={extension}
         foregroundColor={foreground}
         backgroundColor={background}

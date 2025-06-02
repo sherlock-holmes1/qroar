@@ -13,6 +13,7 @@ import type {
 
 interface QRCodeBoxProps {
   url: string;
+  image: string | undefined;
   extension?: 'svg' | 'png' | 'jpeg' | 'webp';
   style?: React.CSSProperties;
   backgroundColor?: string;
@@ -27,6 +28,7 @@ export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
   (
     {
       url,
+      image,
       extension = 'svg',
       style,
       backgroundColor = '#5FD4F3',
@@ -40,6 +42,7 @@ export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
       () => ({
         width: 300,
         height: 300,
+        image: image,
         type: extension as DrawType,
         data: url,
         margin: 10,
@@ -80,7 +83,7 @@ export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
           type: 'dot' as CornerDotType,
         },
       }),
-      [url, extension, backgroundColor, foregroundColor, showGradient, gradientColor],
+      [url, extension, backgroundColor, foregroundColor, showGradient, gradientColor, image],
     );
 
     const [qrCode] = useState(() => new QRCodeStyling(options));

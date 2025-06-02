@@ -2,7 +2,7 @@ import type React from 'react';
 
 const logoOptions = [
   { id: 'none', label: 'None', icon: '🚫' },
-  { id: 'scan1', label: 'Scan Me', url: 'logo/scanme.svg' },
+  { id: 'scanme', label: 'Scan Me', url: 'logo/scanme.svg' },
   { id: 'facebook', label: 'Facebook', url: 'logo/facebook.svg' },
   { id: 'instagram', label: 'Instagram', url: 'logo/instagram.svg' },
   { id: 'linkedin', label: 'LinkedIn', url: 'logo/linkedin.svg' },

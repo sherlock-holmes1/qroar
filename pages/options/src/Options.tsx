@@ -50,6 +50,7 @@ const Options = () => {
             <div>
               <QRCodeBox
                 url="https://qroar.com"
+                image={logo != 'none' ? 'logo/' + logo + '.svg' : undefined}
                 backgroundColor={background}
                 foregroundColor={foreground}
                 showGradient={showGradient}
