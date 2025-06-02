@@ -12,6 +12,7 @@ const Options = () => {
   const [showGradient, setShowGradient] = useState(false);
   const [gradient, setGradient] = useState('blue');
   const [logo, setLogo] = useState<string | null>(null);
+  const [uploadedLogo, setUploadedLogo] = useState<string | null>(null);
 
   // Load settings from storage on mount
   useEffect(() => {
@@ -23,12 +24,26 @@ const Options = () => {
         setShowGradient(settings.showGradient);
         setGradient(settings.gradient);
         setLogo(settings.logo ?? null); // load logo
+        if (settings.logo && settings.logo.startsWith('data:')) {
+          setUploadedLogo(settings.logo);
+        }
       }
     });
     return () => {
       ignore = true;
     };
   }, []);
+
+  const handleLogoUpload = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = async ev => {
+      const dataUrl = ev.target?.result as string;
+      setUploadedLogo(dataUrl);
+      setLogo(dataUrl);
+      await colorSettingsStorage.setLogo(dataUrl);
+    };
+    reader.readAsDataURL(file);
+  };
 
   return (
     <div className="flex min-h-screen font-sans bg-white">
@@ -50,7 +65,13 @@ const Options = () => {
             <div>
               <QRCodeBox
                 url="https://qroar.com"
-                image={logo != 'none' ? 'logo/' + logo + '.svg' : undefined}
+                image={
+                  uploadedLogo
+                    ? uploadedLogo
+                    : logo && logo !== 'none' && !logo.startsWith('data:')
+                      ? 'logo/' + logo + '.svg'
+                      : undefined
+                }
                 backgroundColor={background}
                 foregroundColor={foreground}
                 showGradient={showGradient}
@@ -87,10 +108,13 @@ const Options = () => {
         />
         <LogoSettings
           selected={logo}
+          uploadedLogo={uploadedLogo}
           onLogoSelect={newLogo => {
             setLogo(newLogo);
+            setUploadedLogo(newLogo && newLogo.startsWith('data:') ? newLogo : null);
             colorSettingsStorage.setLogo(newLogo);
           }}
+          onLogoUpload={handleLogoUpload}
         />
       </main>
     </div>
