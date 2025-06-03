@@ -66,11 +66,13 @@ const Options = () => {
               <QRCodeBox
                 url="https://qroar.com"
                 image={
-                  uploadedLogo
-                    ? uploadedLogo
-                    : logo && logo !== 'none' && !logo.startsWith('data:')
-                      ? 'logo/' + logo + '.svg'
-                      : undefined
+                  logo === 'detect'
+                    ? 'logo/question.svg'
+                    : uploadedLogo
+                      ? uploadedLogo
+                      : logo && logo !== 'none' && !logo.startsWith('data:')
+                        ? 'logo/' + logo + '.svg'
+                        : undefined
                 }
                 backgroundColor={background}
                 foregroundColor={foreground}
@@ -83,7 +85,7 @@ const Options = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-[48px_56px] bg-white">
+      <main className="flex-1 p-[48px_56px] bg-white" style={{ maxWidth: 800 }}>
         <ColorSettings
           foreground={foreground}
           background={background}

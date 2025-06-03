@@ -1,7 +1,4 @@
-import type React from 'react';
-
 const logoOptions = [
-  { id: 'none', label: 'None', icon: '🚫' },
   { id: 'scanme', label: 'Scan Me', url: 'logo/scanme.svg' },
   { id: 'facebook', label: 'Facebook', url: 'logo/facebook.svg' },
   { id: 'instagram', label: 'Instagram', url: 'logo/instagram.svg' },
@@ -46,10 +43,15 @@ export const LogoSettings: React.FC<LogoSettingsProps> = ({ selected, onLogoSele
     onLogoSelect('detect');
   };
 
+  const handleNoLogo = () => {
+    onLogoSelect('none');
+  };
+
   return (
     <>
-      <h1 className="text-4xl font-normal mb-14 mt-20 text-gray-900 text-left">Logo settings</h1>
-      <div className="grid grid-cols-7 gap-4 mb-8">
+      <h1 className="text-4xl font-normal mb-10 mt-20 text-gray-900 text-left">Logo settings</h1>
+      {/* Auto detect */}
+      <span className="flex items-center gap-3 mb-10 cursor-pointer select-none">
         <button
           className={`flex flex-col items-center justify-center border rounded-lg p-4 transition w-20 h-20
             ${selected === 'detect' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 bg-white'}
@@ -60,6 +62,24 @@ export const LogoSettings: React.FC<LogoSettingsProps> = ({ selected, onLogoSele
           <span className="text-3xl mb-2">🔍</span>
           <span className="text-xs">Auto detect</span>
         </button>
+
+        <button
+          className={`flex flex-col items-center justify-center border rounded-lg p-4 transition w-20 h-20
+          ${selected === 'none' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 bg-white'}
+          hover:border-blue-400`}
+          onClick={handleNoLogo}
+          aria-label="Detect from site"
+          type="button">
+          <span className="text-3xl mb-2">🚫</span>
+          <span className="text-xs">No logo</span>
+        </button>
+      </span>
+
+      {/* Choose a logo */}
+      <span className="flex items-center gap-3 mb-4 cursor-pointer select-none">
+        <span className="text-base">Choose a logo</span>
+      </span>
+      <div className="grid grid-cols-6 gap-4 mb-8">
         {logoOptions.map(opt => (
           <button
             key={opt.id}
@@ -69,14 +89,14 @@ export const LogoSettings: React.FC<LogoSettingsProps> = ({ selected, onLogoSele
             onClick={() => handleLogoClick(opt.id)}
             aria-label={opt.label}
             type="button">
-            {opt.icon ? (
-              <span className="text-3xl mb-2">{opt.icon}</span>
-            ) : (
-              <img src={opt.url} alt={opt.label} width="56px" height="56px" />
-            )}
+            <img src={opt.url} alt={opt.label} width="40px" height="40px" className="mb-2" />
           </button>
         ))}
       </div>
+      {/* Upload a logo */}
+      <span className="flex items-center gap-3 mb-4 cursor-pointer select-none">
+        <span className="text-base">Upload a logo</span>
+      </span>
       <label
         className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-8 cursor-pointer hover:border-blue-400 transition"
         onDrop={handleDrop}
