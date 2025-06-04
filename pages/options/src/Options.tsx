@@ -55,8 +55,9 @@ const Options = () => {
             <span className="text-lg text-gray-400">›</span>
           </div>
           <div className="text-base mb-5 text-gray-400 font-normal text-left">Logo settings</div>
-          <div className="text-base mb-5 text-gray-400 font-normal text-left">Customize design</div>
-          <div className="text-base text-gray-400 font-normal text-left">Themes</div>
+          <div className="text-base mb-5 text-gray-400 font-normal text-left">QR designs</div>
+          {/* https://scanova.io/qr-code-generator/ https://www.qrcode-monkey.com/# 
+          //https://me-qr.com/qr-code-generator/qr */}
         </nav>
 
         <div className="mt-auto">
