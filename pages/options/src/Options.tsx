@@ -5,6 +5,7 @@ import { colorSettingsStorage } from '@extension/storage';
 import { useState, useEffect } from 'react';
 import { ColorSettings } from './ColorSettings';
 import { LogoSettings } from './LogoSettings';
+import { QRdesigns } from './QRdesigns';
 
 const Options = () => {
   const [foreground, setForeground] = useState('green');
@@ -119,6 +120,7 @@ const Options = () => {
           }}
           onLogoUpload={handleLogoUpload}
         />
+        <QRdesigns />
       </main>
     </div>
   );
