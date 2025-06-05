@@ -46,17 +46,46 @@ const Options = () => {
     reader.readAsDataURL(file);
   };
 
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="flex min-h-screen font-sans bg-white">
       {/* Sidebar */}
-      <aside className="w-[280px] bg-gray-50 p-8 flex flex-col border-r border-gray-200">
-        <nav className="mb-16">
-          <div className="text-base mb-6 font-medium text-gray-900 flex items-center justify-between">
+      <aside
+        className="w-[280px] bg-gray-50 p-8 flex flex-col border-r border-gray-200"
+        style={{
+          position: 'sticky',
+          top: 0,
+          height: '100vh',
+          alignSelf: 'flex-start',
+          flexShrink: 0,
+          overflow: 'visible',
+        }}>
+        <nav className="mb-16 flex flex-col gap-0">
+          <button
+            className="text-base mb-6 font-medium text-gray-900 flex items-center justify-between focus:outline-none hover:text-blue-700"
+            onClick={() => scrollToSection('color-settings-section')}
+            type="button">
             Color settings
             <span className="text-lg text-gray-400">›</span>
-          </div>
-          <div className="text-base mb-5 text-gray-400 font-normal text-left">Logo settings</div>
-          <div className="text-base mb-5 text-gray-400 font-normal text-left">QR designs</div>
+          </button>
+          <button
+            className="text-base mb-5 text-gray-400 font-normal text-left focus:outline-none hover:text-blue-700"
+            onClick={() => scrollToSection('logo-settings-section')}
+            type="button">
+            Logo settings
+          </button>
+          <button
+            className="text-base mb-5 text-gray-400 font-normal text-left focus:outline-none hover:text-blue-700"
+            onClick={() => scrollToSection('qr-designs-section')}
+            type="button">
+            QR code designs
+          </button>
           {/* https://scanova.io/qr-code-generator/ https://www.qrcode-monkey.com/# 
           //https://me-qr.com/qr-code-generator/qr */}
         </nav>
@@ -87,40 +116,48 @@ const Options = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-[48px_56px] bg-white" style={{ maxWidth: 800 }}>
-        <ColorSettings
-          foreground={foreground}
-          background={background}
-          showGradient={showGradient}
-          gradient={gradient}
-          onForegroundChange={color => {
-            setForeground(color);
-            colorSettingsStorage.setForeground(color);
-          }}
-          onBackgroundChange={color => {
-            setBackground(color);
-            colorSettingsStorage.setBackground(color);
-          }}
-          onShowGradientChange={show => {
-            setShowGradient(show);
-            colorSettingsStorage.setShowGradient(show);
-          }}
-          onGradientChange={color => {
-            setGradient(color);
-            colorSettingsStorage.setGradient(color);
-          }}
-        />
-        <LogoSettings
-          selected={logo}
-          uploadedLogo={uploadedLogo}
-          onLogoSelect={newLogo => {
-            setLogo(newLogo);
-            setUploadedLogo(newLogo && newLogo.startsWith('data:') ? newLogo : null);
-            colorSettingsStorage.setLogo(newLogo);
-          }}
-          onLogoUpload={handleLogoUpload}
-        />
-        <QRdesigns />
+      <main className="flex-1 flex justify-start bg-white overflow-y-auto" style={{ height: '100vh' }}>
+        <div className="h-full p-[48px_56px] w-full" style={{ maxWidth: 800 }}>
+          <div id="color-settings-section">
+            <ColorSettings
+              foreground={foreground}
+              background={background}
+              showGradient={showGradient}
+              gradient={gradient}
+              onForegroundChange={color => {
+                setForeground(color);
+                colorSettingsStorage.setForeground(color);
+              }}
+              onBackgroundChange={color => {
+                setBackground(color);
+                colorSettingsStorage.setBackground(color);
+              }}
+              onShowGradientChange={show => {
+                setShowGradient(show);
+                colorSettingsStorage.setShowGradient(show);
+              }}
+              onGradientChange={color => {
+                setGradient(color);
+                colorSettingsStorage.setGradient(color);
+              }}
+            />
+          </div>
+          <div id="logo-settings-section" className="mt-12">
+            <LogoSettings
+              selected={logo}
+              uploadedLogo={uploadedLogo}
+              onLogoSelect={newLogo => {
+                setLogo(newLogo);
+                setUploadedLogo(newLogo && newLogo.startsWith('data:') ? newLogo : null);
+                colorSettingsStorage.setLogo(newLogo);
+              }}
+              onLogoUpload={handleLogoUpload}
+            />
+          </div>
+          <div id="qr-designs-section" className="mt-12">
+            <QRdesigns />
+          </div>
+        </div>
       </main>
     </div>
   );
