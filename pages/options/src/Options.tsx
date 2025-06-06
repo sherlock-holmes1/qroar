@@ -14,6 +14,7 @@ const Options = () => {
   const [gradient, setGradient] = useState('blue');
   const [logo, setLogo] = useState<string | null>(null);
   const [uploadedLogo, setUploadedLogo] = useState<string | null>(null);
+  const [activeSection, setActiveSection] = useState<string>('color-settings-section');
 
   // Load settings from storage on mount
   useEffect(() => {
@@ -47,6 +48,7 @@ const Options = () => {
   };
 
   const scrollToSection = (id: string) => {
+    setActiveSection(id);
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -68,20 +70,25 @@ const Options = () => {
         }}>
         <nav className="mb-16 flex flex-col gap-0">
           <button
-            className="text-base mb-6 font-medium text-gray-900 flex items-center justify-between focus:outline-none hover:text-blue-700"
+            className={`text-base mb-6 flex items-center justify-between focus:outline-none hover:text-blue-700 ${
+              activeSection === 'color-settings-section' ? 'font-bold text-gray-900' : 'font-normal text-gray-400'
+            }`}
             onClick={() => scrollToSection('color-settings-section')}
             type="button">
             Color settings
-            <span className="text-lg text-gray-400">›</span>
           </button>
           <button
-            className="text-base mb-5 text-gray-400 font-normal text-left focus:outline-none hover:text-blue-700"
+            className={`text-base mb-5 text-left focus:outline-none hover:text-blue-700 ${
+              activeSection === 'logo-settings-section' ? 'font-bold text-gray-900' : 'font-normal text-gray-400'
+            }`}
             onClick={() => scrollToSection('logo-settings-section')}
             type="button">
             Logo settings
           </button>
           <button
-            className="text-base mb-5 text-gray-400 font-normal text-left focus:outline-none hover:text-blue-700"
+            className={`text-base mb-5 text-left focus:outline-none hover:text-blue-700 ${
+              activeSection === 'qr-designs-section' ? 'font-bold text-gray-900' : 'font-normal text-gray-400'
+            }`}
             onClick={() => scrollToSection('qr-designs-section')}
             type="button">
             QR code designs
