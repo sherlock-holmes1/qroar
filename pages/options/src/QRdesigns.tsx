@@ -104,7 +104,7 @@ const qrDesigns = [
 export const QRdesigns: React.FC = () => {
   return (
     <>
-      <h1 className="text-4xl font-normal mb-10 mt-20 text-gray-900 text-left">QR code designs</h1>
+      <h1 className="text-4xl font-normal mb-10 text-gray-900 text-left">QR code designs</h1>
       <div className="flex flex-col items-center mt-10">
         <div className="flex overflow-x-auto gap-8 w-full max-w-5xl px-4" style={{ scrollbarWidth: 'auto' }}>
           {qrDesigns.map((design, idx) => (

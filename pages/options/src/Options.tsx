@@ -93,8 +93,6 @@ const Options = () => {
             type="button">
             QR code designs
           </button>
-          {/* https://scanova.io/qr-code-generator/ https://www.qrcode-monkey.com/# 
-          //https://me-qr.com/qr-code-generator/qr */}
         </nav>
 
         <div className="mt-auto">
@@ -125,45 +123,51 @@ const Options = () => {
       {/* Main Content */}
       <main className="flex-1 flex justify-start bg-white overflow-y-auto" style={{ height: '100vh' }}>
         <div className="h-full p-[48px_56px] w-full" style={{ maxWidth: 800 }}>
-          <div id="color-settings-section">
-            <ColorSettings
-              foreground={foreground}
-              background={background}
-              showGradient={showGradient}
-              gradient={gradient}
-              onForegroundChange={color => {
-                setForeground(color);
-                colorSettingsStorage.setForeground(color);
-              }}
-              onBackgroundChange={color => {
-                setBackground(color);
-                colorSettingsStorage.setBackground(color);
-              }}
-              onShowGradientChange={show => {
-                setShowGradient(show);
-                colorSettingsStorage.setShowGradient(show);
-              }}
-              onGradientChange={color => {
-                setGradient(color);
-                colorSettingsStorage.setGradient(color);
-              }}
-            />
-          </div>
-          <div id="logo-settings-section" className="mt-12">
-            <LogoSettings
-              selected={logo}
-              uploadedLogo={uploadedLogo}
-              onLogoSelect={newLogo => {
-                setLogo(newLogo);
-                setUploadedLogo(newLogo && newLogo.startsWith('data:') ? newLogo : null);
-                colorSettingsStorage.setLogo(newLogo);
-              }}
-              onLogoUpload={handleLogoUpload}
-            />
-          </div>
-          <div id="qr-designs-section" className="mt-12">
-            <QRdesigns />
-          </div>
+          {activeSection === 'color-settings-section' && (
+            <div id="color-settings-section">
+              <ColorSettings
+                foreground={foreground}
+                background={background}
+                showGradient={showGradient}
+                gradient={gradient}
+                onForegroundChange={color => {
+                  setForeground(color);
+                  colorSettingsStorage.setForeground(color);
+                }}
+                onBackgroundChange={color => {
+                  setBackground(color);
+                  colorSettingsStorage.setBackground(color);
+                }}
+                onShowGradientChange={show => {
+                  setShowGradient(show);
+                  colorSettingsStorage.setShowGradient(show);
+                }}
+                onGradientChange={color => {
+                  setGradient(color);
+                  colorSettingsStorage.setGradient(color);
+                }}
+              />
+            </div>
+          )}
+          {activeSection === 'logo-settings-section' && (
+            <div id="logo-settings-section">
+              <LogoSettings
+                selected={logo}
+                uploadedLogo={uploadedLogo}
+                onLogoSelect={newLogo => {
+                  setLogo(newLogo);
+                  setUploadedLogo(newLogo && newLogo.startsWith('data:') ? newLogo : null);
+                  colorSettingsStorage.setLogo(newLogo);
+                }}
+                onLogoUpload={handleLogoUpload}
+              />
+            </div>
+          )}
+          {activeSection === 'qr-designs-section' && (
+            <div id="qr-designs-section">
+              <QRdesigns />
+            </div>
+          )}
         </div>
       </main>
     </div>

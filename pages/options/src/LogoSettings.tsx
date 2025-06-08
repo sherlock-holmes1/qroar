@@ -49,7 +49,7 @@ export const LogoSettings: React.FC<LogoSettingsProps> = ({ selected, onLogoSele
 
   return (
     <>
-      <h1 className="text-4xl font-normal mb-10 mt-20 text-gray-900 text-left">Logo settings</h1>
+      <h1 className="text-4xl font-normal mb-10 text-gray-900 text-left">Logo settings</h1>
       {/* Auto detect */}
       <span className="flex items-center gap-3 mb-10 cursor-pointer select-none">
         <button
