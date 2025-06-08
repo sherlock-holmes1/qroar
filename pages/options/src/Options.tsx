@@ -1,7 +1,7 @@
 import '@src/Options.css';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
 import { QRCodeBox, ErrorDisplay, LoadingSpinner } from '@extension/ui';
-import { colorSettingsStorage } from '@extension/storage';
+import { qrSettingsStorage } from '@extension/storage';
 import { useState, useEffect } from 'react';
 import { ColorSettings } from './ColorSettings';
 import { LogoSettings } from './LogoSettings';
@@ -32,7 +32,7 @@ const Options = () => {
   // Load settings from storage on mount
   useEffect(() => {
     let ignore = false;
-    colorSettingsStorage.get().then(settings => {
+    qrSettingsStorage.get().then(settings => {
       if (!ignore && settings) {
         setForeground(settings.foreground);
         setBackground(settings.background);
@@ -55,7 +55,7 @@ const Options = () => {
       const dataUrl = ev.target?.result as string;
       setUploadedLogo(dataUrl);
       setLogo(dataUrl);
-      await colorSettingsStorage.setLogo(dataUrl);
+      await qrSettingsStorage.setLogo(dataUrl);
     };
     reader.readAsDataURL(file);
   };
@@ -146,19 +146,19 @@ const Options = () => {
                 gradient={gradient}
                 onForegroundChange={color => {
                   setForeground(color);
-                  colorSettingsStorage.setForeground(color);
+                  qrSettingsStorage.setForeground(color);
                 }}
                 onBackgroundChange={color => {
                   setBackground(color);
-                  colorSettingsStorage.setBackground(color);
+                  qrSettingsStorage.setBackground(color);
                 }}
                 onShowGradientChange={show => {
                   setShowGradient(show);
-                  colorSettingsStorage.setShowGradient(show);
+                  qrSettingsStorage.setShowGradient(show);
                 }}
                 onGradientChange={color => {
                   setGradient(color);
-                  colorSettingsStorage.setGradient(color);
+                  qrSettingsStorage.setGradient(color);
                 }}
               />
             </div>
@@ -171,7 +171,7 @@ const Options = () => {
                 onLogoSelect={newLogo => {
                   setLogo(newLogo);
                   setUploadedLogo(newLogo && newLogo.startsWith('data:') ? newLogo : null);
-                  colorSettingsStorage.setLogo(newLogo);
+                  qrSettingsStorage.setLogo(newLogo);
                 }}
                 onLogoUpload={handleLogoUpload}
               />

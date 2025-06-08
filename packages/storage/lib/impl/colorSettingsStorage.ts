@@ -1,7 +1,7 @@
 import type { BaseStorage } from '../base/index.js';
 import { createStorage, StorageEnum } from '../base/index.js';
 
-export type ColorSettings = {
+export type QRSettings = {
   foreground: string;
   background: string;
   showGradient: boolean;
@@ -9,7 +9,7 @@ export type ColorSettings = {
   logo?: string | null; // add logo property
 };
 
-export type ColorSettingsStorage = BaseStorage<ColorSettings> & {
+export type QRSettingsStorage = BaseStorage<QRSettings> & {
   setForeground: (color: string) => Promise<void>;
   setBackground: (color: string) => Promise<void>;
   setShowGradient: (show: boolean) => Promise<void>;
@@ -18,7 +18,7 @@ export type ColorSettingsStorage = BaseStorage<ColorSettings> & {
   reset: () => Promise<void>;
 };
 
-const defaultSettings: ColorSettings = {
+const defaultSettings: QRSettings = {
   foreground: 'green',
   background: 'white',
   showGradient: false,
@@ -26,12 +26,12 @@ const defaultSettings: ColorSettings = {
   logo: null, // default logo is null
 };
 
-const storage = createStorage<ColorSettings>('color-settings-storage-key', defaultSettings, {
+const storage = createStorage<QRSettings>('color-settings-storage-key', defaultSettings, {
   storageEnum: StorageEnum.Local,
   liveUpdate: true,
 });
 
-export const colorSettingsStorage: ColorSettingsStorage = {
+export const qrSettingsStorage: QRSettingsStorage = {
   ...storage,
   setForeground: async color => {
     await storage.set(settings => ({ ...settings, foreground: color }));
