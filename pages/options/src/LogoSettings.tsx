@@ -79,7 +79,9 @@ export const LogoSettings: React.FC<LogoSettingsProps> = ({ selected, onLogoSele
       <span className="flex items-center gap-3 mb-4 cursor-pointer select-none">
         <span className="text-base">Choose a logo</span>
       </span>
-      <div className="grid grid-cols-6 gap-4 mb-8">
+      <div
+        className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8"
+        style={{ maxWidth: '100%' }}>
         {logoOptions.map(opt => (
           <button
             key={opt.id}
