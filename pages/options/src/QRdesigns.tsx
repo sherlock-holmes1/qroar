@@ -106,15 +106,16 @@ export const QRdesigns: React.FC = () => {
     <>
       <h1 className="text-4xl font-normal mb-10 text-gray-900 text-left">QR code designs</h1>
       <div className="flex flex-col items-center mt-10">
-        <div className="flex overflow-x-auto gap-8 w-full max-w-5xl px-4" style={{ scrollbarWidth: 'auto' }}>
+        <div
+          className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 max-w-5xl px-4"
+          style={{ scrollbarWidth: 'auto', maxWidth: '100%' }}>
           {qrDesigns.map((design, idx) => (
             <button
               key={idx}
               className={`mt-2 mb-2 rounded-2xl shadow-md p-4 flex items-center justify-center transition-transform hover:scale-105 focus:ring-2 focus:ring-blue-400 ${design.bg} ${design.border}`}
               aria-label={`QR design ${idx + 1}`}
               type="button"
-              style={{ minWidth: 96, minHeight: 96 }} // Ensures 6 fit in max-w-5xl
-            >
+              style={{ width: 96, height: 96 }}>
               {design.svg}
             </button>
           ))}
