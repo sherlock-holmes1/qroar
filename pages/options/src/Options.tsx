@@ -16,6 +16,19 @@ const Options = () => {
   const [uploadedLogo, setUploadedLogo] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string>('color-settings-section');
 
+  // Set initial section from URL hash and listen for hash changes
+  useEffect(() => {
+    const setSectionFromHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash === 'color-settings-section' || hash === 'logo-settings-section' || hash === 'qr-designs-section') {
+        setActiveSection(hash);
+      }
+    };
+    setSectionFromHash();
+    window.addEventListener('hashchange', setSectionFromHash);
+    return () => window.removeEventListener('hashchange', setSectionFromHash);
+  }, []);
+
   // Load settings from storage on mount
   useEffect(() => {
     let ignore = false;
@@ -49,6 +62,7 @@ const Options = () => {
 
   const scrollToSection = (id: string) => {
     setActiveSection(id);
+    window.location.hash = id; // Save section in URL
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
