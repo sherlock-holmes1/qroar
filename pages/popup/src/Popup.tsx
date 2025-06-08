@@ -1,6 +1,6 @@
 import '@src/Popup.css';
 import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared';
-import { exampleThemeStorage, colorSettingsStorage } from '@extension/storage';
+import { exampleThemeStorage, qrSettingsStorage } from '@extension/storage';
 import { t } from '@extension/i18n';
 import { useEffect, useState, useRef } from 'react';
 import { QRCodeBox } from '@extension/ui';
@@ -10,7 +10,7 @@ const Popup = () => {
   const isLight = theme === 'light';
 
   // Get color settings from storage
-  const colorSettings = useStorage(colorSettingsStorage);
+  const colorSettings = useStorage(qrSettingsStorage);
   const { foreground, background, showGradient, gradient, logo } = colorSettings || {};
 
   // State for URL input
@@ -92,8 +92,8 @@ const Popup = () => {
       {/* QR code box with settings icon */}
       <QRCodeBox
         ref={qrCodeRef}
-        url={url}
-        image={
+        qrText={url}
+        pathToLogo={
           logo === 'detect'
             ? favicon || undefined
             : logo && logo.startsWith('data:')

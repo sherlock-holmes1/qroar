@@ -24,14 +24,16 @@ export const ColorSelector = ({ value, onChange }: ColorSelectorProps) => {
   }, [isOpen]);
 
   const colorOptions = [
-    { name: 'Green', value: 'green', color: '#22c55e' },
-    { name: 'Blue', value: 'blue', color: '#3b82f6' },
-    { name: 'Red', value: 'red', color: '#ef4444' },
-    { name: 'Yellow', value: 'yellow', color: '#eab308' },
-    { name: 'Pink', value: 'pink', color: '#ec4899' },
-    { name: 'Purple', value: 'purple', color: '#8b5cf6' },
-    { name: 'Black', value: 'black', color: '#000000' },
-    { name: 'White', value: 'white', color: '#ffffff' },
+    { name: 'Green', value: '#145A2A', color: '#145A2A' },
+    // { name: 'Green', value: '#22c55e', color: '#22c55e' },
+    { name: 'Blue', value: '#3b82f6', color: '#3b82f6' },
+    { name: 'Red', value: '#ef4444', color: '#ef4444' },
+    { name: 'Yellow', value: '#eab308', color: '#eab308' },
+    { name: 'Pink', value: '#ec4899', color: '#ec4899' },
+    { name: 'Purple', value: '#8b5cf6', color: '#8b5cf6' },
+    { name: 'Black', value: '#000000', color: '#000000' },
+    { name: 'White', value: '#ffffff', color: '#ffffff' },
+    { name: 'Teal', value: '#50EBD5', color: '#50EBD5' },
   ];
 
   const selectedColor = colorOptions.find(c => c.value === value);

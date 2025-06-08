@@ -1,6 +1,7 @@
 import '@src/Options.css';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
 import { QRCodeBox, ErrorDisplay, LoadingSpinner } from '@extension/ui';
+import type { QRCodeBoxProps } from '@extension/ui';
 import { qrSettingsStorage } from '@extension/storage';
 import { useState, useEffect } from 'react';
 import { ColorSettings } from './ColorSettings';
@@ -34,6 +35,8 @@ const Options = () => {
     let ignore = false;
     qrSettingsStorage.get().then(settings => {
       if (!ignore && settings) {
+        console.log('useEffect options = ' + settings.foreground);
+        console.log(settings);
         setForeground(settings.foreground);
         setBackground(settings.background);
         setShowGradient(settings.showGradient);
@@ -70,34 +73,19 @@ const Options = () => {
   };
 
   // Add handler for design selection
-  const handleDesignSelect = (settings: {
-    backgroundColor?: string;
-    foregroundColor?: string;
-    showGradient?: boolean;
-    gradientColor?: string;
-    pathToLogo?: string;
-    qrText?: string;
-  }) => {
-    if (settings.backgroundColor !== undefined) {
-      setBackground(settings.backgroundColor);
-      qrSettingsStorage.setBackground(settings.backgroundColor);
-    }
-    if (settings.foregroundColor !== undefined) {
-      setForeground(settings.foregroundColor);
-      qrSettingsStorage.setForeground(settings.foregroundColor);
-    }
-    if (settings.showGradient !== undefined) {
-      setShowGradient(settings.showGradient);
-      qrSettingsStorage.setShowGradient(settings.showGradient);
-    }
-    if (settings.gradientColor !== undefined) {
-      setGradient(settings.gradientColor);
-      qrSettingsStorage.setGradient(settings.gradientColor);
-    }
-    if (settings.pathToLogo !== undefined) {
-      setLogo(settings.pathToLogo);
-      qrSettingsStorage.setLogo(settings.pathToLogo);
-    }
+  const handleDesignSelect = (settings: QRCodeBoxProps) => {
+    setBackground(settings.backgroundColor ?? '');
+    setForeground(settings.foregroundColor ?? '');
+    setShowGradient(settings.showGradient ?? false);
+    setGradient(settings.gradientColor ?? '');
+    setLogo(settings.pathToLogo ?? null);
+    qrSettingsStorage.setAll({
+      foreground: settings.foregroundColor ?? '',
+      background: settings.backgroundColor ?? '',
+      gradient: settings.gradientColor ?? '',
+      showGradient: settings.showGradient ?? false,
+      logo: settings.pathToLogo ?? null,
+    });
   };
 
   return (

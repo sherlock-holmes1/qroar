@@ -15,6 +15,7 @@ export type QRSettingsStorage = BaseStorage<QRSettings> & {
   setShowGradient: (show: boolean) => Promise<void>;
   setGradient: (color: string) => Promise<void>;
   setLogo: (logo: string | null) => Promise<void>;
+  setAll: (settings: QRSettings) => Promise<void>; // add this line
   reset: () => Promise<void>;
 };
 
@@ -34,6 +35,7 @@ const storage = createStorage<QRSettings>('color-settings-storage-key', defaultS
 export const qrSettingsStorage: QRSettingsStorage = {
   ...storage,
   setForeground: async color => {
+    console.log('qrSettingsStorage foreground color = ' + color);
     await storage.set(settings => ({ ...settings, foreground: color }));
   },
   setBackground: async color => {
@@ -47,6 +49,9 @@ export const qrSettingsStorage: QRSettingsStorage = {
   },
   setLogo: async logo => {
     await storage.set(settings => ({ ...settings, logo }));
+  },
+  setAll: async settings => {
+    await storage.set(() => ({ ...settings }));
   },
   reset: async () => {
     await storage.set(() => defaultSettings);
