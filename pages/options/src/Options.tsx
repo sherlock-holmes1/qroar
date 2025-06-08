@@ -73,7 +73,7 @@ const Options = () => {
     <div className="flex min-h-screen font-sans bg-white">
       {/* Sidebar */}
       <aside
-        className="w-[280px] bg-gray-50 p-8 flex flex-col border-r border-gray-200"
+        className="min-w-[410px] w-1/3 max-w-full bg-gray-50 p-8 flex flex-col border-r border-gray-200"
         style={{
           position: 'sticky',
           top: 0,
@@ -82,9 +82,9 @@ const Options = () => {
           flexShrink: 0,
           overflow: 'visible',
         }}>
-        <nav className="mb-16 flex flex-col gap-0">
+        <nav className="mb-16 flex flex-col gap-0 items-end">
           <button
-            className={`text-base mb-6 flex items-center justify-between focus:outline-none hover:text-blue-700 ${
+            className={`text-base mb-6 flex items-center justify-end focus:outline-none hover:text-blue-700 ${
               activeSection === 'color-settings-section' ? 'font-bold text-gray-900' : 'font-normal text-gray-400'
             }`}
             onClick={() => scrollToSection('color-settings-section')}
@@ -92,7 +92,7 @@ const Options = () => {
             Color settings
           </button>
           <button
-            className={`text-base mb-5 text-left focus:outline-none hover:text-blue-700 ${
+            className={`text-base mb-5 flex items-center justify-end focus:outline-none hover:text-blue-700 ${
               activeSection === 'logo-settings-section' ? 'font-bold text-gray-900' : 'font-normal text-gray-400'
             }`}
             onClick={() => scrollToSection('logo-settings-section')}
@@ -100,7 +100,7 @@ const Options = () => {
             Logo settings
           </button>
           <button
-            className={`text-base mb-5 text-left focus:outline-none hover:text-blue-700 ${
+            className={`text-base mb-5 flex items-center justify-end focus:outline-none hover:text-blue-700 ${
               activeSection === 'qr-designs-section' ? 'font-bold text-gray-900' : 'font-normal text-gray-400'
             }`}
             onClick={() => scrollToSection('qr-designs-section')}
@@ -109,9 +109,9 @@ const Options = () => {
           </button>
         </nav>
 
-        <div className="mt-auto">
-          <div className="text-base mb-4 text-gray-900 font-medium">Preview</div>
-          <div className="bg-white p-5 rounded-lg border border-gray-200 flex justify-center mb-5">
+        <div className="mt-auto flex flex-col items-end">
+          <div className="text-base mb-4 text-gray-900 font-medium text-right">Preview</div>
+          <div className="bg-white p-5 rounded-lg border border-gray-200 flex justify-end mb-5" style={{ width: 340 }}>
             <div>
               <QRCodeBox
                 url="https://qroar.com"
