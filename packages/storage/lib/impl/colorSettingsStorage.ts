@@ -6,7 +6,7 @@ export type QRSettings = {
   background: string;
   showGradient: boolean;
   gradient: string;
-  logo?: string | null; // add logo property
+  logo?: string | null;
 };
 
 export type QRSettingsStorage = BaseStorage<QRSettings> & {
@@ -14,7 +14,7 @@ export type QRSettingsStorage = BaseStorage<QRSettings> & {
   setBackground: (color: string) => Promise<void>;
   setShowGradient: (show: boolean) => Promise<void>;
   setGradient: (color: string) => Promise<void>;
-  setLogo: (logo: string | null) => Promise<void>; // add setLogo
+  setLogo: (logo: string | null) => Promise<void>;
   reset: () => Promise<void>;
 };
 

@@ -11,9 +11,9 @@ import type {
   GradientType,
 } from 'qr-code-styling';
 
-interface QRCodeBoxProps {
-  url: string;
-  image: string | undefined;
+export interface QRCodeBoxProps {
+  qrText: string;
+  pathToLogo: string | undefined;
   extension?: 'svg' | 'png' | 'jpeg' | 'webp';
   style?: React.CSSProperties;
   backgroundColor?: string;
@@ -27,8 +27,8 @@ export interface QRCodeBoxHandle {
 export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
   (
     {
-      url,
-      image,
+      qrText,
+      pathToLogo,
       extension = 'svg',
       style,
       backgroundColor = '#5FD4F3',
@@ -42,9 +42,9 @@ export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
       () => ({
         width: 300,
         height: 300,
-        image: image,
+        image: pathToLogo,
         type: extension as DrawType,
-        data: url,
+        data: qrText,
         margin: 10,
         qrOptions: {
           typeNumber: 0 as TypeNumber,
@@ -83,7 +83,7 @@ export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
           type: 'dot' as CornerDotType,
         },
       }),
-      [url, extension, backgroundColor, foregroundColor, showGradient, gradientColor, image],
+      [qrText, extension, backgroundColor, foregroundColor, showGradient, gradientColor, pathToLogo],
     );
 
     const [qrCode] = useState(() => new QRCodeStyling(options));

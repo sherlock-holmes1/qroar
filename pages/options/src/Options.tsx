@@ -69,6 +69,37 @@ const Options = () => {
     }
   };
 
+  // Add handler for design selection
+  const handleDesignSelect = (settings: {
+    backgroundColor?: string;
+    foregroundColor?: string;
+    showGradient?: boolean;
+    gradientColor?: string;
+    pathToLogo?: string;
+    qrText?: string;
+  }) => {
+    if (settings.backgroundColor !== undefined) {
+      setBackground(settings.backgroundColor);
+      qrSettingsStorage.setBackground(settings.backgroundColor);
+    }
+    if (settings.foregroundColor !== undefined) {
+      setForeground(settings.foregroundColor);
+      qrSettingsStorage.setForeground(settings.foregroundColor);
+    }
+    if (settings.showGradient !== undefined) {
+      setShowGradient(settings.showGradient);
+      qrSettingsStorage.setShowGradient(settings.showGradient);
+    }
+    if (settings.gradientColor !== undefined) {
+      setGradient(settings.gradientColor);
+      qrSettingsStorage.setGradient(settings.gradientColor);
+    }
+    if (settings.pathToLogo !== undefined) {
+      setLogo(settings.pathToLogo);
+      qrSettingsStorage.setLogo(settings.pathToLogo);
+    }
+  };
+
   return (
     <div className="flex min-h-screen font-sans bg-white">
       {/* Sidebar */}
@@ -114,8 +145,8 @@ const Options = () => {
           <div className="bg-white p-5 rounded-lg border border-gray-200 flex justify-end mb-5" style={{ width: 340 }}>
             <div>
               <QRCodeBox
-                url="https://qroar.com"
-                image={
+                qrText="https://qroar.com"
+                pathToLogo={
                   logo === 'detect'
                     ? 'logo/question.svg'
                     : uploadedLogo
@@ -179,7 +210,7 @@ const Options = () => {
           )}
           {activeSection === 'qr-designs-section' && (
             <div id="qr-designs-section">
-              <QRdesigns />
+              <QRdesigns onDesignSelect={handleDesignSelect} />
             </div>
           )}
         </div>
