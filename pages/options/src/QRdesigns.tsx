@@ -88,7 +88,7 @@ const qrDesigns: {
       qrText: 'https://qroar.com',
       pathToLogo: undefined,
       backgroundColor: '#F96E6E',
-      foregroundColor: '#FFFFFF',
+      foregroundColor: '#ffffff',
       showGradient: false,
     },
   },

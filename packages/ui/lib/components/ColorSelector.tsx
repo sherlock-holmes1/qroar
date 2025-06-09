@@ -24,16 +24,23 @@ export const ColorSelector = ({ value, onChange }: ColorSelectorProps) => {
   }, [isOpen]);
 
   const colorOptions = [
-    { name: 'Green', value: '#145A2A', color: '#145A2A' },
-    // { name: 'Green', value: '#22c55e', color: '#22c55e' },
+    { name: 'Green 1', value: '#145A2A', color: '#145A2A' },
+    { name: 'Green 2', value: '#22c55e', color: '#22c55e' },
+    { name: 'Green 3', value: '#C0FBD4', color: '#C0FBD4' },
+    { name: 'Teal', value: '#50EBD5', color: '#50EBD5' },
+    { name: 'Deep Teal', value: '#0F4B47', color: '#0F4B47' },
     { name: 'Blue', value: '#3b82f6', color: '#3b82f6' },
-    { name: 'Red', value: '#ef4444', color: '#ef4444' },
-    { name: 'Yellow', value: '#eab308', color: '#eab308' },
+    { name: 'Red 1', value: '#ef4444', color: '#ef4444' },
+    { name: 'Red 2', value: '#F96E6E', color: '#F96E6E' },
+    { name: 'Yellow 1', value: '#eab308', color: '#eab308' },
+    { name: 'Yellow 2', value: '#FFFBC4', color: '#FFFBC4' },
+    { name: 'Orange', value: '#FFECD1', color: '#FFECD1' },
+    { name: 'Burnt Orange', value: '#A94900', color: '#A94900' },
+    { name: 'Vermilion', value: '#E9540E', color: '#E9540E' },
     { name: 'Pink', value: '#ec4899', color: '#ec4899' },
     { name: 'Purple', value: '#8b5cf6', color: '#8b5cf6' },
     { name: 'Black', value: '#000000', color: '#000000' },
     { name: 'White', value: '#ffffff', color: '#ffffff' },
-    { name: 'Teal', value: '#50EBD5', color: '#50EBD5' },
   ];
 
   const selectedColor = colorOptions.find(c => c.value === value);
