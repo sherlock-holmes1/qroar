@@ -44,7 +44,7 @@ export const ColorSettings = ({
 
         {/* Foreground Gradient */}
         <div className="mb-10">
-          <div className="flex items-center gap-[10px] h-[50px]">
+          <div className="flex items-center gap-[23px] h-[50px]">
             <span className="text-base text-gray-900 font-normal w-[300px] text-left flex items-center">
               Foreground gradient
               <ToggleSwitch
