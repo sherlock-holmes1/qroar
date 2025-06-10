@@ -20,6 +20,7 @@ export interface QRCodeBoxProps {
   foregroundColor?: string;
   showGradient?: boolean;
   gradientColor?: string;
+  cornersSquareType?: 'dot' | 'square' | 'extra-rounded';
 }
 export interface QRCodeBoxHandle {
   download: () => void;
@@ -35,6 +36,7 @@ export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
       foregroundColor = '#222222',
       showGradient = false,
       gradientColor = '#0000ff',
+      cornersSquareType = 'extra-rounded',
     }: QRCodeBoxProps,
     ref,
   ): React.ReactElement => {
@@ -76,14 +78,14 @@ export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
         },
         cornersSquareOptions: {
           color: foregroundColor,
-          type: 'extra-rounded' as CornerSquareType,
+          type: cornersSquareType as CornerSquareType,
         },
         cornersDotOptions: {
           color: foregroundColor,
           type: 'dot' as CornerDotType,
         },
       }),
-      [qrText, extension, backgroundColor, foregroundColor, showGradient, gradientColor, pathToLogo],
+      [qrText, extension, backgroundColor, foregroundColor, showGradient, gradientColor, pathToLogo, cornersSquareType],
     );
 
     const [qrCode] = useState(() => new QRCodeStyling(options));

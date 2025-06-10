@@ -13,6 +13,9 @@ const Options = () => {
   const [background, setBackground] = useState('white');
   const [showGradient, setShowGradient] = useState(false);
   const [gradient, setGradient] = useState('blue');
+  const [cornersSquareType, setCornersSquareType] = useState<'extra-rounded' | 'dot' | 'square' | undefined>(
+    'extra-rounded',
+  );
   const [logo, setLogo] = useState<string | null>(null);
   const [uploadedLogo, setUploadedLogo] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string>('color-settings-section');
@@ -79,12 +82,14 @@ const Options = () => {
     setShowGradient(settings.showGradient ?? false);
     setGradient(settings.gradientColor ?? '');
     setLogo(settings.pathToLogo ?? null);
+    setCornersSquareType(settings.cornersSquareType ?? 'extra-rounded');
     qrSettingsStorage.setAll({
       foreground: settings.foregroundColor ?? '',
       background: settings.backgroundColor ?? '',
       gradient: settings.gradientColor ?? '',
       showGradient: settings.showGradient ?? false,
       logo: settings.pathToLogo ?? null,
+      cornersSquareType: settings.cornersSquareType ?? 'extra-rounded',
     });
   };
 
@@ -134,19 +139,12 @@ const Options = () => {
             <div>
               <QRCodeBox
                 qrText="https://qroar.com"
-                pathToLogo={
-                  logo === 'detect'
-                    ? 'logo/question.svg'
-                    : uploadedLogo
-                      ? uploadedLogo
-                      : logo && logo !== 'none' && !logo.startsWith('data:')
-                        ? 'logo/' + logo + '.svg'
-                        : undefined
-                }
+                pathToLogo={logo ?? undefined}
                 backgroundColor={background}
                 foregroundColor={foreground}
                 showGradient={showGradient}
                 gradientColor={gradient}
+                cornersSquareType={cornersSquareType}
               />
             </div>
           </div>

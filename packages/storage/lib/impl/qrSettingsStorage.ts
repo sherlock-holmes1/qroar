@@ -7,6 +7,7 @@ export type QRSettings = {
   showGradient: boolean;
   gradient: string;
   logo?: string | null;
+  cornersSquareType: 'extra-rounded' | 'dot' | 'square';
 };
 
 export type QRSettingsStorage = BaseStorage<QRSettings> & {
@@ -24,7 +25,8 @@ const defaultSettings: QRSettings = {
   background: 'white',
   showGradient: false,
   gradient: 'blue',
-  logo: null, // default logo is null
+  logo: null,
+  cornersSquareType: 'extra-rounded',
 };
 
 const storage = createStorage<QRSettings>('color-settings-storage-key', defaultSettings, {

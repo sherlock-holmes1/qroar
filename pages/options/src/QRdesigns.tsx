@@ -26,6 +26,7 @@ const qrDesigns: {
       backgroundColor: '#ffffff', // white
       foregroundColor: '#000000', // dark cornflower blue 3
       showGradient: false,
+      cornersSquareType: 'square',
     },
   },
   {
@@ -46,6 +47,7 @@ const qrDesigns: {
       backgroundColor: '#cfe2f3',
       foregroundColor: '#0b5394',
       showGradient: false,
+      cornersSquareType: 'dot',
     },
   },
   {
