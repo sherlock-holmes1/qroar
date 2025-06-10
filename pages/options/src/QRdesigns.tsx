@@ -13,82 +13,80 @@ const qrDesigns: {
     svg: (
       // Placeholder SVG for dark blue QR
       <svg viewBox="0 0 64 64" className="w-16 h-16">
-        <rect x="4" y="4" width="16" height="16" rx="3" fill="#1e293b" />
-        <rect x="44" y="4" width="16" height="16" rx="3" fill="#1e293b" />
-        <rect x="4" y="44" width="16" height="16" rx="3" fill="#1e293b" />
-        <rect x="24" y="24" width="16" height="16" rx="3" fill="#1e293b" />
+        <rect x="4" y="4" width="16" height="16" rx="3" fill="#000000" />
+        <rect x="44" y="4" width="16" height="16" rx="3" fill="#000000" />
+        <rect x="4" y="44" width="16" height="16" rx="3" fill="#000000" />
+        <rect x="24" y="24" width="16" height="16" rx="3" fill="#000000" />
         {/* ...dots... */}
       </svg>
     ),
     settings: {
       qrText: 'https://qroar.com',
       pathToLogo: undefined,
-      backgroundColor: '#ffffff',
-      foregroundColor: '#000000',
+      backgroundColor: '#ffffff', // white
+      foregroundColor: '#000000', // dark cornflower blue 3
       showGradient: false,
-      // gradientColor?: string;
     },
   },
   {
-    bg: 'bg-teal-300',
+    bg: 'bg-[#cfe2f3]',
     border: '',
     svg: (
-      // Placeholder SVG for teal QR
       <svg viewBox="0 0 64 64" className="w-16 h-16">
-        <rect x="4" y="4" width="16" height="16" rx="5" fill="#134e4a" />
-        <rect x="44" y="4" width="16" height="16" rx="5" fill="#134e4a" />
-        <rect x="4" y="44" width="16" height="16" rx="5" fill="#134e4a" />
-        <rect x="24" y="24" width="16" height="16" rx="5" fill="#134e4a" />
+        <rect x="4" y="4" width="16" height="16" rx="5" fill="#0b5394" />
+        <rect x="44" y="4" width="16" height="16" rx="5" fill="#0b5394" />
+        <rect x="4" y="44" width="16" height="16" rx="5" fill="#0b5394" />
+        <rect x="24" y="24" width="16" height="16" rx="5" fill="#0b5394" />
         {/* ...dots... */}
       </svg>
     ),
     settings: {
       qrText: 'https://qroar.com',
       pathToLogo: undefined,
-      backgroundColor: '#50EBD5',
-      foregroundColor: '#0F4B47',
+      backgroundColor: '#cfe2f3',
+      foregroundColor: '#0b5394',
       showGradient: false,
     },
   },
   {
-    bg: 'bg-orange-100',
+    bg: 'bg-[#fce5cd]',
     border: '',
     svg: (
       // Placeholder SVG for orange QR (dotted)
       <svg viewBox="0 0 64 64" className="w-16 h-16">
-        <circle cx="12" cy="12" r="8" fill="#ea580c" />
-        <circle cx="52" cy="12" r="8" fill="#ea580c" />
-        <circle cx="12" cy="52" r="8" fill="#ea580c" />
-        <circle cx="32" cy="32" r="6" fill="#ea580c" />
+        <circle cx="12" cy="12" r="8" fill="#b45f06" />
+        <circle cx="52" cy="12" r="8" fill="#b45f06" />
+        <circle cx="12" cy="52" r="8" fill="#b45f06" />
+        <circle cx="32" cy="32" r="6" fill="#b45f06" />
         {/* ...dots... */}
       </svg>
     ),
     settings: {
       qrText: 'https://qroar.com',
       pathToLogo: undefined,
-      backgroundColor: '#FFECD1',
-      foregroundColor: '#E9540E',
+      backgroundColor: '#fce5cd', // light orange 3
+      foregroundColor: '#b45f06', // dark orange 1
       showGradient: false,
     },
   },
   {
-    bg: 'bg-red-400',
+    bg: 'bg-[#9900ff]',
     border: '',
     svg: (
       // Placeholder SVG for red QR
       <svg viewBox="0 0 64 64" className="w-16 h-16">
-        <rect x="4" y="4" width="16" height="16" rx="4" fill="#fff" />
-        <rect x="44" y="4" width="16" height="16" rx="4" fill="#fff" />
-        <rect x="4" y="44" width="16" height="16" rx="4" fill="#fff" />
-        <rect x="24" y="24" width="16" height="16" rx="4" fill="#fff" />
+        <rect x="4" y="4" width="16" height="16" rx="4" fill="#ffffff" />
+        <rect x="44" y="4" width="16" height="16" rx="4" fill="#ffffff" />
+        <rect x="4" y="44" width="16" height="16" rx="4" fill="#ffffff" />
+        <rect x="24" y="24" width="16" height="16" rx="4" fill="#ffffff" />
         {/* ...dots... */}
       </svg>
     ),
     settings: {
       qrText: 'https://qroar.com',
       pathToLogo: undefined,
-      backgroundColor: '#F96E6E',
-      foregroundColor: '#ffffff',
+      backgroundColor: '#9900ff', // purple
+      foregroundColor: '#ffffff', // white
       showGradient: false,
     },
   },
@@ -98,18 +96,18 @@ const qrDesigns: {
     svg: (
       // Placeholder SVG for yellow QR
       <svg viewBox="0 0 64 64" className="w-16 h-16">
-        <rect x="4" y="4" width="16" height="16" rx="6" fill="#b45309" />
-        <rect x="44" y="4" width="16" height="16" rx="6" fill="#b45309" />
-        <rect x="4" y="44" width="16" height="16" rx="6" fill="#b45309" />
-        <rect x="24" y="24" width="16" height="16" rx="6" fill="#b45309" />
+        <rect x="4" y="4" width="16" height="16" rx="6" fill="#bf9000" />
+        <rect x="44" y="4" width="16" height="16" rx="6" fill="#bf9000" />
+        <rect x="4" y="44" width="16" height="16" rx="6" fill="#bf9000" />
+        <rect x="24" y="24" width="16" height="16" rx="6" fill="#bf9000" />
         {/* ...dots... */}
       </svg>
     ),
     settings: {
       qrText: 'https://qroar.com',
       pathToLogo: undefined,
-      backgroundColor: '#FFFBC4',
-      foregroundColor: '#A94900',
+      backgroundColor: '#fff2cc', // light yellow 3
+      foregroundColor: '#bf9000', // dark yellow 1
       showGradient: false,
     },
   },
@@ -119,18 +117,60 @@ const qrDesigns: {
     svg: (
       // Placeholder SVG for green QR (dotted)
       <svg viewBox="0 0 64 64" className="w-16 h-16">
-        <circle cx="12" cy="12" r="8" fill="#166534" />
-        <circle cx="52" cy="12" r="8" fill="#166534" />
-        <circle cx="12" cy="52" r="8" fill="#166534" />
-        <circle cx="32" cy="32" r="6" fill="#166534" />
+        <circle cx="12" cy="12" r="8" fill="#38761d" />
+        <circle cx="52" cy="12" r="8" fill="#38761d" />
+        <circle cx="12" cy="52" r="8" fill="#38761d" />
+        <circle cx="32" cy="32" r="6" fill="#38761d" />
         {/* ...dots... */}
       </svg>
     ),
     settings: {
       qrText: 'https://qroar.com',
       pathToLogo: undefined,
-      backgroundColor: '#C0FBD4',
-      foregroundColor: '#145A2A',
+      backgroundColor: '#d9ead3', // light green 3
+      foregroundColor: '#38761d', // dark green 2
+      showGradient: false,
+    },
+  },
+  {
+    bg: 'bg-[#ead1dc]',
+    border: '',
+    svg: (
+      // Placeholder SVG for green QR (dotted)
+      <svg viewBox="0 0 64 64" className="w-16 h-16">
+        <circle cx="12" cy="12" r="8" fill="#741b47" />
+        <circle cx="52" cy="12" r="8" fill="#741b47" />
+        <circle cx="12" cy="52" r="8" fill="#741b47" />
+        <circle cx="32" cy="32" r="6" fill="#741b47" />
+        {/* ...dots... */}
+      </svg>
+    ),
+    settings: {
+      qrText: 'https://qroar.com',
+      pathToLogo: undefined,
+      backgroundColor: '#ead1dc',
+      foregroundColor: '#741b47',
+      showGradient: false,
+    },
+  },
+  {
+    bg: 'bg-[#e6b8af]',
+    border: '',
+    svg: (
+      // Placeholder SVG for green QR (dotted)
+      <svg viewBox="0 0 64 64" className="w-16 h-16">
+        <circle cx="12" cy="12" r="8" fill="#85200c" />
+        <circle cx="52" cy="12" r="8" fill="#85200c" />
+        <circle cx="12" cy="52" r="8" fill="#85200c" />
+        <circle cx="32" cy="32" r="6" fill="#85200c" />
+        {/* ...dots... */}
+      </svg>
+    ),
+    settings: {
+      qrText: 'https://qroar.com',
+      pathToLogo: undefined,
+      backgroundColor: '#e6b8af',
+      foregroundColor: '#85200c',
       showGradient: false,
     },
   },
