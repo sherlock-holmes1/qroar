@@ -3,7 +3,7 @@ import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared';
 import { exampleThemeStorage, qrSettingsStorage } from '@extension/storage';
 import { t } from '@extension/i18n';
 import { useEffect, useState, useRef } from 'react';
-import { QRCodeBox } from '@extension/ui';
+import { QRCodeBox, getPathToLogo } from '@extension/ui';
 
 const Popup = () => {
   const theme = useStorage(exampleThemeStorage);
@@ -79,7 +79,6 @@ const Popup = () => {
       });
     }
   }, []);
-  console.log(logo);
   return (
     <div
       className={`App ${isLight ? 'bg-slate-50' : 'bg-gray-800'}`}
@@ -93,15 +92,7 @@ const Popup = () => {
       <QRCodeBox
         ref={qrCodeRef}
         qrText={url}
-        pathToLogo={
-          logo === 'detect'
-            ? favicon || undefined
-            : logo && logo.startsWith('data:')
-              ? logo
-              : logo && logo !== 'none'
-                ? 'logo/' + logo + '.svg'
-                : undefined
-        }
+        pathToLogo={getPathToLogo(logo, favicon)}
         extension={extension}
         foregroundColor={foreground}
         backgroundColor={background}

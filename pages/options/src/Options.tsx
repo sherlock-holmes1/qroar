@@ -1,6 +1,6 @@
 import '@src/Options.css';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
-import { QRCodeBox, ErrorDisplay, LoadingSpinner } from '@extension/ui';
+import { QRCodeBox, ErrorDisplay, LoadingSpinner, getPathToLogo } from '@extension/ui';
 import type { QRCodeBoxProps } from '@extension/ui';
 import { qrSettingsStorage } from '@extension/storage';
 import { useState, useEffect } from 'react';
@@ -96,7 +96,7 @@ const Options = () => {
       background: settings.backgroundColor ?? '',
       gradient: settings.gradientColor ?? '',
       showGradient: settings.showGradient ?? false,
-      logo: settings.pathToLogo ?? undefined,
+      logo: settings.pathToLogo ?? null,
       cornersSquareType: settings.cornersSquareType ?? 'extra-rounded',
     });
   };
@@ -145,7 +145,7 @@ const Options = () => {
           <div className="text-base mb-4 text-gray-900 font-medium text-right">Preview</div>
           <div className="bg-white p-5 rounded-lg border border-gray-200 flex justify-end mb-5" style={{ width: 340 }}>
             <div>
-              <QRCodeBox {...qrProps} />
+              <QRCodeBox {...qrProps} pathToLogo={getPathToLogo(qrProps.pathToLogo, 'logo/question.svg')} />
             </div>
           </div>
         </div>
