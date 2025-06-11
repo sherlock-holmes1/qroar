@@ -1,4 +1,5 @@
 import type { BaseStorage } from '../base/index.js';
+// import type { QRCodeBoxProps } from './QRCodeBoxProps.js';
 import { createStorage, StorageEnum } from '../base/index.js';
 
 export type QRSettings = {

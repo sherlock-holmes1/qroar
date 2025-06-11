@@ -13,13 +13,18 @@ const logoOptions = [
 ];
 
 export type LogoSettingsProps = {
-  selected: string | null;
+  selectedLogo: string | null;
   uploadedLogo: string | null;
   onLogoSelect: (id: string) => void;
   onLogoUpload: (file: File) => void;
 };
 
-export const LogoSettings: React.FC<LogoSettingsProps> = ({ selected, onLogoSelect, uploadedLogo, onLogoUpload }) => {
+export const LogoSettings: React.FC<LogoSettingsProps> = ({
+  selectedLogo,
+  onLogoSelect,
+  uploadedLogo,
+  onLogoUpload,
+}) => {
   const handleLogoClick = (id: string) => {
     onLogoSelect(id);
   };
@@ -54,7 +59,7 @@ export const LogoSettings: React.FC<LogoSettingsProps> = ({ selected, onLogoSele
       <span className="flex items-center gap-3 mb-10 cursor-pointer select-none">
         <button
           className={`flex flex-col items-center justify-center border rounded-lg p-4 transition w-20 h-20
-            ${selected === 'detect' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 bg-white'}
+            ${selectedLogo === 'detect' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 bg-white'}
             hover:border-blue-400`}
           onClick={handleDetectFromSite}
           aria-label="Detect from site"
@@ -65,7 +70,7 @@ export const LogoSettings: React.FC<LogoSettingsProps> = ({ selected, onLogoSele
 
         <button
           className={`flex flex-col items-center justify-center border rounded-lg p-4 transition w-20 h-20
-          ${selected === 'none' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 bg-white'}
+          ${selectedLogo === 'none' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 bg-white'}
           hover:border-blue-400`}
           onClick={handleNoLogo}
           aria-label="Detect from site"
@@ -86,7 +91,7 @@ export const LogoSettings: React.FC<LogoSettingsProps> = ({ selected, onLogoSele
           <button
             key={opt.id}
             className={`flex flex-col items-center justify-center border rounded-lg p-4 transition w-20 h-20
-              ${selected === opt.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200 bg-white'}
+              ${selectedLogo === opt.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200 bg-white'}
               hover:border-blue-400`}
             onClick={() => handleLogoClick(opt.id)}
             aria-label={opt.label}
