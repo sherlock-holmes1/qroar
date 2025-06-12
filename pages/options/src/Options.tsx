@@ -91,6 +91,7 @@ const Options = () => {
       pathToLogo: settings.pathToLogo ?? undefined,
       cornersSquareType: settings.cornersSquareType ?? 'extra-rounded',
       cornersDotType: settings.cornersDotType ?? 'dot',
+      dotsType: settings.dotsType ?? 'dots',
     });
     qrSettingsStorage.setAll({
       backgroundColor: settings.backgroundColor ?? '',
@@ -100,6 +101,7 @@ const Options = () => {
       pathToLogo: settings.pathToLogo ?? undefined,
       cornersSquareType: settings.cornersSquareType ?? 'extra-rounded',
       cornersDotType: settings.cornersDotType ?? 'dot',
+      dotsType: settings.dotsType ?? 'dots',
     });
   };
 

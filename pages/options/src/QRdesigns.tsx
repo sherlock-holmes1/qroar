@@ -8,10 +8,9 @@ const qrDesigns: {
   settings: QRCodeBoxProps;
 }[] = [
   {
-    bg: 'bg-white',
+    bg: 'bg-white', // classic
     border: 'border-4 border-blue-900',
     svg: (
-      // Placeholder SVG for dark blue QR
       <svg viewBox="0 0 64 64" className="w-16 h-16">
         <rect x="4" y="4" width="16" height="16" rx="3" fill="#000000" />
         <rect x="44" y="4" width="16" height="16" rx="3" fill="#000000" />
@@ -24,14 +23,15 @@ const qrDesigns: {
       qrText: 'https://qroar.com',
       pathToLogo: undefined,
       backgroundColor: '#ffffff', // white
-      foregroundColor: '#000000', // dark cornflower blue 3
+      foregroundColor: '#000000', // black
       showGradient: false,
       cornersSquareType: 'square',
       cornersDotType: 'square',
+      dotsType: 'square',
     },
   },
   {
-    bg: 'bg-[#cfe2f3]',
+    bg: 'bg-[#cfe2f3]', // blue
     border: '',
     svg: (
       <svg viewBox="0 0 64 64" className="w-16 h-16">
@@ -72,6 +72,7 @@ const qrDesigns: {
       foregroundColor: '#b45f06', // dark orange 1
       showGradient: false,
       cornersSquareType: 'dot',
+      dotsType: 'classy',
     },
   },
   {
@@ -94,6 +95,7 @@ const qrDesigns: {
       foregroundColor: '#ffffff', // white
       showGradient: false,
       cornersSquareType: 'square',
+      dotsType: 'classy-rounded',
     },
   },
   {
@@ -116,6 +118,7 @@ const qrDesigns: {
       foregroundColor: '#bf9000', // dark yellow 1
       showGradient: false,
       cornersDotType: 'square',
+      dotsType: 'extra-rounded',
     },
   },
   {
@@ -139,6 +142,7 @@ const qrDesigns: {
       showGradient: false,
       cornersSquareType: 'dot',
       cornersDotType: 'square',
+      dotsType: 'square',
     },
   },
   {
@@ -182,6 +186,7 @@ const qrDesigns: {
       backgroundColor: '#e6b8af',
       foregroundColor: '#85200c',
       showGradient: false,
+      dotsType: 'rounded',
     },
   },
 ];

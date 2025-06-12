@@ -19,6 +19,7 @@ const Popup = () => {
     pathToLogo,
     cornersSquareType,
     cornersDotType,
+    dotsType,
   } = colorSettings || {};
 
   // State for URL input
@@ -108,6 +109,7 @@ const Popup = () => {
         gradientColor={gradientColor}
         cornersSquareType={cornersSquareType}
         cornersDotType={cornersDotType}
+        dotsType={dotsType}
       />
       {/* URL input */}
       <div className="mb-6">
