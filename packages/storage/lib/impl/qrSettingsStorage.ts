@@ -1,60 +1,61 @@
 import type { BaseStorage } from '../base/index.js';
-// import type { QRCodeBoxProps } from './QRCodeBoxProps.js';
+import type { QRCodeBoxProps } from './QRCodeBoxProps.js';
 import { createStorage, StorageEnum } from '../base/index.js';
 
-export type QRSettings = {
-  foreground: string;
-  background: string;
-  showGradient: boolean;
-  gradient: string;
-  logo?: string | null;
-  cornersSquareType: 'extra-rounded' | 'dot' | 'square' | 'rounded';
-};
+// Type for stored settings derived from QRCodeBoxProps
+export type StoredSettings = Pick<
+  QRCodeBoxProps,
+  'foregroundColor' | 'backgroundColor' | 'showGradient' | 'gradientColor' | 'pathToLogo' | 'cornersSquareType'
+>;
 
-export type QRSettingsStorage = BaseStorage<QRSettings> & {
-  setForeground: (color: string) => Promise<void>;
-  setBackground: (color: string) => Promise<void>;
+// Storage interface with strongly typed methods
+export type QRSettingsStorage = BaseStorage<StoredSettings> & {
+  setForegroundColor: (color: string) => Promise<void>;
+  setBackgroundColor: (color: string) => Promise<void>;
   setShowGradient: (show: boolean) => Promise<void>;
-  setGradient: (color: string) => Promise<void>;
-  setLogo: (logo: string | null) => Promise<void>;
-  setAll: (settings: QRSettings) => Promise<void>; // add this line
+  setGradientColor: (color: string) => Promise<void>;
+  setLogo: (logo: string | undefined) => Promise<void>;
+  setCornersSquareType: (type: QRCodeBoxProps['cornersSquareType']) => Promise<void>;
+  setAll: (settings: Partial<StoredSettings>) => Promise<void>;
   reset: () => Promise<void>;
 };
 
-const defaultSettings: QRSettings = {
-  foreground: 'green',
-  background: 'white',
+const defaultSettings: StoredSettings = {
+  foregroundColor: 'green',
+  backgroundColor: 'white',
   showGradient: false,
-  gradient: 'blue',
-  logo: null,
+  gradientColor: 'blue',
+  pathToLogo: undefined,
   cornersSquareType: 'extra-rounded',
 };
 
-const storage = createStorage<QRSettings>('color-settings-storage-key', defaultSettings, {
+const storage = createStorage<StoredSettings>('color-settings-storage-key', defaultSettings, {
   storageEnum: StorageEnum.Local,
   liveUpdate: true,
 });
 
 export const qrSettingsStorage: QRSettingsStorage = {
   ...storage,
-  setForeground: async color => {
-    console.log('qrSettingsStorage foreground color = ' + color);
-    await storage.set(settings => ({ ...settings, foreground: color }));
+  setForegroundColor: async color => {
+    await storage.set(settings => ({ ...settings, foregroundColor: color }));
   },
-  setBackground: async color => {
-    await storage.set(settings => ({ ...settings, background: color }));
+  setBackgroundColor: async color => {
+    await storage.set(settings => ({ ...settings, backgroundColor: color }));
   },
   setShowGradient: async show => {
     await storage.set(settings => ({ ...settings, showGradient: show }));
   },
-  setGradient: async color => {
-    await storage.set(settings => ({ ...settings, gradient: color }));
+  setGradientColor: async color => {
+    await storage.set(settings => ({ ...settings, gradientColor: color }));
   },
   setLogo: async logo => {
-    await storage.set(settings => ({ ...settings, logo }));
+    await storage.set(settings => ({ ...settings, pathToLogo: logo }));
+  },
+  setCornersSquareType: async type => {
+    await storage.set(settings => ({ ...settings, cornersSquareType: type }));
   },
   setAll: async settings => {
-    await storage.set(() => ({ ...settings }));
+    await storage.set(current => ({ ...current, ...settings }));
   },
   reset: async () => {
     await storage.set(() => defaultSettings);

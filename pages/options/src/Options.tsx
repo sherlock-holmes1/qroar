@@ -43,15 +43,15 @@ const Options = () => {
       if (!ignore && settings) {
         setQrProps((prev: QRCodeBoxProps) => ({
           ...prev,
-          foregroundColor: settings.foreground,
-          backgroundColor: settings.background,
+          foregroundColor: settings.foregroundColor,
+          backgroundColor: settings.backgroundColor,
           showGradient: settings.showGradient,
-          gradientColor: settings.gradient,
-          pathToLogo: settings.logo ?? undefined,
+          gradientColor: settings.gradientColor,
+          pathToLogo: settings.pathToLogo,
           cornersSquareType: settings.cornersSquareType ?? 'extra-rounded',
         }));
-        if (settings.logo && settings.logo.startsWith('data:')) {
-          setUploadedLogo(settings.logo);
+        if (settings.pathToLogo && settings.pathToLogo.startsWith('data:')) {
+          setUploadedLogo(settings.pathToLogo);
         }
       }
     });
@@ -92,11 +92,11 @@ const Options = () => {
       cornersSquareType: settings.cornersSquareType ?? 'extra-rounded',
     });
     qrSettingsStorage.setAll({
-      foreground: settings.foregroundColor ?? '',
-      background: settings.backgroundColor ?? '',
-      gradient: settings.gradientColor ?? '',
+      backgroundColor: settings.backgroundColor ?? '',
+      foregroundColor: settings.foregroundColor ?? '',
+      gradientColor: settings.gradientColor ?? '',
       showGradient: settings.showGradient ?? false,
-      logo: settings.pathToLogo ?? null,
+      pathToLogo: settings.pathToLogo ?? undefined,
       cornersSquareType: settings.cornersSquareType ?? 'extra-rounded',
     });
   };
@@ -163,11 +163,11 @@ const Options = () => {
                 gradient={qrProps.gradientColor ?? ''}
                 onForegroundChange={color => {
                   setQrProps((prev: QRCodeBoxProps) => ({ ...prev, foregroundColor: color }));
-                  qrSettingsStorage.setForeground(color);
+                  qrSettingsStorage.setForegroundColor(color);
                 }}
                 onBackgroundChange={color => {
                   setQrProps((prev: QRCodeBoxProps) => ({ ...prev, backgroundColor: color }));
-                  qrSettingsStorage.setBackground(color);
+                  qrSettingsStorage.setBackgroundColor(color);
                 }}
                 onShowGradientChange={show => {
                   setQrProps((prev: QRCodeBoxProps) => ({ ...prev, showGradient: show }));
@@ -175,7 +175,7 @@ const Options = () => {
                 }}
                 onGradientChange={color => {
                   setQrProps((prev: QRCodeBoxProps) => ({ ...prev, gradientColor: color }));
-                  qrSettingsStorage.setGradient(color);
+                  qrSettingsStorage.setGradientColor(color);
                 }}
               />
             </div>

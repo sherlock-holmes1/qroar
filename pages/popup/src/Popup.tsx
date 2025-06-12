@@ -11,7 +11,8 @@ const Popup = () => {
 
   // Get color settings from storage
   const colorSettings = useStorage(qrSettingsStorage);
-  const { foreground, background, showGradient, gradient, logo, cornersSquareType } = colorSettings || {};
+  const { foregroundColor, backgroundColor, showGradient, gradientColor, pathToLogo, cornersSquareType } =
+    colorSettings || {};
 
   // State for URL input
   const [url, setUrl] = useState('https://qroar.com');
@@ -92,12 +93,12 @@ const Popup = () => {
       <QRCodeBox
         ref={qrCodeRef}
         qrText={url}
-        pathToLogo={getPathToLogo(logo, favicon)}
+        pathToLogo={getPathToLogo(pathToLogo, favicon)}
         extension={extension}
-        foregroundColor={foreground}
-        backgroundColor={background}
+        foregroundColor={foregroundColor}
+        backgroundColor={backgroundColor}
         showGradient={showGradient}
-        gradientColor={gradient}
+        gradientColor={gradientColor}
         cornersSquareType={cornersSquareType}
       />
       {/* URL input */}
