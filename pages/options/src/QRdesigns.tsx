@@ -27,6 +27,7 @@ const qrDesigns: {
       foregroundColor: '#000000', // dark cornflower blue 3
       showGradient: false,
       cornersSquareType: 'square',
+      cornersDotType: 'square',
     },
   },
   {
@@ -48,6 +49,7 @@ const qrDesigns: {
       foregroundColor: '#0b5394',
       showGradient: false,
       cornersSquareType: 'dot',
+      cornersDotType: 'square',
     },
   },
   {
@@ -69,7 +71,7 @@ const qrDesigns: {
       backgroundColor: '#fce5cd', // light orange 3
       foregroundColor: '#b45f06', // dark orange 1
       showGradient: false,
-      cornersSquareType: 'rounded',
+      cornersSquareType: 'dot',
     },
   },
   {
@@ -91,6 +93,7 @@ const qrDesigns: {
       backgroundColor: '#9900ff', // purple
       foregroundColor: '#ffffff', // white
       showGradient: false,
+      cornersSquareType: 'square',
     },
   },
   {
@@ -112,6 +115,7 @@ const qrDesigns: {
       backgroundColor: '#fff2cc', // light yellow 3
       foregroundColor: '#bf9000', // dark yellow 1
       showGradient: false,
+      cornersDotType: 'square',
     },
   },
   {
@@ -133,6 +137,8 @@ const qrDesigns: {
       backgroundColor: '#d9ead3', // light green 3
       foregroundColor: '#38761d', // dark green 2
       showGradient: false,
+      cornersSquareType: 'dot',
+      cornersDotType: 'square',
     },
   },
   {
@@ -154,6 +160,7 @@ const qrDesigns: {
       backgroundColor: '#ead1dc',
       foregroundColor: '#741b47',
       showGradient: false,
+      cornersDotType: 'square',
     },
   },
   {

@@ -11,8 +11,15 @@ const Popup = () => {
 
   // Get color settings from storage
   const colorSettings = useStorage(qrSettingsStorage);
-  const { foregroundColor, backgroundColor, showGradient, gradientColor, pathToLogo, cornersSquareType } =
-    colorSettings || {};
+  const {
+    foregroundColor,
+    backgroundColor,
+    showGradient,
+    gradientColor,
+    pathToLogo,
+    cornersSquareType,
+    cornersDotType,
+  } = colorSettings || {};
 
   // State for URL input
   const [url, setUrl] = useState('https://qroar.com');
@@ -100,6 +107,7 @@ const Popup = () => {
         showGradient={showGradient}
         gradientColor={gradientColor}
         cornersSquareType={cornersSquareType}
+        cornersDotType={cornersDotType}
       />
       {/* URL input */}
       <div className="mb-6">

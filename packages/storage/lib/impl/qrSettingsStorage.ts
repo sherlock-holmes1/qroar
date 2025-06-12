@@ -5,7 +5,13 @@ import { createStorage, StorageEnum } from '../base/index.js';
 // Type for stored settings derived from QRCodeBoxProps
 export type StoredSettings = Pick<
   QRCodeBoxProps,
-  'foregroundColor' | 'backgroundColor' | 'showGradient' | 'gradientColor' | 'pathToLogo' | 'cornersSquareType'
+  | 'foregroundColor'
+  | 'backgroundColor'
+  | 'showGradient'
+  | 'gradientColor'
+  | 'pathToLogo'
+  | 'cornersSquareType'
+  | 'cornersDotType'
 >;
 
 // Storage interface with strongly typed methods
@@ -27,6 +33,7 @@ const defaultSettings: StoredSettings = {
   gradientColor: 'blue',
   pathToLogo: undefined,
   cornersSquareType: 'extra-rounded',
+  cornersDotType: 'dot',
 };
 
 const storage = createStorage<StoredSettings>('color-settings-storage-key', defaultSettings, {

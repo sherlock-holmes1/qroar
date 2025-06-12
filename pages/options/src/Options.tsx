@@ -90,6 +90,7 @@ const Options = () => {
       gradientColor: settings.gradientColor ?? '',
       pathToLogo: settings.pathToLogo ?? undefined,
       cornersSquareType: settings.cornersSquareType ?? 'extra-rounded',
+      cornersDotType: settings.cornersDotType ?? 'dot',
     });
     qrSettingsStorage.setAll({
       backgroundColor: settings.backgroundColor ?? '',
@@ -98,6 +99,7 @@ const Options = () => {
       showGradient: settings.showGradient ?? false,
       pathToLogo: settings.pathToLogo ?? undefined,
       cornersSquareType: settings.cornersSquareType ?? 'extra-rounded',
+      cornersDotType: settings.cornersDotType ?? 'dot',
     });
   };
 

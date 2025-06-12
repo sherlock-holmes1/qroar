@@ -7,5 +7,6 @@ export interface QRCodeBoxProps {
   foregroundColor?: string;
   showGradient?: boolean;
   gradientColor?: string;
-  cornersSquareType?: 'dot' | 'square' | 'extra-rounded' | 'rounded';
+  cornersSquareType?: 'dot' | 'square' | 'extra-rounded';
+  cornersDotType?: 'dot' | 'square' | 'extra-rounded';
 }
