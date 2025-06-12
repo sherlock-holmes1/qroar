@@ -1,5 +1,5 @@
 import type React from 'react';
-import type { QRCodeBoxProps } from '@extension/ui';
+import type { QRCodeBoxProps } from '@extension/storage';
 
 const qrDesigns: {
   bg: string;
@@ -69,6 +69,7 @@ const qrDesigns: {
       backgroundColor: '#fce5cd', // light orange 3
       foregroundColor: '#b45f06', // dark orange 1
       showGradient: false,
+      cornersSquareType: 'rounded',
     },
   },
   {

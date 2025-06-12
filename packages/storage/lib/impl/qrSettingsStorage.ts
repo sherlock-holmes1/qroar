@@ -8,7 +8,7 @@ export type QRSettings = {
   showGradient: boolean;
   gradient: string;
   logo?: string | null;
-  cornersSquareType: 'extra-rounded' | 'dot' | 'square';
+  cornersSquareType: 'extra-rounded' | 'dot' | 'square' | 'rounded';
 };
 
 export type QRSettingsStorage = BaseStorage<QRSettings> & {

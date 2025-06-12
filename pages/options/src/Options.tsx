@@ -1,7 +1,7 @@
 import '@src/Options.css';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
 import { QRCodeBox, ErrorDisplay, LoadingSpinner, getPathToLogo } from '@extension/ui';
-import type { QRCodeBoxProps } from '@extension/ui';
+import type { QRCodeBoxProps } from '@extension/storage';
 import { qrSettingsStorage } from '@extension/storage';
 import { useState, useEffect } from 'react';
 import { ColorSettings } from './ColorSettings';

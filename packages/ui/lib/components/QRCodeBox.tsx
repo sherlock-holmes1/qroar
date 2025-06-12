@@ -10,7 +10,7 @@ import type {
   CornerDotType,
   GradientType,
 } from 'qr-code-styling';
-import type { QRCodeBoxProps } from './QRCodeBoxProps';
+import type { QRCodeBoxProps } from '@extension/storage';
 
 export interface QRCodeBoxHandle {
   download: () => void;
