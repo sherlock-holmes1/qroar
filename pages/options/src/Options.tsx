@@ -105,7 +105,7 @@ const Options = () => {
   };
 
   return (
-    <div className="flex min-h-screen font-sans bg-white">
+    <div className="flex min-h-screen font-sans bg-white min-w-[710px]">
       {/* Sidebar */}
       <aside
         className="min-w-[410px] w-1/3 max-w-full bg-gray-50 p-8 flex flex-col border-r border-gray-200"
@@ -147,8 +147,10 @@ const Options = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex justify-start bg-white overflow-y-auto" style={{ height: '100vh' }}>
-        <div className="h-full p-[48px_56px] w-full" style={{ maxWidth: 800, minWidth: 300 }}>
+      <main
+        className="bg-white overflow-y-auto"
+        style={{ height: '100vh', width: '300px', flexGrow: 1, flexShrink: 0 }}>
+        <div className="h-full p-[48px_56px] w-full" style={{ maxWidth: 800 }}>
           {activeSection === 'color-settings-section' && (
             <div id="color-settings-section">
               <ColorSettings
