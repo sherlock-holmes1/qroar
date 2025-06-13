@@ -4,21 +4,14 @@ import type { QRCodeBoxProps } from '@extension/storage';
 const qrDesigns: {
   bg: string;
   border: string;
-  svg: React.ReactNode;
+  svg?: React.ReactNode;
+  src?: string;
   settings: QRCodeBoxProps;
 }[] = [
   {
     bg: 'bg-white', // classic
     border: 'border-4 border-blue-900',
-    svg: (
-      <svg viewBox="0 0 64 64" className="w-16 h-16">
-        <rect x="4" y="4" width="16" height="16" rx="3" fill="#000000" />
-        <rect x="44" y="4" width="16" height="16" rx="3" fill="#000000" />
-        <rect x="4" y="44" width="16" height="16" rx="3" fill="#000000" />
-        <rect x="24" y="24" width="16" height="16" rx="3" fill="#000000" />
-        {/* ...dots... */}
-      </svg>
-    ),
+    src: 'designs/classic.svg',
     settings: {
       qrText: 'https://qroar.com',
       pathToLogo: undefined,
@@ -33,21 +26,14 @@ const qrDesigns: {
   {
     bg: 'bg-[#cfe2f3]', // blue
     border: '',
-    svg: (
-      <svg viewBox="0 0 64 64" className="w-16 h-16">
-        <rect x="4" y="4" width="16" height="16" rx="5" fill="#0b5394" />
-        <rect x="44" y="4" width="16" height="16" rx="5" fill="#0b5394" />
-        <rect x="4" y="44" width="16" height="16" rx="5" fill="#0b5394" />
-        <rect x="24" y="24" width="16" height="16" rx="5" fill="#0b5394" />
-        {/* ...dots... */}
-      </svg>
-    ),
+    src: 'designs/blue.svg',
     settings: {
       qrText: 'https://qroar.com',
       pathToLogo: undefined,
       backgroundColor: '#cfe2f3',
       foregroundColor: '#0b5394',
-      showGradient: false,
+      gradientColor: '#cc0000',
+      showGradient: true,
       cornersSquareType: 'dot',
       cornersDotType: 'square',
     },
@@ -55,16 +41,7 @@ const qrDesigns: {
   {
     bg: 'bg-[#fce5cd]',
     border: '',
-    svg: (
-      // Placeholder SVG for orange QR (dotted)
-      <svg viewBox="0 0 64 64" className="w-16 h-16">
-        <circle cx="12" cy="12" r="8" fill="#b45f06" />
-        <circle cx="52" cy="12" r="8" fill="#b45f06" />
-        <circle cx="12" cy="52" r="8" fill="#b45f06" />
-        <circle cx="32" cy="32" r="6" fill="#b45f06" />
-        {/* ...dots... */}
-      </svg>
-    ),
+    src: 'designs/orange.svg',
     settings: {
       qrText: 'https://qroar.com',
       pathToLogo: undefined,
@@ -78,16 +55,7 @@ const qrDesigns: {
   {
     bg: 'bg-[#9900ff]',
     border: '',
-    svg: (
-      // Placeholder SVG for red QR
-      <svg viewBox="0 0 64 64" className="w-16 h-16">
-        <rect x="4" y="4" width="16" height="16" rx="4" fill="#ffffff" />
-        <rect x="44" y="4" width="16" height="16" rx="4" fill="#ffffff" />
-        <rect x="4" y="44" width="16" height="16" rx="4" fill="#ffffff" />
-        <rect x="24" y="24" width="16" height="16" rx="4" fill="#ffffff" />
-        {/* ...dots... */}
-      </svg>
-    ),
+    src: 'designs/purple.svg',
     settings: {
       qrText: 'https://qroar.com',
       pathToLogo: undefined,
@@ -101,16 +69,7 @@ const qrDesigns: {
   {
     bg: 'bg-yellow-100',
     border: '',
-    svg: (
-      // Placeholder SVG for yellow QR
-      <svg viewBox="0 0 64 64" className="w-16 h-16">
-        <rect x="4" y="4" width="16" height="16" rx="6" fill="#bf9000" />
-        <rect x="44" y="4" width="16" height="16" rx="6" fill="#bf9000" />
-        <rect x="4" y="44" width="16" height="16" rx="6" fill="#bf9000" />
-        <rect x="24" y="24" width="16" height="16" rx="6" fill="#bf9000" />
-        {/* ...dots... */}
-      </svg>
-    ),
+    src: 'designs/yellow.svg',
     settings: {
       qrText: 'https://qroar.com',
       pathToLogo: undefined,
@@ -124,22 +83,14 @@ const qrDesigns: {
   {
     bg: 'bg-green-200',
     border: '',
-    svg: (
-      // Placeholder SVG for green QR (dotted)
-      <svg viewBox="0 0 64 64" className="w-16 h-16">
-        <circle cx="12" cy="12" r="8" fill="#38761d" />
-        <circle cx="52" cy="12" r="8" fill="#38761d" />
-        <circle cx="12" cy="52" r="8" fill="#38761d" />
-        <circle cx="32" cy="32" r="6" fill="#38761d" />
-        {/* ...dots... */}
-      </svg>
-    ),
+    src: 'designs/green.svg',
     settings: {
       qrText: 'https://qroar.com',
       pathToLogo: undefined,
       backgroundColor: '#d9ead3', // light green 3
       foregroundColor: '#38761d', // dark green 2
-      showGradient: false,
+      gradientColor: '#9900ff', // purple
+      showGradient: true,
       cornersSquareType: 'dot',
       cornersDotType: 'square',
       dotsType: 'square',
@@ -148,21 +99,12 @@ const qrDesigns: {
   {
     bg: 'bg-[#ead1dc]',
     border: '',
-    svg: (
-      // Placeholder SVG for green QR (dotted)
-      <svg viewBox="0 0 64 64" className="w-16 h-16">
-        <circle cx="12" cy="12" r="8" fill="#741b47" />
-        <circle cx="52" cy="12" r="8" fill="#741b47" />
-        <circle cx="12" cy="52" r="8" fill="#741b47" />
-        <circle cx="32" cy="32" r="6" fill="#741b47" />
-        {/* ...dots... */}
-      </svg>
-    ),
+    src: 'designs/red.svg',
     settings: {
       qrText: 'https://qroar.com',
       pathToLogo: undefined,
       backgroundColor: '#ead1dc',
-      foregroundColor: '#741b47',
+      foregroundColor: '#cc0000',
       showGradient: false,
       cornersDotType: 'square',
     },
@@ -170,16 +112,7 @@ const qrDesigns: {
   {
     bg: 'bg-[#e6b8af]',
     border: '',
-    svg: (
-      // Placeholder SVG for green QR (dotted)
-      <svg viewBox="0 0 64 64" className="w-16 h-16">
-        <circle cx="12" cy="12" r="8" fill="#85200c" />
-        <circle cx="52" cy="12" r="8" fill="#85200c" />
-        <circle cx="12" cy="52" r="8" fill="#85200c" />
-        <circle cx="32" cy="32" r="6" fill="#85200c" />
-        {/* ...dots... */}
-      </svg>
-    ),
+    src: 'designs/brown.svg',
     settings: {
       qrText: 'https://qroar.com',
       pathToLogo: undefined,
@@ -202,12 +135,12 @@ export const QRdesigns: React.FC<{ onDesignSelect?: (settings: QRCodeBoxProps) =
           {qrDesigns.map((design, idx) => (
             <button
               key={idx}
-              className={`mt-2 mb-2 rounded-2xl shadow-md p-4 flex items-center justify-center transition-transform hover:scale-105 focus:ring-2 focus:ring-blue-400 ${design.bg} ${design.border}`}
+              className={`mt-2 mb-2 rounded-2xl shadow-md p-1 flex items-center justify-center transition-transform hover:scale-105 focus:ring-2 focus:ring-blue-400 ${design.bg} ${design.border}`}
               aria-label={`QR design ${idx + 1}`}
               type="button"
               style={{ width: 96, height: 96 }}
               onClick={() => onDesignSelect?.(design.settings)}>
-              {design.svg}
+              {design.svg ? design.svg : <img src={design.src} alt="" />}
             </button>
           ))}
         </div>
