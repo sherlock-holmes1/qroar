@@ -6,7 +6,6 @@ import { qrSettingsStorage } from '@extension/storage';
 import { useState, useEffect } from 'react';
 import { ColorSettings } from './ColorSettings';
 import { LogoSettings } from './LogoSettings';
-import { QRdesigns } from './QRdesigns';
 
 const defaultQRCodeBoxProps: QRCodeBoxProps = {
   qrText: 'https://qroar.com',
@@ -135,14 +134,6 @@ const Options = () => {
             type="button">
             Logo settings
           </button>
-          <button
-            className={`text-base mb-5 flex items-center justify-end focus:outline-none hover:text-blue-700 ${
-              activeSection === 'qr-designs-section' ? 'font-bold text-gray-900' : 'font-normal text-gray-400'
-            }`}
-            onClick={() => scrollToSection('qr-designs-section')}
-            type="button">
-            QR code designs
-          </button>
         </nav>
 
         <div className="mt-auto flex flex-col items-end">
@@ -157,7 +148,7 @@ const Options = () => {
 
       {/* Main Content */}
       <main className="flex-1 flex justify-start bg-white overflow-y-auto" style={{ height: '100vh' }}>
-        <div className="h-full p-[48px_56px] w-full" style={{ maxWidth: 800 }}>
+        <div className="h-full p-[48px_56px] w-full" style={{ maxWidth: 800, minWidth: 300 }}>
           {activeSection === 'color-settings-section' && (
             <div id="color-settings-section">
               <ColorSettings
@@ -181,6 +172,7 @@ const Options = () => {
                   setQrProps((prev: QRCodeBoxProps) => ({ ...prev, gradientColor: color }));
                   qrSettingsStorage.setGradientColor(color);
                 }}
+                onDesignSelect={handleDesignSelect}
               />
             </div>
           )}
@@ -196,11 +188,6 @@ const Options = () => {
                 }}
                 onLogoUpload={handleLogoUpload}
               />
-            </div>
-          )}
-          {activeSection === 'qr-designs-section' && (
-            <div id="qr-designs-section">
-              <QRdesigns onDesignSelect={handleDesignSelect} />
             </div>
           )}
         </div>
