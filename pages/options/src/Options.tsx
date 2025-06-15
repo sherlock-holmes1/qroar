@@ -1,6 +1,6 @@
 import '@src/Options.css';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
-import { QRCodeBox, ErrorDisplay, LoadingSpinner, getPathToLogo } from '@extension/ui';
+import { QRCodeBox, ErrorDisplay, LoadingSpinner, getPathToLogo, FooterButtons } from '@extension/ui';
 import type { QRCodeBoxProps } from '@extension/storage';
 import { qrSettingsStorage } from '@extension/storage';
 import { useState, useEffect } from 'react';
@@ -108,7 +108,7 @@ const Options = () => {
     <div className="flex min-h-screen font-sans bg-white min-w-[710px]">
       {/* Sidebar */}
       <aside
-        className="min-w-[410px] w-1/3 max-w-full bg-gray-50 p-8 flex flex-col border-r border-gray-200"
+        className="min-w-[410px] w-1/3 max-w-full bg-gray-50 p-8 pt-4 flex flex-col border-r border-gray-200"
         style={{
           position: 'sticky',
           top: 0,
@@ -117,6 +117,9 @@ const Options = () => {
           flexShrink: 0,
           overflow: 'visible',
         }}>
+        <span className="font-bold text-[30px] tracking-wide mb-6">
+          <span className="text-green-600">QR</span>oar
+        </span>
         <nav className="mb-16 flex flex-col gap-0 items-end">
           <button
             className={`text-base mb-6 flex items-center justify-end focus:outline-none hover:text-blue-700 ${
@@ -144,13 +147,14 @@ const Options = () => {
             </div>
           </div>
         </div>
+        <FooterButtons />
       </aside>
 
       {/* Main Content */}
       <main
         className="bg-white overflow-y-auto"
         style={{ height: '100vh', width: '300px', flexGrow: 1, flexShrink: 0 }}>
-        <div className="h-full p-[48px_56px] w-full" style={{ maxWidth: 800 }}>
+        <div className="h-full p-[48px_56px] mt-5 w-full" style={{ maxWidth: 800 }}>
           {activeSection === 'color-settings-section' && (
             <div id="color-settings-section">
               <ColorSettings

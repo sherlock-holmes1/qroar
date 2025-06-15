@@ -3,7 +3,7 @@ import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared';
 import { qrSettingsStorage } from '@extension/storage';
 import { t } from '@extension/i18n';
 import { useEffect, useState, useRef } from 'react';
-import { QRCodeBox, getPathToLogo } from '@extension/ui';
+import { QRCodeBox, getPathToLogo, FooterButtons } from '@extension/ui';
 
 const Popup = () => {
   // Get color settings from storage
@@ -19,7 +19,6 @@ const Popup = () => {
     dotsType,
   } = colorSettings || {};
 
-  // State for URL input
   const [url, setUrl] = useState('https://qroar.com');
   const [favicon, setFavicon] = useState<string | null>(null);
   const settingsText = t('settingsText');
@@ -29,7 +28,6 @@ const Popup = () => {
   const settingsButton = (
     <div className="relative group">
       <button
-        // title={settingsText}
         aria-label={settingsText}
         className="cursor-pointer border-none p-0 bg-transparent hover:text-blue-500 focus:text-blue-500 transition-colors"
         onClick={() => {
@@ -118,27 +116,6 @@ const Popup = () => {
         dotsType={dotsType}
       />
 
-      {/* QR Size Slider
-      <div className="flex flex-col items-center">
-        <div className="relative w-full flex flex-col items-center">
-          <input
-            type="range"
-            min={200}
-            max={1000}
-            step={50}
-            value={qrSize}
-            onChange={e => setQrSize(Number(e.target.value))}
-            className="w-full accent-blue-500"
-            style={{ width: '100%' }}
-            aria-label="QR code size"
-          />
-          <div style={{ pointerEvents: 'none' }}>
-            <span className="text-blue-500 font-bold text-lg px-4 py-1">
-              {qrSize} x {qrSize} Px
-            </span>
-          </div>
-        </div>
-      </div> */}
       {/* URL input */}
       <div className="mb-6">
         <input
@@ -157,37 +134,7 @@ const Popup = () => {
         </button>
       </div>
       {/* Bottom section: feedback & issue */}
-      <div className="flex items-center justify-between mt-4 px-3 pb-2">
-        {/* Star icon */}
-        <div className="flex items-center group cursor-pointer">
-          <svg
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="#cbd5e1"
-            xmlns="http://www.w3.org/2000/svg"
-            className="mr-2 transition-colors duration-200 group-hover:fill-yellow-400">
-            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-          </svg>
-        </div>
-        {/* Buttons */}
-        <div className="flex gap-2">
-          <a
-            href="https://forms.gle/your-feedback-form"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-700 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-100">
-            Send feedback
-          </a>
-          <a
-            href="https://github.com/your-repo/issues"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-transparent text-blue-700 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-100">
-            Report an issue
-          </a>
-        </div>
-      </div>
+      <FooterButtons />
     </div>
   );
 };
