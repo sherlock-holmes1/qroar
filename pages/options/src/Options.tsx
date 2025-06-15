@@ -117,8 +117,16 @@ const Options = () => {
           flexShrink: 0,
           overflow: 'visible',
         }}>
-        <span className="font-bold text-[30px] tracking-wide mb-6">
-          <span className="text-green-600">QR</span>oar
+        <span className="font-bold text-[30px] tracking-wide flex items-center gap-2 justify-center">
+          <img
+            src="lion.png"
+            alt="QRoar Lion"
+            className="w-16 h-16 inline-block align-middle"
+            style={{ marginRight: '6px' }}
+          />
+          <span>
+            <span className="text-green-600">QR</span>oar
+          </span>
         </span>
         <nav className="mb-16 flex flex-col gap-0 items-end">
           <button
@@ -154,7 +162,7 @@ const Options = () => {
       <main
         className="bg-white overflow-y-auto"
         style={{ height: '100vh', width: '300px', flexGrow: 1, flexShrink: 0 }}>
-        <div className="h-full p-[48px_56px] mt-5 w-full" style={{ maxWidth: 800 }}>
+        <div className="h-full p-[48px_56px] mt-4 w-full" style={{ maxWidth: 800 }}>
           {activeSection === 'color-settings-section' && (
             <div id="color-settings-section">
               <ColorSettings
