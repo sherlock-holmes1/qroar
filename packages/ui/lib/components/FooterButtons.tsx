@@ -1,6 +1,6 @@
 import type React from 'react';
 
-export const FooterButtons: React.FC = () => (
+const FooterButtons: React.FC = () => (
   <div className="flex items-center justify-between mt-4 px-3 pb-2">
     {/* Star icon */}
     <div className="flex items-center group cursor-pointer">
@@ -33,3 +33,5 @@ export const FooterButtons: React.FC = () => (
     </div>
   </div>
 );
+
+export default FooterButtons;
