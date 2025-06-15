@@ -13,6 +13,7 @@ export type StoredSettings = Pick<
   | 'cornersSquareType'
   | 'cornersDotType'
   | 'dotsType'
+  | 'size'
 >;
 
 // Storage interface with strongly typed methods

@@ -94,6 +94,7 @@ const Popup = () => {
       });
     }
   }, []);
+
   return (
     <div className="bg-slate-50 p-3">
       <div className="flex items-center justify-between w-full border border-gray-200 rounded-xl px-4 py-2">
@@ -102,6 +103,7 @@ const Popup = () => {
         </span>
         {settingsButton}
       </div>
+
       <QRCodeBox
         ref={qrCodeRef}
         qrText={url}
@@ -115,6 +117,28 @@ const Popup = () => {
         cornersDotType={cornersDotType}
         dotsType={dotsType}
       />
+
+      {/* QR Size Slider
+      <div className="flex flex-col items-center">
+        <div className="relative w-full flex flex-col items-center">
+          <input
+            type="range"
+            min={200}
+            max={1000}
+            step={50}
+            value={qrSize}
+            onChange={e => setQrSize(Number(e.target.value))}
+            className="w-full accent-blue-500"
+            style={{ width: '100%' }}
+            aria-label="QR code size"
+          />
+          <div style={{ pointerEvents: 'none' }}>
+            <span className="text-blue-500 font-bold text-lg px-4 py-1">
+              {qrSize} x {qrSize} Px
+            </span>
+          </div>
+        </div>
+      </div> */}
       {/* URL input */}
       <div className="mb-6">
         <input
@@ -128,7 +152,7 @@ const Popup = () => {
       <div className="flex justify-center gap-3">
         <button
           className="bg-orange-500 text-white border-none rounded-full px-6 py-2.5 mx-2 font-semibold text-base cursor-pointer min-w-[80px]"
-          onClick={() => qrCodeRef.current?.download(400, 400)}>
+          onClick={() => qrCodeRef.current?.download()}>
           Download QR code
         </button>
       </div>

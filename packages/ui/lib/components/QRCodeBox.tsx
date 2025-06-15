@@ -29,15 +29,14 @@ export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
       cornersSquareType = 'extra-rounded',
       cornersDotType = 'dot',
       dotsType = 'dots',
-      width = 300,
-      height = 300,
+      size = 300,
     }: QRCodeBoxProps,
     ref,
   ): React.ReactElement => {
     const options = useMemo(
       () => ({
-        width: width ? width : 300,
-        height: height ? height : 300,
+        width: size ? size : 300,
+        height: size ? size : 300,
         image: pathToLogo,
         type: extension as DrawType,
         data: qrText,
@@ -90,8 +89,7 @@ export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
         cornersSquareType,
         cornersDotType,
         dotsType,
-        width,
-        height,
+        size,
       ],
     );
 
