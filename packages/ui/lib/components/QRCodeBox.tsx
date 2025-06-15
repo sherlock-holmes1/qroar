@@ -33,11 +33,13 @@ export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
     }: QRCodeBoxProps,
     ref,
   ): React.ReactElement => {
+    const isExtensionUrl = (url?: string) => typeof url === 'string' && url.startsWith('chrome-extension://');
+
     const options = useMemo(
       () => ({
         width: size ? size : 300,
         height: size ? size : 300,
-        image: pathToLogo,
+        image: pathToLogo && !isExtensionUrl(pathToLogo) ? pathToLogo : undefined,
         type: extension as DrawType,
         data: qrText,
         margin: 10,
@@ -96,16 +98,31 @@ export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
     const [qrCode] = useState(() => new QRCodeStyling(options));
     const qrRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-      if (qrRef.current) {
-        qrRef.current.innerHTML = '';
-        qrCode.append(qrRef.current);
+    // Helper to render QR code, with fallback if logo fails
+    const renderQRCode = (opts: typeof options, allowRetry = true) => {
+      try {
+        if (qrRef.current) {
+          qrRef.current.innerHTML = '';
+          qrCode.update(opts);
+          qrCode.append(qrRef.current);
+        }
+      } catch (err) {
+        // If image or pathToLogo is set, retry without them
+        console.log(err);
+        if (allowRetry && opts.image !== undefined) {
+          renderQRCode({ ...opts, image: undefined }, false);
+        } else {
+          if (qrRef.current) {
+            qrRef.current.innerHTML = '<div style="color:red;text-align:center;">QR code error</div>';
+          }
+        }
       }
-    }, [qrCode, qrRef]);
+    };
 
     useEffect(() => {
-      qrCode.update(options);
-    }, [qrCode, options]);
+      renderQRCode(options);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [qrCode, qrRef, options]);
 
     // Expose the download handler via ref
 
