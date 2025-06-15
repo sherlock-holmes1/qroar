@@ -29,13 +29,13 @@ export type QRSettingsStorage = BaseStorage<StoredSettings> & {
 };
 
 const defaultSettings: StoredSettings = {
-  foregroundColor: 'green',
-  backgroundColor: 'white',
-  showGradient: false,
-  gradientColor: 'blue',
-  pathToLogo: undefined,
-  cornersSquareType: 'extra-rounded',
-  cornersDotType: 'dot',
+  foregroundColor: '#0b5394',
+  backgroundColor: '#cfe2f3',
+  showGradient: true,
+  gradientColor: '#cc0000',
+  cornersSquareType: 'dot',
+  cornersDotType: 'square',
+  pathToLogo: 'detect',
 };
 
 const storage = createStorage<StoredSettings>('color-settings-storage-key', defaultSettings, {

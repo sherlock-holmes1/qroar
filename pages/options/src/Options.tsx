@@ -9,12 +9,13 @@ import { LogoSettings } from './LogoSettings';
 
 const defaultQRCodeBoxProps: QRCodeBoxProps = {
   qrText: 'https://qroar.com',
-  foregroundColor: 'green',
-  backgroundColor: 'white',
-  showGradient: false,
-  gradientColor: 'blue',
-  cornersSquareType: 'extra-rounded',
-  pathToLogo: undefined,
+  foregroundColor: '#0b5394',
+  backgroundColor: '#cfe2f3',
+  showGradient: true,
+  gradientColor: '#cc0000',
+  cornersSquareType: 'dot',
+  cornersDotType: 'square',
+  pathToLogo: 'detect',
 };
 
 const Options = () => {
@@ -117,7 +118,7 @@ const Options = () => {
           flexShrink: 0,
           overflow: 'visible',
         }}>
-        <span className="font-bold text-[30px] tracking-wide flex items-center gap-2 justify-center">
+        <span className="font-bold text-[30px] tracking-wide mb-6 flex items-center gap-2 justify-center">
           <img
             src="lion.png"
             alt="QRoar Lion"
@@ -162,7 +163,7 @@ const Options = () => {
       <main
         className="bg-white overflow-y-auto"
         style={{ height: '100vh', width: '300px', flexGrow: 1, flexShrink: 0 }}>
-        <div className="h-full p-[48px_56px] mt-4 w-full" style={{ maxWidth: 800 }}>
+        <div className="h-full p-[48px_56px] mt-10 w-full" style={{ maxWidth: 800 }}>
           {activeSection === 'color-settings-section' && (
             <div id="color-settings-section">
               <ColorSettings
