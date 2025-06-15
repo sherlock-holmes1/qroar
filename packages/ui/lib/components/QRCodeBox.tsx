@@ -13,7 +13,7 @@ import type {
 import type { QRCodeBoxProps } from '@extension/storage';
 
 export interface QRCodeBoxHandle {
-  download: () => void;
+  download: (downloadWidth?: number, downloadHeight?: number) => void;
 }
 export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
   (
@@ -29,13 +29,15 @@ export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
       cornersSquareType = 'extra-rounded',
       cornersDotType = 'dot',
       dotsType = 'dots',
+      width = 300,
+      height = 300,
     }: QRCodeBoxProps,
     ref,
   ): React.ReactElement => {
     const options = useMemo(
       () => ({
-        width: 300,
-        height: 300,
+        width: width ? width : 300,
+        height: height ? height : 300,
         image: pathToLogo,
         type: extension as DrawType,
         data: qrText,
@@ -88,6 +90,8 @@ export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
         cornersSquareType,
         cornersDotType,
         dotsType,
+        width,
+        height,
       ],
     );
 
@@ -107,8 +111,17 @@ export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
 
     // Expose the download handler via ref
 
-    const handleDownload = () => {
-      qrCode.download({ extension });
+    const handleDownload = async (downloadWidth?: number, downloadHeight?: number) => {
+      if (downloadWidth && downloadHeight) {
+        const prevWidth = options.width;
+        const prevHeight = options.height;
+        // Update to new size, download, then revert
+        qrCode.update({ ...options, width: downloadWidth, height: downloadHeight });
+        await qrCode.download({ extension });
+        qrCode.update({ ...options, width: prevWidth, height: prevHeight });
+      } else {
+        await qrCode.download({ extension });
+      }
     };
 
     useImperativeHandle(ref, () => ({

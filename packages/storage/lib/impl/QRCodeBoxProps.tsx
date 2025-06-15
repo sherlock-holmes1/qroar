@@ -10,4 +10,6 @@ export interface QRCodeBoxProps {
   cornersSquareType?: 'dot' | 'square' | 'extra-rounded';
   cornersDotType?: 'dot' | 'square' | 'extra-rounded';
   dotsType?: 'dots' | 'rounded' | 'classy' | 'classy-rounded' | 'square' | 'extra-rounded';
+  width?: number;
+  height?: number;
 }

@@ -24,7 +24,7 @@ const Popup = () => {
   const [favicon, setFavicon] = useState<string | null>(null);
   const settingsText = t('settingsText');
   const extension = 'png';
-  const qrCodeRef = useRef<{ download: () => void }>(null);
+  const qrCodeRef = useRef<{ download: (downloadWidth?: number, downloadHeight?: number) => void }>(null);
 
   const settingsButton = (
     <div className="relative group">
@@ -127,8 +127,8 @@ const Popup = () => {
       </div>
       <div className="flex justify-center gap-3">
         <button
-          className="bg-orange-400 text-white border-none rounded-full px-6 py-2.5 mx-2 font-semibold text-base cursor-pointer min-w-[80px]"
-          onClick={() => qrCodeRef.current?.download()}>
+          className="bg-orange-500 text-white border-none rounded-full px-6 py-2.5 mx-2 font-semibold text-base cursor-pointer min-w-[80px]"
+          onClick={() => qrCodeRef.current?.download(400, 400)}>
           Download QR code
         </button>
       </div>
