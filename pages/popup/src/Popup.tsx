@@ -87,9 +87,13 @@ const Popup = () => {
         if (tabs[0]?.url) {
           setUrl(tabs[0].url);
         }
-        // Try to get favicon from tab
+        // Try to get favicon from tab using background script to avoid CORS
         if (tabs[0]?.favIconUrl) {
-          setFavicon(tabs[0].favIconUrl);
+          chrome.runtime.sendMessage({ action: 'getFavicon', url: tabs[0]?.favIconUrl }, resp => {
+            if (resp?.dataUrl) {
+              setFavicon(resp.dataUrl);
+            }
+          });
         }
       });
     }
