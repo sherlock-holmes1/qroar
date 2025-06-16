@@ -29,7 +29,7 @@ const manifest = {
   },
   version: packageJson.version,
   description: '__MSG_extensionDescription__',
-  permissions: ['storage', 'scripting', 'activeTab'],
+  permissions: ['storage', 'scripting', 'activeTab', 'tabs'],
   options_page: 'options/index.html',
   action: {
     default_popup: 'popup/index.html',
@@ -39,6 +39,13 @@ const manifest = {
   icons: {
     '128': 'icon-128.png',
   },
+  web_accessible_resources: [
+    {
+      resources: ['*.js', '*.css', '*.svg', 'icon-128.png', 'icon-34.png'],
+      matches: ['*://*/*'],
+    },
+  ],
+  optional_host_permissions: ['<all_urls>'],
 } satisfies chrome.runtime.ManifestV3;
 
 export default manifest;

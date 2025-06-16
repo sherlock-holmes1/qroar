@@ -50,8 +50,8 @@ export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
         },
         imageOptions: {
           hideBackgroundDots: true,
-          imageSize: 0.7,
-          margin: 20,
+          imageSize: 0.5,
+          margin: 5,
           crossOrigin: 'anonymous',
         },
         dotsOptions: {

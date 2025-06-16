@@ -15,6 +15,7 @@ const defaultQRCodeBoxProps: QRCodeBoxProps = {
   gradientColor: '#cc0000',
   cornersSquareType: 'dot',
   cornersDotType: 'square',
+  dotsType: 'dots',
   pathToLogo: 'detect',
 };
 
@@ -48,6 +49,8 @@ const Options = () => {
           showGradient: settings.showGradient,
           gradientColor: settings.gradientColor,
           pathToLogo: settings.pathToLogo,
+          dotsType: settings.dotsType,
+          cornersDotType: settings.cornersDotType,
           cornersSquareType: settings.cornersSquareType ?? 'extra-rounded',
         }));
         if (settings.pathToLogo && settings.pathToLogo.startsWith('data:')) {
@@ -82,13 +85,14 @@ const Options = () => {
 
   // Handler for design selection
   const handleDesignSelect = (settings: QRCodeBoxProps) => {
+    console.log('before save');
+    console.log(settings);
     setQrProps({
       ...qrProps,
       backgroundColor: settings.backgroundColor ?? '',
       foregroundColor: settings.foregroundColor ?? '',
       showGradient: settings.showGradient ?? false,
       gradientColor: settings.gradientColor ?? '',
-      pathToLogo: settings.pathToLogo ?? undefined,
       cornersSquareType: settings.cornersSquareType ?? 'extra-rounded',
       cornersDotType: settings.cornersDotType ?? 'dot',
       dotsType: settings.dotsType ?? 'dots',
@@ -98,7 +102,6 @@ const Options = () => {
       foregroundColor: settings.foregroundColor ?? '',
       gradientColor: settings.gradientColor ?? '',
       showGradient: settings.showGradient ?? false,
-      pathToLogo: settings.pathToLogo ?? undefined,
       cornersSquareType: settings.cornersSquareType ?? 'extra-rounded',
       cornersDotType: settings.cornersDotType ?? 'dot',
       dotsType: settings.dotsType ?? 'dots',
