@@ -98,7 +98,7 @@ const Popup = () => {
         }
       });
     }
-  }, []);
+  }, [pathToLogo]);
 
   return (
     <div className="bg-slate-50 p-3">
