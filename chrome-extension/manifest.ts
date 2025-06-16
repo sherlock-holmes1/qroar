@@ -43,12 +43,6 @@ const manifest = {
   icons: {
     '128': 'icon-128.png',
   },
-  content_scripts: [
-    {
-      matches: ['http://*/*', 'https://*/*', '<all_urls>'],
-      css: ['content.css'],
-    },
-  ],
   web_accessible_resources: [
     {
       resources: ['*.js', '*.css', '*.svg', 'icon-128.png', 'icon-34.png', '_favicon/*'],
