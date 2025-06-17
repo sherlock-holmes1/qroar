@@ -1,11 +1,14 @@
 import '@src/Options.css';
-import { withErrorBoundary, withSuspense } from '@extension/shared';
+import { withErrorBoundary, withSuspense, mixpanel } from '@extension/shared';
 import { QRCodeBox, ErrorDisplay, LoadingSpinner, getPathToLogo, FooterButtons } from '@extension/ui';
 import type { QRCodeBoxProps } from '@extension/storage';
 import { qrSettingsStorage } from '@extension/storage';
 import { useState, useEffect } from 'react';
 import { ColorSettings } from './ColorSettings';
 import { LogoSettings } from './LogoSettings';
+
+const IS_DEV = process.env.IS_DEV;
+const env = { env: IS_DEV ? 'dev' : 'prod' };
 
 const defaultQRCodeBoxProps: QRCodeBoxProps = {
   qrText: 'https://qroar.com',
@@ -75,6 +78,7 @@ const Options = () => {
   };
 
   const scrollToSection = (id: string) => {
+    mixpanel.track('options_sidebar_section_click', { section: id, ...env });
     setActiveSection(id);
     window.location.hash = id;
     const el = document.getElementById(id);
@@ -85,8 +89,7 @@ const Options = () => {
 
   // Handler for design selection
   const handleDesignSelect = (settings: QRCodeBoxProps) => {
-    console.log('before save');
-    console.log(settings);
+    mixpanel.track('options_design_select', { settings, ...env });
     setQrProps({
       ...qrProps,
       backgroundColor: settings.backgroundColor ?? '',
@@ -175,18 +178,22 @@ const Options = () => {
                 showGradient={qrProps.showGradient ?? false}
                 gradient={qrProps.gradientColor ?? ''}
                 onForegroundChange={color => {
+                  mixpanel.track('options_foreground_color_change', { color, ...env });
                   setQrProps((prev: QRCodeBoxProps) => ({ ...prev, foregroundColor: color }));
                   qrSettingsStorage.setForegroundColor(color);
                 }}
                 onBackgroundChange={color => {
+                  mixpanel.track('options_background_color_change', { color, ...env });
                   setQrProps((prev: QRCodeBoxProps) => ({ ...prev, backgroundColor: color }));
                   qrSettingsStorage.setBackgroundColor(color);
                 }}
                 onShowGradientChange={show => {
+                  mixpanel.track('options_show_gradient_toggle', { show, ...env });
                   setQrProps((prev: QRCodeBoxProps) => ({ ...prev, showGradient: show }));
                   qrSettingsStorage.setShowGradient(show);
                 }}
                 onGradientChange={color => {
+                  mixpanel.track('options_gradient_color_change', { color, ...env });
                   setQrProps((prev: QRCodeBoxProps) => ({ ...prev, gradientColor: color }));
                   qrSettingsStorage.setGradientColor(color);
                 }}
@@ -200,11 +207,15 @@ const Options = () => {
                 selectedLogo={qrProps.pathToLogo ?? null}
                 uploadedLogo={uploadedLogo}
                 onLogoSelect={newLogo => {
+                  mixpanel.track('options_logo_select', { logo: newLogo, ...env });
                   setQrProps((prev: QRCodeBoxProps) => ({ ...prev, pathToLogo: newLogo }));
                   setUploadedLogo(newLogo && newLogo.startsWith('data:') ? newLogo : null);
                   qrSettingsStorage.setLogo(newLogo);
                 }}
-                onLogoUpload={handleLogoUpload}
+                onLogoUpload={file => {
+                  mixpanel.track('options_logo_upload', env);
+                  handleLogoUpload(file);
+                }}
               />
             </div>
           )}

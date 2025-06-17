@@ -39,6 +39,8 @@
     "module-manager": "pnpm -F module-manager start"
   },
   "dependencies": {
+    "@types/mixpanel-browser": "^2.60.0",
+    "mixpanel-browser": "^2.65.0",
     "qr-code-styling": "^1.9.2",
     "react": "19.0.0",
     "react-dom": "19.0.0"
