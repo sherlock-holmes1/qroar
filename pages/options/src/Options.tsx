@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { ColorSettings } from './ColorSettings';
 import { LogoSettings } from './LogoSettings';
 
-const IS_DEV = process.env['CLI_CEB_DEV'];
+const IS_DEV = process.env['CLI_CEB_DEV'] === 'true';
 const env = { env: IS_DEV ? 'dev' : 'prod' };
 
 const defaultQRCodeBoxProps: QRCodeBoxProps = {

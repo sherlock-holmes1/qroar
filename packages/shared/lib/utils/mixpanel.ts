@@ -8,8 +8,7 @@ if (!MIXPANEL_TOKEN) {
   console.warn('Mixpanel token (CEB_MIXPANEL_TOKEN) is not set. Mixpanel will not be initialized.');
 } else {
   mixpanel.init(MIXPANEL_TOKEN, {
-    // autocapture: true, // tracks pageviews, clicks, forms by default
-    debug: true, // logs to console—remove in production
+    debug: process.env['CLI_CEB_DEV'] === 'true', // logs to console—remove in production
     ignore_dnt: true,
   });
 }

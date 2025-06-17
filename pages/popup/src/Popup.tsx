@@ -5,7 +5,7 @@ import { t } from '@extension/i18n';
 import { useEffect, useState, useRef } from 'react';
 import { QRCodeBox, getPathToLogo } from '@extension/ui';
 
-const IS_DEV = process.env['CLI_CEB_DEV'];
+const IS_DEV = process.env['CLI_CEB_DEV'] === 'true';
 const env = { env: IS_DEV ? 'dev' : 'prod' };
 
 const Popup = () => {
