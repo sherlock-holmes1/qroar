@@ -32,7 +32,6 @@ const Popup = () => {
   const settingsButton = (
     <div className="relative group">
       <button
-        // title={settingsText}
         aria-label={settingsText}
         className="cursor-pointer border-none p-0 bg-transparent hover:text-blue-500 focus:text-blue-500 transition-colors"
         onClick={() => {
