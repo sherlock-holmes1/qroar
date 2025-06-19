@@ -17,18 +17,11 @@ const FooterButtons: React.FC = () => (
     {/* Buttons */}
     <div className="flex gap-2">
       <a
-        href="https://forms.gle/your-feedback-form"
+        href="https://forms.gle/49r2QQyzHWETugm18"
         target="_blank"
         rel="noopener noreferrer"
         className="text-blue-700 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-100">
         Send feedback
-      </a>
-      <a
-        href="https://github.com/your-repo/issues"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-transparent text-blue-700 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-100">
-        Report an issue
       </a>
     </div>
   </div>
