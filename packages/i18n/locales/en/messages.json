@@ -1,11 +1,11 @@
 {
   "extensionDescription": {
     "description": "Extension description",
-    "message": "QRoar - Instant QR Code Generator for Marketers"
+    "message": "QRoar: Instant QR Code Generator for Marketers"
   },
   "extensionName": {
     "description": "Extension name",
-    "message": "QRoar - Instant QR Code Generator"
+    "message": "QRoar: Instant QR Code Generator"
   },
   "toggleTheme": {
     "message": "Toggle theme"

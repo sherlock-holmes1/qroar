@@ -127,12 +127,12 @@ const Popup = () => {
       />
 
       <div className="mb-6">
-        <input
-          type="text"
+        <textarea
           placeholder="Enter URL here..."
           value={url}
           onChange={e => setUrl(e.target.value)}
-          className="w-full px-4 py-3.5 rounded-3xl border border-gray-200 text-lg outline-none"
+          rows={1}
+          className="w-full px-4 py-3.5 rounded-3xl overflow-y-auto border border-gray-200 text-lg outline-none resize-none"
         />
       </div>
       <div className="flex justify-center gap-3">
