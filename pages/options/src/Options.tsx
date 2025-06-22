@@ -115,7 +115,7 @@ const Options = () => {
   useEffect(() => {
     const updateQrPreviewSize = () => {
       const height = window.innerHeight;
-      setQrPreviewSize(height < 1000 ? 150 : 200);
+      setQrPreviewSize(height < 600 ? 150 : height < 1000 ? 200 : 300);
     };
     updateQrPreviewSize();
     window.addEventListener('resize', updateQrPreviewSize);

@@ -19,7 +19,7 @@ const FooterButtons: React.FC<FooterButtonsProps> = ({ showPrivacyPolicy = true 
   };
 
   return (
-    <div className="flex items-center justify-between mt-4 px-3 pb-2">
+    <div className="flex items-center justify-between mt-4 px-3">
       {/* Star icon */}
       <button
         type="button"
