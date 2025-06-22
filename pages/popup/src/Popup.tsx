@@ -126,7 +126,7 @@ const Popup = () => {
         dotsType={dotsType}
       />
 
-      <div className="mb-6">
+      <div className="mb-2">
         <textarea
           placeholder="Enter URL here..."
           value={url}

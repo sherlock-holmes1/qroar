@@ -169,7 +169,7 @@ const Options = () => {
         <div className="mt-auto flex flex-col items-end">
           <div className="text-base mb-4 text-gray-900 font-medium text-right">Preview</div>
           <div
-            className="bg-white p-5 rounded-lg border border-gray-200 flex items-center justify-center mb-5 overflow-hidden"
+            className="bg-white p-5 rounded-lg border border-gray-200 flex items-center justify-center overflow-hidden"
             style={{
               width: qrPreviewSize + 30,
               height: qrPreviewSize + 30,
