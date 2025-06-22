@@ -115,14 +115,15 @@ const Options = () => {
     <div className="flex min-h-screen font-sans bg-white min-w-[710px]">
       {/* Sidebar */}
       <aside
-        className="min-w-[410px] w-1/3 max-w-full bg-gray-50 p-8 pt-4 flex flex-col border-r border-gray-200"
+        className="min-w-[410px] w-1/3 max-w-full bg-gray-50 p-8 pt-4 flex flex-col border-r border-gray-200 min-h-screen"
         style={{
           position: 'sticky',
           top: 0,
           height: '100vh',
           alignSelf: 'flex-start',
           flexShrink: 0,
-          overflow: 'visible',
+          overflowY: 'auto',
+          boxSizing: 'border-box',
         }}>
         <span className="font-bold text-[30px] tracking-wide mb-6 flex items-center gap-2 justify-center">
           <img
@@ -156,9 +157,9 @@ const Options = () => {
 
         <div className="mt-auto flex flex-col items-end">
           <div className="text-base mb-4 text-gray-900 font-medium text-right">Preview</div>
-          <div className="bg-white p-5 rounded-lg border border-gray-200 flex justify-end mb-5" style={{ width: 340 }}>
-            <div>
-              <QRCodeBox {...qrProps} pathToLogo={getPathToLogo(qrProps.pathToLogo, 'logo/question.svg')} />
+          <div className="bg-white p-5 rounded-lg border border-gray-200 flex items-center justify-center mb-5 overflow-hidden w-[240px] h-[240px]">
+            <div className="flex items-center justify-center w-[200px] h-[200px]">
+              <QRCodeBox {...qrProps} pathToLogo={getPathToLogo(qrProps.pathToLogo, 'logo/question.svg')} size={200} />
             </div>
           </div>
         </div>
