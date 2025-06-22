@@ -126,7 +126,7 @@ const Options = () => {
     <div className="flex min-h-screen font-sans bg-white min-w-[710px]">
       {/* Sidebar */}
       <aside
-        className="min-w-[410px] w-1/3 max-w-full bg-gray-50 p-8 pt-4 flex flex-col border-r border-gray-200 min-h-screen"
+        className="min-w-[410px] w-1/3 max-w-full bg-gray-50 p-8 pt-4 pb-4 flex flex-col border-r border-gray-200 min-h-screen"
         style={{
           position: 'sticky',
           top: 0,
