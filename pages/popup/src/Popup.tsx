@@ -131,11 +131,6 @@ const Popup = () => {
           placeholder="Enter URL here..."
           value={url}
           onChange={e => setUrl(e.target.value)}
-          onKeyDown={e => {
-            if (e.key === 'Enter') {
-              e.preventDefault();
-            }
-          }}
           rows={1}
           maxLength={1000}
           className="w-full px-4 py-3.5 rounded-3xl overflow-y-auto border border-gray-200 text-lg outline-none resize-none"
