@@ -92,7 +92,6 @@ const Popup = () => {
         }
         // Try to get favicon from tab using background script to avoid CORS
         if (tabs[0]?.favIconUrl && pathToLogo == 'detect') {
-          console.log(tabs[0]?.favIconUrl);
           chrome.runtime.sendMessage({ action: 'getFavicon', url: tabs[0]?.favIconUrl }, resp => {
             if (resp?.dataUrl) {
               setFavicon(resp.dataUrl);

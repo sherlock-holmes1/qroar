@@ -6,7 +6,6 @@ exampleThemeStorage.get().then(theme => {
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  console.log('Received message:', message); // Add this for debugging
   if (message.action === 'getFavicon' && message.url) {
     fetch(message.url)
       .then(response => response.blob())
