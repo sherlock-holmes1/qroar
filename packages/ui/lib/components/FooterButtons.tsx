@@ -1,6 +1,10 @@
 import type React from 'react';
 
-const FooterButtons: React.FC = () => (
+interface FooterButtonsProps {
+  showPrivacyPolicy?: boolean;
+}
+
+const FooterButtons: React.FC<FooterButtonsProps> = ({ showPrivacyPolicy = true }) => (
   <div className="flex items-center justify-between mt-4 px-3 pb-2">
     {/* Star icon */}
     <div className="flex items-center group cursor-pointer">
@@ -23,6 +27,15 @@ const FooterButtons: React.FC = () => (
         className="text-blue-700 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-100">
         Send feedback
       </a>
+      {showPrivacyPolicy && (
+        <a
+          href="https://qroar.com/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-700 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-100">
+          Privacy Policy
+        </a>
+      )}
     </div>
   </div>
 );
