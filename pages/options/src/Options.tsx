@@ -26,6 +26,7 @@ const Options = () => {
   const [qrProps, setQrProps] = useState<QRCodeBoxProps>(defaultQRCodeBoxProps);
   const [uploadedLogo, setUploadedLogo] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string>('color-settings-section');
+  const [qrPreviewSize, setQrPreviewSize] = useState<number>(200);
 
   // Set initial section from URL hash and listen for hash changes
   useEffect(() => {
@@ -111,6 +112,16 @@ const Options = () => {
     });
   };
 
+  useEffect(() => {
+    const updateQrPreviewSize = () => {
+      const height = window.innerHeight;
+      setQrPreviewSize(height < 1000 ? 150 : 200);
+    };
+    updateQrPreviewSize();
+    window.addEventListener('resize', updateQrPreviewSize);
+    return () => window.removeEventListener('resize', updateQrPreviewSize);
+  }, []);
+
   return (
     <div className="flex min-h-screen font-sans bg-white min-w-[710px]">
       {/* Sidebar */}
@@ -157,9 +168,25 @@ const Options = () => {
 
         <div className="mt-auto flex flex-col items-end">
           <div className="text-base mb-4 text-gray-900 font-medium text-right">Preview</div>
-          <div className="bg-white p-5 rounded-lg border border-gray-200 flex items-center justify-center mb-5 overflow-hidden w-[240px] h-[240px]">
-            <div className="flex items-center justify-center w-[200px] h-[200px]">
-              <QRCodeBox {...qrProps} pathToLogo={getPathToLogo(qrProps.pathToLogo, 'logo/question.svg')} size={200} />
+          <div
+            className="bg-white p-5 rounded-lg border border-gray-200 flex items-center justify-center mb-5 overflow-hidden"
+            style={{
+              width: qrPreviewSize + 30,
+              height: qrPreviewSize + 30,
+              transition: 'width 0.2s, height 0.2s',
+            }}>
+            <div
+              className="flex items-center justify-center"
+              style={{
+                width: qrPreviewSize,
+                height: qrPreviewSize,
+                transition: 'width 0.2s, height 0.2s',
+              }}>
+              <QRCodeBox
+                {...qrProps}
+                pathToLogo={getPathToLogo(qrProps.pathToLogo, 'logo/question.svg')}
+                size={qrPreviewSize}
+              />
             </div>
           </div>
         </div>
