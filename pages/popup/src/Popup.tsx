@@ -147,6 +147,8 @@ const Popup = () => {
         </button>
       </div>
       <FooterButtons />
+      {/* Hidden element to safelist Tailwind hover classes for popup build */}
+      <div className="hidden group-hover:fill-yellow-400 hover:bg-blue-100 text-blue-700 mt-4 rounded-md text-sm font-medium transition-colors duration-200" />
     </div>
   );
 };
