@@ -27,11 +27,11 @@ export const ColorSettings = ({
 }: ColorSettingsProps) => {
   return (
     <>
-      <h1 className="text-4xl font-normal mb-14 text-gray-900 text-left">Color settings</h1>
+      <h1 className="text-4xl font-normal mb-10 text-gray-900 text-left">Color settings</h1>
 
-      <div className="max-w-[500px] mb-28">
+      <div className="max-w-[500px] mb-15">
         {/* Background */}
-        <div className="mb-10">
+        <div className="mb-8">
           <div className="flex items-center gap-[150px]">
             <span className="text-base text-gray-900 font-normal w-[150px] text-left">Background</span>
             <ColorSelector value={background} onChange={onBackgroundChange} />
@@ -39,7 +39,7 @@ export const ColorSettings = ({
         </div>
 
         {/* Foreground */}
-        <div className="mb-10">
+        <div className="mb-8">
           <div className="flex items-center gap-[150px]">
             <span className="text-base text-gray-900 font-normal w-[150px] text-left">Foreground</span>
             <ColorSelector value={foreground} onChange={onForegroundChange} />
@@ -47,7 +47,7 @@ export const ColorSettings = ({
         </div>
 
         {/* Foreground Gradient */}
-        <div className="mb-10">
+        <div className="mb-8">
           <div className="flex items-center gap-[23px] h-[50px]">
             <span className="text-base text-gray-900 font-normal w-[300px] text-left flex items-center">
               Foreground gradient
