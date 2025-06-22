@@ -29,7 +29,7 @@ export const ColorSettings = ({
     <>
       <h1 className="text-4xl font-normal mb-10 text-gray-900 text-left">Color settings</h1>
 
-      <div className="max-w-[500px] mb-15">
+      <div className="max-w-[500px] mb-14">
         {/* Background */}
         <div className="mb-8">
           <div className="flex items-center gap-[150px]">
