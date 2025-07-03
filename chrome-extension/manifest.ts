@@ -29,7 +29,7 @@ const manifest = {
   },
   version: packageJson.version,
   description: '__MSG_extensionDescription__',
-  permissions: ['storage', 'scripting', 'activeTab'],
+  permissions: ['storage', 'activeTab'],
   background: {
     service_worker: 'background.js',
     type: 'module',
@@ -45,7 +45,7 @@ const manifest = {
   },
   web_accessible_resources: [
     {
-      resources: ['*.js', '*.css', '*.svg', 'icon-128.png', 'icon-34.png', '_favicon/*'],
+      resources: ['*.js', '*.css', '*.svg', '*.ico', '*.png', '*.gif'],
       matches: ['*://*/*'],
     },
   ],

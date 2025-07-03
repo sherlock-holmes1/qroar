@@ -6,6 +6,7 @@ exampleThemeStorage.get().then(theme => {
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  console.log('background called', message);
   if (message.action === 'getFavicon' && message.url) {
     fetch(message.url)
       .then(response => response.blob())
@@ -24,4 +25,3 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 console.log('Background loaded');
-console.log("Edit 'chrome-extension/src/background/index.ts' and save to reload.");
