@@ -29,7 +29,7 @@ const manifest = {
   },
   version: packageJson.version,
   description: '__MSG_extensionDescription__',
-  permissions: ['storage', 'activeTab'],
+  permissions: ['storage', 'activeTab', 'favicon'],
   background: {
     service_worker: 'background.js',
     type: 'module',

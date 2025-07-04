@@ -86,17 +86,23 @@ const Popup = () => {
   // Populate URL from the active tab on mount
   useEffect(() => {
     if (typeof chrome !== 'undefined' && chrome.tabs) {
-      chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+      chrome.tabs.query({ active: true, currentWindow: true }, async tabs => {
         if (tabs[0]?.url) {
           setUrl(tabs[0].url);
         }
-        // Try to get favicon from tab using background script to avoid CORS
         if (tabs[0]?.favIconUrl && pathToLogo == 'detect') {
-          chrome.runtime.sendMessage({ action: 'getFavicon', url: tabs[0]?.favIconUrl }, resp => {
-            if (resp?.dataUrl) {
-              setFavicon(resp.dataUrl);
-            }
-          });
+          if (tabs[0]?.url) {
+            const url1 = `chrome-extension://${chrome.runtime.id}/_favicon/?pageUrl=${encodeURIComponent(tabs[0]?.url)}&size=64`;
+            const resp = await fetch(url1);
+            const blob = await resp.blob();
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              setFavicon(reader.result as string);
+              // Now you can use the data URL for download, display, etc.
+              console.log('Got favicon data URL:', reader.result);
+            };
+            reader.readAsDataURL(blob);
+          }
         }
       });
     }
