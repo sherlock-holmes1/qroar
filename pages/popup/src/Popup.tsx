@@ -92,7 +92,7 @@ const Popup = () => {
         }
         if (tabs[0]?.favIconUrl && pathToLogo == 'detect') {
           if (tabs[0]?.url) {
-            const url1 = `chrome-extension://${chrome.runtime.id}/_favicon/?pageUrl=${encodeURIComponent(tabs[0]?.url)}&size=64`;
+            const url1 = `chrome-extension://${chrome.runtime.id}/_favicon/?pageUrl=${encodeURIComponent(tabs[0]?.url)}&size=48`;
             const resp = await fetch(url1);
             const blob = await resp.blob();
             const reader = new FileReader();
