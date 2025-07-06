@@ -6,6 +6,7 @@ name: Make sure new PRs are sent to development
 
 jobs:
   check-branch:
+    if: false
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
