@@ -26,7 +26,7 @@ export const withPageConfig = (config: UserConfig) =>
         plugins: [react(), IS_DEV && watchRebuildPlugin({ refresh: true })],
         build: {
           sourcemap: IS_DEV,
-          minify: IS_PROD,
+          minify: false,
           reportCompressedSize: IS_PROD,
           emptyOutDir: IS_PROD,
           watch: watchOption,
