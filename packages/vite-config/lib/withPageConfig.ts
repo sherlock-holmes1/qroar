@@ -27,6 +27,7 @@ export const withPageConfig = (config: UserConfig) =>
         build: {
           sourcemap: IS_DEV,
           minify: false,
+          assetsInlineLimit: 0,
           reportCompressedSize: IS_PROD,
           emptyOutDir: IS_PROD,
           watch: watchOption,

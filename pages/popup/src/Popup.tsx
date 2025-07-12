@@ -1,12 +1,12 @@
 import '@src/Popup.css';
-import { useStorage, withErrorBoundary, withSuspense, mixpanel } from '@extension/shared';
+import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared';
 import { qrSettingsStorage } from '@extension/storage';
 import { t } from '@extension/i18n';
 import { useEffect, useState, useRef } from 'react';
-import { QRCodeBox, getPathToLogo, FooterButtons } from '@extension/ui';
+import { QRCodeBox, getPathToLogo } from '@extension/ui';
 
-const IS_DEV = process.env['CLI_CEB_DEV'] === 'true';
-const env = { env: IS_DEV ? 'dev' : 'prod' };
+// const IS_DEV = process.env['CLI_CEB_DEV'] === 'true';
+// const env = { env: IS_DEV ? 'dev' : 'prod' };
 
 const Popup = () => {
   // Get color settings from storage
@@ -35,7 +35,7 @@ const Popup = () => {
         aria-label={settingsText}
         className="cursor-pointer border-none p-0 bg-transparent hover:text-blue-500 focus:text-blue-500 transition-colors"
         onClick={() => {
-          mixpanel.track('popup_settings_click', env);
+          // mixpanel.track('popup_settings_click', env);
           chrome.runtime.openOptionsPage();
         }}
         tabIndex={0}
@@ -150,13 +150,13 @@ const Popup = () => {
         <button
           className="bg-orange-500 text-white border-none rounded-full px-6 py-2.5 mx-2 font-semibold text-base cursor-pointer min-w-[80px]"
           onClick={() => {
-            mixpanel.track('popup_download_qr_click', { url, ...env });
+            // mixpanel.track('popup_download_qr_click', { url, ...env });
             qrCodeRef.current?.download();
           }}>
           Download QR code
         </button>
       </div>
-      <FooterButtons showPrivacyPolicy={false} />
+      {/* <FooterButtons showPrivacyPolicy={false} /> */}
       {/* Hidden element to safelist Tailwind hover classes for popup build */}
       <div className="hidden group-hover:fill-yellow-400 hover:bg-blue-100 text-blue-700 mt-4 rounded-md text-sm font-medium transition-colors duration-200" />
     </div>

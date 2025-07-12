@@ -1,5 +1,5 @@
 import type React from 'react';
-import mixpanel from 'mixpanel-browser';
+// import mixpanel from 'mixpanel-browser';
 
 interface FooterButtonsProps {
   showPrivacyPolicy?: boolean;
@@ -7,15 +7,15 @@ interface FooterButtonsProps {
 
 const FooterButtons: React.FC<FooterButtonsProps> = ({ showPrivacyPolicy = true }) => {
   const handleStarClick = () => {
-    mixpanel.track('star_clicked');
+    // mixpanel.track('star_clicked');
   };
 
   const handleFeedbackClick = () => {
-    mixpanel.track('feedback_link_clicked');
+    // mixpanel.track('feedback_link_clicked');
   };
 
   const handlePrivacyClick = () => {
-    mixpanel.track('privacy_policy_clicked');
+    // mixpanel.track('privacy_policy_clicked');
   };
 
   return (
