@@ -5,11 +5,7 @@ import { t } from '@extension/i18n';
 import { useEffect, useState, useRef } from 'react';
 import { QRCodeBox, getPathToLogo, FooterButtons } from '@extension/ui';
 
-// const IS_DEV = process.env['CLI_CEB_DEV'] === 'true';
-// const env = { env: IS_DEV ? 'dev' : 'prod' };
-
 const Popup = () => {
-  Analytics.firePageViewEvent(document.title, document.location.href);
   // Get color settings from storage
   const colorSettings = useStorage(qrSettingsStorage);
   const {
@@ -29,6 +25,7 @@ const Popup = () => {
   const settingsText = t('settingsText');
   const extension = 'png';
   const qrCodeRef = useRef<{ download: (downloadWidth?: number, downloadHeight?: number) => void }>(null);
+  Analytics.firePageViewEvent(document.title, url);
 
   const settingsButton = (
     <div className="relative group">
