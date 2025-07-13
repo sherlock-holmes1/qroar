@@ -3,8 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <title>QRoar Extension</title>
+    <script>
+      window.heapReadyCb = window.heapReadyCb || [];
+      window.heap = window.heap || [];
+      heap.load = function(appId, config) {
+        window.heap.envId = appId;
+        window.heap.clientConfig = config = config || {};
+        config.shouldFetchServerConfig = false;
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.async = true;
+        script.src = `https://cdn.us.heap-api.com/config/${appId}/heap_config.js`;
+        document.getElementsByTagName("script")[0].parentNode.insertBefore(script, document.getElementsByTagName("script")[0]);
+        const methods = [
+          "track","identify","resetIdentity","addUserProperties","addEventProperties",
+          "removeEventProperty","clearEventProperties","getSessionId","getIdentity","onReady"
+        ];
+        methods.forEach(name => {
+          heap[name] = function() {
+            const args = Array.prototype.slice.call(arguments, 0);
+            window.heapReadyCb.push({ name, fn: () => heap[name].apply(heap, args) });
+          };
+        });
+      };
+      heap.load("2562405540");
+    </script>
   </head>
-
+  
   <body>
     <div id="app-container"></div>
     <script type="module" src="./src/index.tsx"></script>
