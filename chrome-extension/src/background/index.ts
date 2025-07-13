@@ -1,8 +1,12 @@
 import 'webextension-polyfill';
-import { exampleThemeStorage } from '@extension/storage';
+import { Analytics } from '@extension/shared';
 
-exampleThemeStorage.get().then(theme => {
-  console.log('theme', theme);
+addEventListener('unhandledrejection', async event => {
+  Analytics.fireErrorEvent(event.reason);
+});
+
+chrome.runtime.onInstalled.addListener(() => {
+  Analytics.fireEvent('install');
 });
 
 console.log('Background loaded');
