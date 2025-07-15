@@ -393,8 +393,8 @@ importers:
         specifier: ^9.4.5
         version: 9.4.5
       '@wdio/globals':
-        specifier: ^9.4.5
-        version: 9.4.5(@wdio/logger@9.1.0)
+        specifier: ^9.17.0
+        version: 9.17.0(expect-webdriverio@5.0.2)(webdriverio@9.1.2)
       '@wdio/local-runner':
         specifier: ^9.1.2
         version: 9.1.2
@@ -1745,6 +1745,13 @@ packages:
   '@wdio/globals@9.1.2':
     resolution: {integrity: sha512-1qqTZgae3WXOboUO7lqzz7Y75q6n7uKq1W9jn2wrvWByOQ9rVUM9PCKQGhmjVoQRcqXBOMAazqNrRK6Xy1cqAg==}
     engines: {node: '>=18.20.0'}
+
+  '@wdio/globals@9.17.0':
+    resolution: {integrity: sha512-i38o7wlipLllNrk2hzdDfAmk6nrqm3lR2MtAgWgtHbwznZAKkB84KpkNFfmUXw5Kg3iP1zKlSjwZpKqenuLc+Q==}
+    engines: {node: '>=18.20.0'}
+    peerDependencies:
+      expect-webdriverio: ^5.3.4
+      webdriverio: ^9.0.0
 
   '@wdio/globals@9.4.5':
     resolution: {integrity: sha512-zdN/2EGOr2HER59CNAtSfmr/M7BMAH5gQJix4iPkDN5buf8PQZHE16GnfKtqKTIBeNgpkBkUyjyCKoIKSUngjw==}
@@ -6474,20 +6481,14 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@wdio/globals@9.4.5(@wdio/logger@9.1.0)':
-    optionalDependencies:
-      expect-webdriverio: 5.0.2(@wdio/globals@9.4.5(@wdio/logger@9.1.0))(@wdio/logger@9.1.0)(webdriverio@9.4.5)
-      webdriverio: 9.4.5
-    transitivePeerDependencies:
-      - '@wdio/logger'
-      - bufferutil
-      - puppeteer-core
-      - supports-color
-      - utf-8-validate
+  '@wdio/globals@9.17.0(expect-webdriverio@5.0.2)(webdriverio@9.1.2)':
+    dependencies:
+      expect-webdriverio: 5.0.2(@wdio/globals@9.17.0)(@wdio/logger@9.1.0)(webdriverio@9.1.2)
+      webdriverio: 9.1.2
 
   '@wdio/globals@9.4.5(@wdio/logger@9.4.4)':
     optionalDependencies:
-      expect-webdriverio: 5.0.2(@wdio/globals@9.4.5(@wdio/logger@9.1.0))(@wdio/logger@9.4.4)(webdriverio@9.4.5)
+      expect-webdriverio: 5.0.2(@wdio/globals@9.4.5(@wdio/logger@9.4.4))(@wdio/logger@9.4.4)(webdriverio@9.4.5)
       webdriverio: 9.4.5
     transitivePeerDependencies:
       - '@wdio/logger'
@@ -8178,21 +8179,20 @@ snapshots:
       lodash.isequal: 4.5.0
       webdriverio: 9.1.2
 
-  expect-webdriverio@5.0.2(@wdio/globals@9.4.5(@wdio/logger@9.1.0))(@wdio/logger@9.1.0)(webdriverio@9.4.5):
+  expect-webdriverio@5.0.2(@wdio/globals@9.17.0)(@wdio/logger@9.1.0)(webdriverio@9.1.2):
     dependencies:
       '@vitest/snapshot': 2.0.5
-      '@wdio/globals': 9.4.5(@wdio/logger@9.1.0)
+      '@wdio/globals': 9.17.0(expect-webdriverio@5.0.2)(webdriverio@9.1.2)
       '@wdio/logger': 9.1.0
       expect: 29.7.0
       jest-matcher-utils: 29.7.0
       lodash.isequal: 4.5.0
-      webdriverio: 9.4.5
-    optional: true
+      webdriverio: 9.1.2
 
-  expect-webdriverio@5.0.2(@wdio/globals@9.4.5(@wdio/logger@9.1.0))(@wdio/logger@9.4.4)(webdriverio@9.4.5):
+  expect-webdriverio@5.0.2(@wdio/globals@9.4.5(@wdio/logger@9.4.4))(@wdio/logger@9.4.4)(webdriverio@9.4.5):
     dependencies:
       '@vitest/snapshot': 2.0.5
-      '@wdio/globals': 9.4.5(@wdio/logger@9.1.0)
+      '@wdio/globals': 9.4.5(@wdio/logger@9.4.4)
       '@wdio/logger': 9.4.4
       expect: 29.7.0
       jest-matcher-utils: 29.7.0
