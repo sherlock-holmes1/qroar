@@ -39,7 +39,7 @@
     "module-manager": "pnpm -F module-manager start"
   },
   "dependencies": {
-    "@sentry/browser": "^9.30.0",
+    "@sentry/browser": "^9.38.0",
     "qr-code-styling": "^1.9.2",
     "react": "19.0.0",
     "react-dom": "19.0.0"
