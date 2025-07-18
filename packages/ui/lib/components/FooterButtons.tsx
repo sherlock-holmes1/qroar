@@ -1,5 +1,5 @@
 import type React from 'react';
-// import mixpanel from 'mixpanel-browser';
+import { Analytics } from '@extension/shared';
 
 interface FooterButtonsProps {
   showPrivacyPolicy?: boolean;
@@ -7,15 +7,20 @@ interface FooterButtonsProps {
 
 const FooterButtons: React.FC<FooterButtonsProps> = ({ showPrivacyPolicy = true }) => {
   const handleStarClick = () => {
-    // mixpanel.track('star_clicked');
+    Analytics.fireEvent('star_clicked');
+    window.open(
+      'https://chromewebstore.google.com/detail/qroar-instant-qr-code-gen/fpbaeocaakeinpeogilmeemhdfgnnbeg/reviews?hl=en-US',
+      '_blank',
+      'noopener,noreferrer',
+    );
   };
 
   const handleFeedbackClick = () => {
-    // mixpanel.track('feedback_link_clicked');
+    Analytics.fireEvent('feedback_link_clicked');
   };
 
   const handlePrivacyClick = () => {
-    // mixpanel.track('privacy_policy_clicked');
+    Analytics.fireEvent('privacy_policy_link_clicked');
   };
 
   return (
@@ -48,7 +53,7 @@ const FooterButtons: React.FC<FooterButtonsProps> = ({ showPrivacyPolicy = true 
         </a>
         {showPrivacyPolicy && (
           <a
-            href="https://qroar.com/privacy"
+            href="https://qroar.netlify.app/privacy-policy"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-700 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-100"

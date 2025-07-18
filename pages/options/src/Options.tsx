@@ -7,9 +7,6 @@ import { useState, useEffect } from 'react';
 import { ColorSettings } from './ColorSettings';
 import { LogoSettings } from './LogoSettings';
 
-// const IS_DEV = process.env['CLI_CEB_DEV'] === 'true';
-// const env = { env: IS_DEV ? 'dev' : 'prod' };
-
 const defaultQRCodeBoxProps: QRCodeBoxProps = {
   qrText: 'https://qroar.com',
   foregroundColor: '#0b5394',
@@ -23,7 +20,7 @@ const defaultQRCodeBoxProps: QRCodeBoxProps = {
 };
 
 const Options = () => {
-  Analytics.firePageViewEvent(document.title, document.location.href);
+  Analytics.firePageViewEvent('Options', 'Options');
 
   const [qrProps, setQrProps] = useState<QRCodeBoxProps>(defaultQRCodeBoxProps);
   const [uploadedLogo, setUploadedLogo] = useState<string | null>(null);
