@@ -16,13 +16,13 @@ The core user-facing parts of the extension are the popup and the options page.
 ### Popup
 
 - **Location**: The source code for the popup is located in `pages/popup`.
-- **Implementation**: It is a self-contained React application, built with Vite. The entry point is `pages/popup/index.html`, and the main React component is in `pages/popup/src/main.tsx`.
+- **Implementation**: It is a self-contained React application, built with Vite. The entry point is `pages/popup/index.html`, and the main React component is in `pages/popup/src/Popup.tsx`.
 - **Styling**: It uses Tailwind CSS, with the configuration in `pages/popup/tailwind.config.ts`.
 
 ### Options Page
 
 - **Location**: The source code for the options page is located in `pages/options`.
-- **Implementation**: Similar to the popup, it is a self-contained React application built with Vite. The entry point is `pages/options/index.html`, and the main React component is in `pages/options/src/main.tsx`.
+- **Implementation**: Similar to the popup, it is a self-contained React application built with Vite. The entry point is `pages/options/index.html`, and the main React component is in `pages/options/src/Options.tsx`.
 - **Styling**: It also uses Tailwind CSS, with its configuration in `pages/options/tailwind.config.ts`.
 
 ## Shared Code
