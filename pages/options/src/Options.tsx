@@ -4,6 +4,7 @@ import { QRCodeBox, ErrorDisplay, LoadingSpinner, getPathToLogo, FooterButtons }
 import type { QRCodeBoxProps } from '@extension/storage';
 import { qrSettingsStorage } from '@extension/storage';
 import { useState, useEffect } from 'react';
+import { useTranslate } from '@extension/i18n';
 import { ColorSettings } from './ColorSettings';
 import { LogoSettings } from './LogoSettings';
 
@@ -26,6 +27,7 @@ const Options = () => {
   const [uploadedLogo, setUploadedLogo] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string>('color-settings-section');
   const [qrPreviewSize, setQrPreviewSize] = useState<number>(200);
+  const t = useTranslate();
 
   // Set initial section from URL hash and listen for hash changes
   useEffect(() => {
@@ -68,6 +70,20 @@ const Options = () => {
 
   const handleLogoUpload = (file: File) => {
     const reader = new FileReader();
+    const maxFileSize = 2 * 1024 * 1024; // 1MB
+    const allowedExtensions = ['png', 'jpg', 'jpeg', 'svg', 'webp'];
+    const fileExtension = file.name.split('.').pop()?.toLowerCase();
+
+    if (file.size > maxFileSize) {
+      alert(t('fileSizeError'));
+      return;
+    }
+
+    if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
+      alert(t('fileExtensionError'));
+      return;
+    }
+
     reader.onload = async ev => {
       const dataUrl = ev.target?.result as string;
       setUploadedLogo(dataUrl);

@@ -30,5 +30,11 @@
   },
   "displayErrorReset": {
     "message": "Run Again"
+  },
+  "fileSizeError": {
+    "message": "File size should not exceed 1MB."
+  },
+  "fileExtensionError": {
+    "message": "Invalid file type. Please upload a PNG, JPG, JPEG, SVG or WEBP file."
   }
 }
