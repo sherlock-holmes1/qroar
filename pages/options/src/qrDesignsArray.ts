@@ -10,7 +10,7 @@ export const qrDesigns: {
 }[] = [
   {
     bg: 'bg-white', // classic
-    border: 'border-4 border-blue-900',
+    border: '',
     src: 'designs/classic.svg',
     settings: {
       qrText: 'https://qroar.com',
