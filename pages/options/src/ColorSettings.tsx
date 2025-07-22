@@ -63,9 +63,9 @@ export const ColorSettings = ({
         </div>
       </div>
       <h1 className="text-4xl font-normal mb-10 text-gray-900 text-left">Color presets</h1>
-      <div className="flex flex-col items-center mt-10">
+      <div className="flex flex-col items-start mt-10">
         <div
-          className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 max-w-5xl px-4"
+          className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 max-w-5xl self-start"
           style={{ scrollbarWidth: 'auto', maxWidth: '100%' }}>
           {qrDesigns.map((design, idx) => (
             <button
