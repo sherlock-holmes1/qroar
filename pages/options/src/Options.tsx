@@ -4,7 +4,7 @@ import { QRCodeBox, ErrorDisplay, LoadingSpinner, getPathToLogo, FooterButtons }
 import type { QRCodeBoxProps } from '@extension/storage';
 import { qrSettingsStorage } from '@extension/storage';
 import { useState, useEffect } from 'react';
-import { useTranslate } from '@extension/i18n';
+import { t } from '@extension/i18n';
 import { ColorSettings } from './ColorSettings';
 import { LogoSettings } from './LogoSettings';
 
@@ -27,7 +27,6 @@ const Options = () => {
   const [uploadedLogo, setUploadedLogo] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string>('color-settings-section');
   const [qrPreviewSize, setQrPreviewSize] = useState<number>(200);
-  const t = useTranslate();
 
   // Set initial section from URL hash and listen for hash changes
   useEffect(() => {
