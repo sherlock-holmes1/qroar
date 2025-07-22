@@ -56,6 +56,7 @@ const Options = () => {
           dotsType: settings.dotsType,
           cornersDotType: settings.cornersDotType,
           cornersSquareType: settings.cornersSquareType ?? 'extra-rounded',
+          selectedDesign: settings.selectedDesign ?? 'blue',
         }));
         if (settings.pathToLogo && settings.pathToLogo.startsWith('data:')) {
           setUploadedLogo(settings.pathToLogo);
@@ -103,7 +104,7 @@ const Options = () => {
   };
 
   // Handler for design selection
-  const handleDesignSelect = (settings: QRCodeBoxProps) => {
+  const handleDesignSelect = (settings: QRCodeBoxProps, designId: string) => {
     Analytics.fireEvent('options_design_select', { settings });
     setQrProps({
       ...qrProps,
@@ -114,6 +115,7 @@ const Options = () => {
       cornersSquareType: settings.cornersSquareType ?? 'extra-rounded',
       cornersDotType: settings.cornersDotType ?? 'dot',
       dotsType: settings.dotsType ?? 'dots',
+      selectedDesign: designId,
     });
     qrSettingsStorage.setAll({
       backgroundColor: settings.backgroundColor ?? '',
@@ -124,6 +126,7 @@ const Options = () => {
       cornersDotType: settings.cornersDotType ?? 'dot',
       dotsType: settings.dotsType ?? 'dots',
     });
+    qrSettingsStorage.setSelectedDesign(designId);
   };
 
   useEffect(() => {
@@ -240,6 +243,7 @@ const Options = () => {
                   qrSettingsStorage.setGradientColor(color);
                 }}
                 onDesignSelect={handleDesignSelect}
+                selectedDesign={qrProps.selectedDesign}
               />
             </div>
           )}

@@ -14,6 +14,7 @@ export type StoredSettings = Pick<
   | 'cornersDotType'
   | 'dotsType'
   | 'size'
+  | 'selectedDesign'
 >;
 
 // Storage interface with strongly typed methods
@@ -24,6 +25,7 @@ export type QRSettingsStorage = BaseStorage<StoredSettings> & {
   setGradientColor: (color: string) => Promise<void>;
   setLogo: (logo: string | undefined) => Promise<void>;
   setCornersSquareType: (type: QRCodeBoxProps['cornersSquareType']) => Promise<void>;
+  setSelectedDesign: (designId: string) => Promise<void>;
   setAll: (settings: Partial<StoredSettings>) => Promise<void>;
   reset: () => Promise<void>;
 };
@@ -36,6 +38,7 @@ const defaultSettings: StoredSettings = {
   cornersSquareType: 'dot',
   cornersDotType: 'square',
   pathToLogo: 'detect',
+  selectedDesign: 'blue',
 };
 
 const storage = createStorage<StoredSettings>('color-settings-storage-key', defaultSettings, {
@@ -62,6 +65,9 @@ export const qrSettingsStorage: QRSettingsStorage = {
   },
   setCornersSquareType: async type => {
     await storage.set(settings => ({ ...settings, cornersSquareType: type }));
+  },
+  setSelectedDesign: async designId => {
+    await storage.set(settings => ({ ...settings, selectedDesign: designId }));
   },
   setAll: async settings => {
     await storage.set(current => ({ ...current, ...settings }));

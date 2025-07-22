@@ -2,6 +2,7 @@ import type React from 'react';
 import type { QRCodeBoxProps } from '@extension/storage';
 
 export const qrDesigns: {
+  id: string;
   bg: string;
   border: string;
   svg?: React.ReactNode;
@@ -9,6 +10,7 @@ export const qrDesigns: {
   settings: QRCodeBoxProps;
 }[] = [
   {
+    id: 'classic',
     bg: 'bg-white', // classic
     border: '',
     src: 'designs/classic.svg',
@@ -24,6 +26,7 @@ export const qrDesigns: {
     },
   },
   {
+    id: 'blue',
     bg: 'bg-[#cfe2f3]', // blue
     border: '',
     src: 'designs/blue.svg',
@@ -39,6 +42,7 @@ export const qrDesigns: {
     },
   },
   {
+    id: 'orange',
     bg: 'bg-[#fce5cd]',
     border: '',
     src: 'designs/orange.svg',
@@ -53,6 +57,7 @@ export const qrDesigns: {
     },
   },
   {
+    id: 'purple',
     bg: 'bg-[#9900ff]',
     border: '',
     src: 'designs/purple.svg',
@@ -67,6 +72,7 @@ export const qrDesigns: {
     },
   },
   {
+    id: 'yellow',
     bg: 'bg-yellow-100',
     border: '',
     src: 'designs/yellow.svg',
@@ -81,6 +87,7 @@ export const qrDesigns: {
     },
   },
   {
+    id: 'green',
     bg: 'bg-green-200',
     border: '',
     src: 'designs/green.svg',
@@ -97,6 +104,7 @@ export const qrDesigns: {
     },
   },
   {
+    id: 'red',
     bg: 'bg-[#ead1dc]',
     border: '',
     src: 'designs/red.svg',
@@ -110,6 +118,7 @@ export const qrDesigns: {
     },
   },
   {
+    id: 'brown',
     bg: 'bg-[#e6b8af]',
     border: '',
     src: 'designs/brown.svg',

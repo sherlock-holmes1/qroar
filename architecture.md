@@ -55,6 +55,14 @@ The `packages/` directory contains shared modules used by different parts of the
     1. Add the new key-value pairs to the JSON files in `packages/i18n/locales`.
     2. The `useTranslate` hook from `@extension/i18n` can be used in React components to get the translated strings.
 
+### Shared Types and Interfaces
+
+When defining shared data structures or interfaces that are used across multiple packages, it's crucial to maintain consistency and ensure all relevant properties are defined in the primary interface.
+
+-   **Location**: Core interfaces, such as `QRCodeBoxProps`, are defined in files like `packages/storage/lib/impl/QRCodeBoxProps.tsx`.
+-   **Usage in Storage**: Other types, like `StoredSettings` in `packages/storage/lib/impl/qrSettingsStorage.ts`, often derive their properties by picking from these core interfaces (e.g., `Pick<QRCodeBoxProps, ...>`).
+-   **Important Note**: If a new property is introduced that needs to be stored or used in a derived type (like `StoredSettings`), it *must* first be added to the primary interface (e.g., `QRCodeBoxProps`). Failing to do so will result in TypeScript errors (e.g., "Type '...' is not assignable to type 'keyof QRCodeBoxProps'") during the build process, as the derived type will attempt to pick a property that doesn't exist in its source. Always ensure the primary interface is updated before extending its usage in other types.
+
 ## Extension Core
 
 The core logic of the browser extension resides in the `chrome-extension` package.
