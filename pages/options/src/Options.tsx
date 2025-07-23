@@ -70,7 +70,7 @@ const Options = () => {
   const handleLogoUpload = (file: File) => {
     const reader = new FileReader();
     const maxFileSize = 2 * 1024 * 1024; // 1MB
-    const allowedExtensions = ['png', 'jpg', 'jpeg', 'svg', 'webp'];
+    const allowedExtensions = ['png', 'jpg', 'jpeg'];
     const fileExtension = file.name.split('.').pop()?.toLowerCase();
 
     if (file.size > maxFileSize) {
@@ -255,7 +255,7 @@ const Options = () => {
                   qrSettingsStorage.setLogo(newLogo);
                 }}
                 onLogoUpload={file => {
-                  Analytics.fireEvent('options_logo_upload', { file });
+                  Analytics.fireEvent('options_logo_upload', { name: file.name });
                   handleLogoUpload(file);
                 }}
               />
