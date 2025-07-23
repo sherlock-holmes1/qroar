@@ -63,6 +63,36 @@ When defining shared data structures or interfaces that are used across multiple
 -   **Usage in Storage**: Other types, like `StoredSettings` in `packages/storage/lib/impl/qrSettingsStorage.ts`, often derive their properties by picking from these core interfaces (e.g., `Pick<QRCodeBoxProps, ...>`).
 -   **Important Note**: If a new property is introduced that needs to be stored or used in a derived type (like `StoredSettings`), it *must* first be added to the primary interface (e.g., `QRCodeBoxProps`). Failing to do so will result in TypeScript errors (e.g., "Type '...' is not assignable to type 'keyof QRCodeBoxProps'") during the build process, as the derived type will attempt to pick a property that doesn't exist in its source. Always ensure the primary interface is updated before extending its usage in other types.
 
+## State Management in the Options Page
+
+The Options page (`pages/options`) allows users to customize their QR codes. This state needs to persist across browser sessions, which introduces some complexity, especially when handling user modifications to predefined presets.
+
+### Storage Layer
+
+-   **Implementation**: All QR code settings are persisted using a dedicated storage module located at `packages/storage/lib/impl/qrSettingsStorage.ts`.
+-   **API**: This module provides methods like `get`, `set`, and `setAll` to interact with the browser's storage.
+
+### Presets vs. Custom Settings
+
+The Options page features design presets (e.g., "Blue," "Red") that a user can select. A key challenge is managing the state when a user selects a preset and then modifies one of its properties (e.g., changes a color).
+
+To solve this, we use a special property in our stored settings: `selectedDesign`.
+
+1.  **Selecting a Preset**: When a user clicks a preset (e.g., "Blue"), all the settings from that preset are applied, and the `selectedDesign` property is set to the ID of that preset (e.g., `'blue'`). This is done in a single, atomic operation using `qrSettingsStorage.setAll()`.
+
+2.  **Modifying a Preset**: If the user then changes a color or another setting, we need to break the link to the original preset. To do this, the `selectedDesign` property is immediately changed to a special value: `'custom'`.
+
+3.  **The "Custom" State**: This `'custom'` value tells the application that the current settings are no longer a direct representation of a saved preset but are a unique, user-defined configuration. The UI reflects this by showing a "Custom" preset as selected.
+
+### Atomic Updates
+
+It is critical that any change to a setting that results in a `'custom'` state is saved atomically. This means that both the new setting value (e.g., the new foreground color) and the new state (`selectedDesign: 'custom'`) must be saved in the same storage operation.
+
+-   **Incorrect**: `qrSettingsStorage.setForegroundColor(color)` followed by a separate `qrSettingsStorage.setSelectedDesign('custom')`. This can create a race condition where one update might fail or be overwritten.
+-   **Correct**: `qrSettingsStorage.setAll({ foregroundColor: color, selectedDesign: 'custom' })`. This ensures that both properties are updated together, preventing data inconsistency.
+
+This approach ensures that user modifications are reliably saved and restored, even after refreshing the page.
+
 ## Extension Core
 
 The core logic of the browser extension resides in the `chrome-extension` package.

@@ -82,6 +82,15 @@ export const ColorSettings = ({
               {design.svg ? design.svg : <img src={design.src} alt="" />}
             </button>
           ))}
+          {selectedDesign === 'custom' && (
+            <button
+              className="mt-2 mb-2 rounded-2xl shadow-md p-1 flex items-center justify-center ring-2 ring-blue-500 bg-gray-100 border-gray-300"
+              aria-label="Custom QR design"
+              type="button"
+              style={{ width: 96, height: 96 }}>
+              <span className="text-gray-600 font-semibold">Custom</span>
+            </button>
+          )}
         </div>
       </div>
     </>
