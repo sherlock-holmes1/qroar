@@ -71,7 +71,7 @@ const Options = () => {
   const handleLogoUpload = (file: File) => {
     const reader = new FileReader();
     const maxFileSize = 2 * 1024 * 1024; // 1MB
-    const allowedExtensions = ['png', 'jpg', 'jpeg', 'svg', 'webp'];
+    const allowedExtensions = ['png', 'jpg', 'jpeg'];
     const fileExtension = file.name.split('.').pop()?.toLowerCase();
 
     if (file.size > maxFileSize) {
@@ -105,7 +105,7 @@ const Options = () => {
 
   // Handler for design selection
   const handleDesignSelect = (settings: QRCodeBoxProps, designId: string) => {
-    Analytics.fireEvent('options_design_select', { settings });
+    Analytics.fireEvent('options_design_select');
     setQrProps({
       ...qrProps,
       backgroundColor: settings.backgroundColor ?? '',
@@ -223,22 +223,22 @@ const Options = () => {
                 showGradient={qrProps.showGradient ?? false}
                 gradient={qrProps.gradientColor ?? ''}
                 onForegroundChange={color => {
-                  Analytics.fireEvent('options_foreground_color_change', { color });
+                  Analytics.fireEvent('options_foreground_color_change', { color: color });
                   setQrProps((prev: QRCodeBoxProps) => ({ ...prev, foregroundColor: color }));
                   qrSettingsStorage.setForegroundColor(color);
                 }}
                 onBackgroundChange={color => {
-                  Analytics.fireEvent('options_background_color_change', { color });
+                  Analytics.fireEvent('options_background_color_change', { color: color });
                   setQrProps((prev: QRCodeBoxProps) => ({ ...prev, backgroundColor: color }));
                   qrSettingsStorage.setBackgroundColor(color);
                 }}
                 onShowGradientChange={show => {
-                  Analytics.fireEvent('options_show_gradient_toggle', { show });
+                  Analytics.fireEvent('options_show_gradient_toggle', { show: show });
                   setQrProps((prev: QRCodeBoxProps) => ({ ...prev, showGradient: show }));
                   qrSettingsStorage.setShowGradient(show);
                 }}
                 onGradientChange={color => {
-                  Analytics.fireEvent('options_gradient_color_change', { color });
+                  Analytics.fireEvent('options_gradient_color_change', { color: color });
                   setQrProps((prev: QRCodeBoxProps) => ({ ...prev, gradientColor: color }));
                   qrSettingsStorage.setGradientColor(color);
                 }}
@@ -259,7 +259,7 @@ const Options = () => {
                   qrSettingsStorage.setLogo(newLogo);
                 }}
                 onLogoUpload={file => {
-                  Analytics.fireEvent('options_logo_upload', { file });
+                  Analytics.fireEvent('options_logo_upload', { name: file.name });
                   handleLogoUpload(file);
                 }}
               />

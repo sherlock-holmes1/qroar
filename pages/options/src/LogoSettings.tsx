@@ -113,15 +113,10 @@ export const LogoSettings: React.FC<LogoSettingsProps> = ({
         ) : (
           <>
             <span className="text-gray-500 mb-2">Drag & drop or click to upload a logo</span>
-            <span className="text-xs text-gray-400 mb-2">Supported file formats: JPG, SVG, or PNG | 2MB max</span>
+            <span className="text-xs text-gray-400 mb-2">Supported file formats: JPG or PNG | 2MB max</span>
           </>
         )}
-        <input
-          type="file"
-          accept="image/png, image/jpeg, image/svg+xml, image/webp"
-          className="hidden"
-          onChange={handleUpload}
-        />
+        <input type="file" accept="image/png, image/jpeg" className="hidden" onChange={handleUpload} />
       </label>
     </>
   );
