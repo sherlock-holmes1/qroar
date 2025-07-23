@@ -56,6 +56,7 @@ const Options = () => {
           dotsType: settings.dotsType,
           cornersDotType: settings.cornersDotType,
           cornersSquareType: settings.cornersSquareType ?? 'extra-rounded',
+          selectedDesign: settings.selectedDesign ?? 'blue',
         }));
         if (settings.pathToLogo && settings.pathToLogo.startsWith('data:')) {
           setUploadedLogo(settings.pathToLogo);
@@ -103,9 +104,9 @@ const Options = () => {
   };
 
   // Handler for design selection
-  const handleDesignSelect = (settings: QRCodeBoxProps) => {
+  const handleDesignSelect = (settings: QRCodeBoxProps, designId: string) => {
     Analytics.fireEvent('options_design_select');
-    setQrProps({
+    const newProps: QRCodeBoxProps = {
       ...qrProps,
       backgroundColor: settings.backgroundColor ?? '',
       foregroundColor: settings.foregroundColor ?? '',
@@ -114,16 +115,10 @@ const Options = () => {
       cornersSquareType: settings.cornersSquareType ?? 'extra-rounded',
       cornersDotType: settings.cornersDotType ?? 'dot',
       dotsType: settings.dotsType ?? 'dots',
-    });
-    qrSettingsStorage.setAll({
-      backgroundColor: settings.backgroundColor ?? '',
-      foregroundColor: settings.foregroundColor ?? '',
-      gradientColor: settings.gradientColor ?? '',
-      showGradient: settings.showGradient ?? false,
-      cornersSquareType: settings.cornersSquareType ?? 'extra-rounded',
-      cornersDotType: settings.cornersDotType ?? 'dot',
-      dotsType: settings.dotsType ?? 'dots',
-    });
+      selectedDesign: designId,
+    };
+    setQrProps(newProps);
+    qrSettingsStorage.setAll(newProps);
   };
 
   useEffect(() => {
@@ -221,25 +216,26 @@ const Options = () => {
                 gradient={qrProps.gradientColor ?? ''}
                 onForegroundChange={color => {
                   Analytics.fireEvent('options_foreground_color_change', { color: color });
-                  setQrProps((prev: QRCodeBoxProps) => ({ ...prev, foregroundColor: color }));
-                  qrSettingsStorage.setForegroundColor(color);
+                  setQrProps((prev: QRCodeBoxProps) => ({ ...prev, foregroundColor: color, selectedDesign: 'custom' }));
+                  qrSettingsStorage.setAll({ foregroundColor: color, selectedDesign: 'custom' });
                 }}
                 onBackgroundChange={color => {
                   Analytics.fireEvent('options_background_color_change', { color: color });
-                  setQrProps((prev: QRCodeBoxProps) => ({ ...prev, backgroundColor: color }));
-                  qrSettingsStorage.setBackgroundColor(color);
+                  setQrProps((prev: QRCodeBoxProps) => ({ ...prev, backgroundColor: color, selectedDesign: 'custom' }));
+                  qrSettingsStorage.setAll({ backgroundColor: color, selectedDesign: 'custom' });
                 }}
                 onShowGradientChange={show => {
                   Analytics.fireEvent('options_show_gradient_toggle', { show: show });
-                  setQrProps((prev: QRCodeBoxProps) => ({ ...prev, showGradient: show }));
-                  qrSettingsStorage.setShowGradient(show);
+                  setQrProps((prev: QRCodeBoxProps) => ({ ...prev, showGradient: show, selectedDesign: 'custom' }));
+                  qrSettingsStorage.setAll({ showGradient: show, selectedDesign: 'custom' });
                 }}
                 onGradientChange={color => {
                   Analytics.fireEvent('options_gradient_color_change', { color: color });
-                  setQrProps((prev: QRCodeBoxProps) => ({ ...prev, gradientColor: color }));
-                  qrSettingsStorage.setGradientColor(color);
+                  setQrProps((prev: QRCodeBoxProps) => ({ ...prev, gradientColor: color, selectedDesign: 'custom' }));
+                  qrSettingsStorage.setAll({ gradientColor: color, selectedDesign: 'custom' });
                 }}
                 onDesignSelect={handleDesignSelect}
+                selectedDesign={qrProps.selectedDesign}
               />
             </div>
           )}

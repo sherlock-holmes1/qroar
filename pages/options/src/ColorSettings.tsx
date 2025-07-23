@@ -11,7 +11,8 @@ type ColorSettingsProps = {
   onBackgroundChange: (color: string) => void;
   onShowGradientChange: (show: boolean) => void;
   onGradientChange: (color: string) => void;
-  onDesignSelect?: (settings: QRCodeBoxProps) => void;
+  onDesignSelect?: (settings: QRCodeBoxProps, designId: string) => void;
+  selectedDesign?: string;
 };
 
 export const ColorSettings = ({
@@ -24,6 +25,7 @@ export const ColorSettings = ({
   onShowGradientChange,
   onGradientChange,
   onDesignSelect,
+  selectedDesign,
 }: ColorSettingsProps) => {
   return (
     <>
@@ -70,14 +72,25 @@ export const ColorSettings = ({
           {qrDesigns.map((design, idx) => (
             <button
               key={idx}
-              className={`mt-2 mb-2 rounded-2xl shadow-md p-1 flex items-center justify-center transition-transform hover:scale-105 focus:ring-2 focus:ring-blue-400 ${design.bg} ${design.border}`}
+              className={`mt-2 mb-2 rounded-2xl shadow-md p-1 flex items-center justify-center transition-transform hover:scale-105 focus:ring-2 focus:ring-blue-400 ${design.bg} ${design.border} ${
+                selectedDesign === design.id ? 'ring-2 ring-blue-500' : ''
+              }`}
               aria-label={`QR design ${idx + 1}`}
               type="button"
               style={{ width: 96, height: 96 }}
-              onClick={() => onDesignSelect?.(design.settings)}>
+              onClick={() => onDesignSelect?.(design.settings, design.id)}>
               {design.svg ? design.svg : <img src={design.src} alt="" />}
             </button>
           ))}
+          {selectedDesign === 'custom' && (
+            <button
+              className="mt-2 mb-2 rounded-2xl shadow-md p-1 flex items-center justify-center ring-2 ring-blue-500 bg-gray-100 border-gray-300"
+              aria-label="Custom QR design"
+              type="button"
+              style={{ width: 96, height: 96 }}>
+              <span className="text-gray-600 font-semibold">Custom</span>
+            </button>
+          )}
         </div>
       </div>
     </>
