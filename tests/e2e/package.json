@@ -14,9 +14,9 @@
   "devDependencies": {
     "@extension/tsconfig": "workspace:*",
     "@extension/env": "workspace:*",
-    "@wdio/cli": "^9.18.4",
+    "@wdio/cli": "^9.19.1",
     "@wdio/globals": "^9.17.0",
-    "@wdio/local-runner": "^9.1.2",
+    "@wdio/local-runner": "^9.19.1",
     "@wdio/mocha-framework": "^9.18.0",
     "@wdio/spec-reporter": "^9.2.14",
     "@wdio/types": "^9.1.2"
