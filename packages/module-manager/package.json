@@ -15,6 +15,6 @@
     "@extension/tsconfig": "workspace:*",
     "@inquirer/prompts": "^7.8.1",
     "fflate": "^0.8.2",
-    "tsx": "^4.20.3"
+    "tsx": "^4.20.5"
   }
 }
