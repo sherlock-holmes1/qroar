@@ -1,6 +1,6 @@
 import '@src/Popup.css';
 import { useStorage, withErrorBoundary, withSuspense, Analytics } from '@extension/shared';
-import { qrSettingsStorage } from '@extension/storage';
+import { qrSettingsStorage, downloadSettingsStorage } from '@extension/storage';
 import { t } from '@extension/i18n';
 import { useEffect, useState, useRef } from 'react';
 import type { QRCodeBoxHandle } from '@extension/ui';
@@ -9,6 +9,8 @@ import { QRCodeBox, getPathToLogo, FooterButtons } from '@extension/ui';
 const Popup = () => {
   // Get color settings from storage
   const colorSettings = useStorage(qrSettingsStorage);
+  // Get download settings from storage
+  const downloadSettings = useStorage(downloadSettingsStorage);
   const {
     foregroundColor,
     backgroundColor,
@@ -150,7 +152,11 @@ const Popup = () => {
           className="bg-orange-500 text-white border-none rounded-full px-6 py-2.5 mx-2 font-semibold text-base cursor-pointer min-w-[80px]"
           onClick={() => {
             Analytics.fireEvent('popup_share_qr_click');
-            qrCodeRef.current?.download();
+            // Use configured download settings
+            qrCodeRef.current?.download({
+              format: downloadSettings?.format || 'png',
+              size: downloadSettings?.size || 'medium',
+            });
           }}>
           Download QR code
         </button>

@@ -49,7 +49,12 @@
   - Add hash-based navigation support for the new section
   - _Requirements: 3.1, 3.2, 4.1, 4.2_
 
-- [ ] 5. Connect download settings to QR code downloads
+- [x] 5. Connect download settings to QR code downloads
+
+
+
+
+
   - Update popup download button to use configured download settings
   - Modify QRCodeBox usage in popup to pass download configuration
   - Ensure settings are loaded from storage before download operations
