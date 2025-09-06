@@ -1,12 +1,13 @@
 import '@src/Options.css';
 import { withErrorBoundary, withSuspense, Analytics } from '@extension/shared';
 import { QRCodeBox, ErrorDisplay, LoadingSpinner, getPathToLogo, FooterButtons } from '@extension/ui';
-import type { QRCodeBoxProps } from '@extension/storage';
-import { qrSettingsStorage } from '@extension/storage';
+import type { QRCodeBoxProps, DownloadSettings } from '@extension/storage';
+import { qrSettingsStorage, downloadSettingsStorage } from '@extension/storage';
 import { useState, useEffect } from 'react';
 import { t } from '@extension/i18n';
 import { ColorSettings } from './ColorSettings';
 import { LogoSettings } from './LogoSettings';
+import { DownloadSettings as DownloadSettingsComponent } from './DownloadSettings';
 
 const defaultQRCodeBoxProps: QRCodeBoxProps = {
   qrText: 'https://qroar.com',
@@ -27,12 +28,17 @@ const Options = () => {
   const [uploadedLogo, setUploadedLogo] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string>('color-settings-section');
   const [qrPreviewSize, setQrPreviewSize] = useState<number>(200);
+  const [downloadSettings, setDownloadSettings] = useState<DownloadSettings>({ format: 'png', size: 'medium' });
 
   // Set initial section from URL hash and listen for hash changes
   useEffect(() => {
     const setSectionFromHash = () => {
       const hash = window.location.hash.replace('#', '');
-      if (hash === 'color-settings-section' || hash === 'logo-settings-section' || hash === 'qr-designs-section') {
+      if (
+        hash === 'color-settings-section' ||
+        hash === 'logo-settings-section' ||
+        hash === 'download-settings-section'
+      ) {
         setActiveSection(hash);
       }
     };
@@ -61,6 +67,19 @@ const Options = () => {
         if (settings.pathToLogo && settings.pathToLogo.startsWith('data:')) {
           setUploadedLogo(settings.pathToLogo);
         }
+      }
+    });
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
+  // Load download settings from storage on mount
+  useEffect(() => {
+    let ignore = false;
+    downloadSettingsStorage.get().then(settings => {
+      if (!ignore && settings) {
+        setDownloadSettings(settings);
       }
     });
     return () => {
@@ -173,6 +192,14 @@ const Options = () => {
             type="button">
             Logo settings
           </button>
+          <button
+            className={`text-base mb-5 flex items-center justify-end focus:outline-none hover:text-blue-700 ${
+              activeSection === 'download-settings-section' ? 'font-bold text-gray-900' : 'font-normal text-gray-400'
+            }`}
+            onClick={() => scrollToSection('download-settings-section')}
+            type="button">
+            Download settings
+          </button>
         </nav>
 
         <div className="mt-auto flex flex-col items-end">
@@ -253,6 +280,24 @@ const Options = () => {
                 onLogoUpload={file => {
                   Analytics.fireEvent('options_logo_upload', { name: file.name });
                   handleLogoUpload(file);
+                }}
+              />
+            </div>
+          )}
+          {activeSection === 'download-settings-section' && (
+            <div id="download-settings-section">
+              <DownloadSettingsComponent
+                format={downloadSettings.format}
+                size={downloadSettings.size}
+                onFormatChange={async format => {
+                  Analytics.fireEvent('options_download_format_change', { format });
+                  setDownloadSettings(prev => ({ ...prev, format }));
+                  await downloadSettingsStorage.setFormat(format);
+                }}
+                onSizeChange={async size => {
+                  Analytics.fireEvent('options_download_size_change', { size });
+                  setDownloadSettings(prev => ({ ...prev, size }));
+                  await downloadSettingsStorage.setSize(size);
                 }}
               />
             </div>
