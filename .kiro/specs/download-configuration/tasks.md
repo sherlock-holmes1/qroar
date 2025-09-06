@@ -13,7 +13,12 @@
   - Export from storage package index
   - _Requirements: 4.1, 4.2, 4.3, 4.4_
 
-- [ ] 2. Enhance QRCodeBox component for configurable downloads
+- [x] 2. Enhance QRCodeBox component for configurable downloads
+
+
+
+
+
   - Modify QRCodeBoxHandle interface to accept format and size options in download method
   - Update handleDownload function to use format parameter for qr-code-styling
   - Add size mapping logic to convert size names to pixel dimensions

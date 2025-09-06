@@ -13,7 +13,12 @@ import type {
 import type { QRCodeBoxProps } from '@extension/storage';
 
 export interface QRCodeBoxHandle {
-  download: (downloadWidth?: number, downloadHeight?: number) => void;
+  download: (
+    optionsOrWidth?:
+      | { format?: 'svg' | 'png'; width?: number; height?: number; size?: 'small' | 'medium' | 'large' }
+      | number,
+    height?: number,
+  ) => void;
 }
 export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
   (
@@ -124,23 +129,69 @@ export const QRCodeBox = forwardRef<QRCodeBoxHandle, QRCodeBoxProps>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [qrCode, qrRef, options]);
 
-    // Expose the download handler via ref
+    // Size mapping for download configuration
+    const SIZE_MAPPING = {
+      small: { width: 300, height: 300 },
+      medium: { width: 1000, height: 1000 },
+      large: { width: 5000, height: 5000 },
+    } as const;
 
-    const handleDownload = async (downloadWidth?: number, downloadHeight?: number) => {
+    // Expose the download handler via ref
+    const handleDownload = async (downloadOptions?: {
+      format?: 'svg' | 'png';
+      width?: number;
+      height?: number;
+      size?: 'small' | 'medium' | 'large';
+    }) => {
+      // Handle backward compatibility - if downloadOptions is a number, treat as width
+      let downloadWidth: number | undefined;
+      let downloadHeight: number | undefined;
+      let downloadFormat: 'svg' | 'png' | undefined;
+
+      if (typeof downloadOptions === 'object' && downloadOptions !== null) {
+        downloadWidth = downloadOptions.width;
+        downloadHeight = downloadOptions.height;
+        downloadFormat = downloadOptions.format;
+
+        // If size is specified, use size mapping (overrides width/height)
+        if (downloadOptions.size && SIZE_MAPPING[downloadOptions.size]) {
+          const sizeConfig = SIZE_MAPPING[downloadOptions.size];
+          downloadWidth = sizeConfig.width;
+          downloadHeight = sizeConfig.height;
+        }
+      }
+
+      // Use the specified format or fall back to the component's extension prop
+      const formatToUse = downloadFormat || extension;
+
       if (downloadWidth && downloadHeight) {
         const prevWidth = options.width;
         const prevHeight = options.height;
         // Update to new size, download, then revert
         qrCode.update({ ...options, width: downloadWidth, height: downloadHeight });
-        await qrCode.download({ extension });
+        await qrCode.download({ extension: formatToUse });
         qrCode.update({ ...options, width: prevWidth, height: prevHeight });
       } else {
-        await qrCode.download({ extension });
+        await qrCode.download({ extension: formatToUse });
       }
     };
 
     useImperativeHandle(ref, () => ({
-      download: handleDownload,
+      download: (
+        optionsOrWidth?:
+          | { format?: 'svg' | 'png'; width?: number; height?: number; size?: 'small' | 'medium' | 'large' }
+          | number,
+        height?: number,
+      ) => {
+        // Handle backward compatibility
+        if (typeof optionsOrWidth === 'number') {
+          // Legacy call: download(width, height)
+          return handleDownload({ width: optionsOrWidth, height });
+        } else {
+          // New call: download(options)
+          return handleDownload(optionsOrWidth);
+        }
+      },
     }));
 
     return (
