@@ -1,11 +1,11 @@
 {
   "extensionDescription": {
     "description": "Extension description",
-    "message": "Create colorful QR codes from any tab in one click - perfect for sharing links, slides & print"
+    "message": "Generate QR codes instantly from any webpage without leaving your browser."
   },
   "extensionName": {
     "description": "Extension name",
-    "message": "QRoar: Instant QR Code Generator"
+    "message": "QRoar: QR code generator with logo in middle"
   },
   "toggleTheme": {
     "message": "Toggle theme"
