@@ -66,6 +66,7 @@
 
 
 
+
   - Implement visual indication when size options are disabled for SVG format
   - Add immediate feedback when settings are saved
   - Ensure proper loading states while settings are being retrieved
