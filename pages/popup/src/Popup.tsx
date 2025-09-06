@@ -3,6 +3,7 @@ import { useStorage, withErrorBoundary, withSuspense, Analytics } from '@extensi
 import { qrSettingsStorage } from '@extension/storage';
 import { t } from '@extension/i18n';
 import { useEffect, useState, useRef } from 'react';
+import type { QRCodeBoxHandle } from '@extension/ui';
 import { QRCodeBox, getPathToLogo, FooterButtons } from '@extension/ui';
 
 const Popup = () => {
@@ -24,7 +25,7 @@ const Popup = () => {
   const [favicon, setFavicon] = useState<string | null>(null);
   const settingsText = t('settingsText');
   const extension = 'png';
-  const qrCodeRef = useRef<{ download: (downloadWidth?: number, downloadHeight?: number) => void }>(null);
+  const qrCodeRef = useRef<QRCodeBoxHandle>(null);
   Analytics.firePageViewEvent(document.title, url);
 
   const settingsButton = (
