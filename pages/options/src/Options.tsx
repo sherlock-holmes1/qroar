@@ -29,6 +29,14 @@ const Options = () => {
   const [activeSection, setActiveSection] = useState<string>('color-settings-section');
   const [qrPreviewSize, setQrPreviewSize] = useState<number>(200);
   const [downloadSettings, setDownloadSettings] = useState<DownloadSettings>({ format: 'png', size: 'medium' });
+  const [downloadSettingsLoading, setDownloadSettingsLoading] = useState<boolean>(true);
+  const [downloadSettingsSaved, setDownloadSettingsSaved] = useState<boolean>(false);
+
+  // Helper function to show saved feedback
+  const showSavedFeedback = () => {
+    setDownloadSettingsSaved(true);
+    setTimeout(() => setDownloadSettingsSaved(false), 2000);
+  };
 
   // Set initial section from URL hash and listen for hash changes
   useEffect(() => {
@@ -77,11 +85,22 @@ const Options = () => {
   // Load download settings from storage on mount
   useEffect(() => {
     let ignore = false;
-    downloadSettingsStorage.get().then(settings => {
-      if (!ignore && settings) {
-        setDownloadSettings(settings);
-      }
-    });
+    setDownloadSettingsLoading(true);
+    downloadSettingsStorage
+      .get()
+      .then(settings => {
+        if (!ignore) {
+          if (settings) {
+            setDownloadSettings(settings);
+          }
+          setDownloadSettingsLoading(false);
+        }
+      })
+      .catch(() => {
+        if (!ignore) {
+          setDownloadSettingsLoading(false);
+        }
+      });
     return () => {
       ignore = true;
     };
@@ -289,15 +308,19 @@ const Options = () => {
               <DownloadSettingsComponent
                 format={downloadSettings.format}
                 size={downloadSettings.size}
+                isLoading={downloadSettingsLoading}
+                showSavedFeedback={downloadSettingsSaved}
                 onFormatChange={async format => {
                   Analytics.fireEvent('options_download_format_change', { format });
                   setDownloadSettings(prev => ({ ...prev, format }));
                   await downloadSettingsStorage.setFormat(format);
+                  showSavedFeedback();
                 }}
                 onSizeChange={async size => {
                   Analytics.fireEvent('options_download_size_change', { size });
                   setDownloadSettings(prev => ({ ...prev, size }));
                   await downloadSettingsStorage.setSize(size);
+                  showSavedFeedback();
                 }}
               />
             </div>
