@@ -47,10 +47,10 @@ export const DownloadSettings = ({
         )}
       </div>
 
-      <div className="max-w-[500px] mb-14">
+      <div className="max-w-[500px] mb-14 ml-1">
         {/* Format Selection */}
         <div className="mb-8">
-          <div className="flex items-start gap-[150px]">
+          <div className="flex items-start gap-[65px]">
             <div className="w-[150px] flex items-center justify-start">
               <span className="text-base text-gray-900 font-normal">File format</span>
               <div className="group relative inline-block ml-2">
@@ -76,7 +76,7 @@ export const DownloadSettings = ({
                   checked={format === 'png'}
                   onChange={() => onFormatChange('png')}
                   disabled={isLoading}
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2 disabled:opacity-50"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-0 focus:ring-transparent disabled:opacity-50"
                 />
                 <span className="text-base text-gray-900 group-hover:text-blue-600 transition-colors">PNG</span>
               </label>
@@ -88,7 +88,7 @@ export const DownloadSettings = ({
                   checked={format === 'svg'}
                   onChange={() => onFormatChange('svg')}
                   disabled={isLoading}
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2 disabled:opacity-50"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-0 focus:ring-transparent disabled:opacity-50"
                 />
                 <span className="text-base text-gray-900 group-hover:text-blue-600 transition-colors">SVG</span>
               </label>
@@ -115,49 +115,56 @@ export const DownloadSettings = ({
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-3">
-              {sizeOptions.map(option => (
-                <label
-                  key={option.id}
-                  className={`flex items-center gap-2 transition-all duration-200 ${
-                    isSvgFormat
-                      ? 'opacity-40 cursor-not-allowed grayscale'
-                      : 'cursor-pointer hover:bg-gray-50 rounded px-2 py-1 -mx-2 -my-1'
-                  }`}>
-                  <input
-                    type="radio"
-                    name="size"
-                    value={option.id}
-                    checked={size === option.id}
-                    onChange={() => onSizeChange(option.id)}
-                    disabled={isSvgFormat || isLoading}
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                  />
-                  <span className={`text-base ${isSvgFormat ? 'text-gray-400' : 'text-gray-900'}`}>
-                    {option.label} ({option.dimensions}px)
-                  </span>
-                </label>
-              ))}
-              {isSvgFormat && (
-                <div className="mt-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                  <div className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path
-                        fillRule="evenodd"
-                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <div>
-                      <p className="text-sm font-medium text-blue-800">SVG Format Selected</p>
-                      <p className="text-sm text-blue-700 mt-1">
-                        Size options are disabled because SVG is a vector format that scales infinitely without quality
-                        loss.
-                      </p>
+            <div className="relative">
+              <div className="flex flex-col gap-3">
+                {sizeOptions.map(option => (
+                  <label
+                    key={option.id}
+                    className={`flex items-center gap-2 ${
+                      isSvgFormat
+                        ? 'opacity-40 cursor-not-allowed grayscale'
+                        : 'cursor-pointer hover:bg-gray-50 rounded px-2 py-1 -mx-2 -my-1'
+                    }`}>
+                    <input
+                      type="radio"
+                      name="size"
+                      value={option.id}
+                      checked={size === option.id}
+                      onChange={() => onSizeChange(option.id)}
+                      disabled={isSvgFormat || isLoading}
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-0 focus:ring-transparent disabled:opacity-50 disabled:cursor-not-allowed"
+                    />
+                    <span className={`text-base ${isSvgFormat ? 'text-gray-400' : 'text-gray-900'}`}>
+                      {option.label} ({option.dimensions}px)
+                    </span>
+                  </label>
+                ))}
+              </div>
+              <div className="mt-2 h-24 w-full">
+                <div className={`transition-opacity duration-200 ${isSvgFormat ? 'opacity-100' : 'opacity-0'}`}>
+                  <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div className="flex items-start gap-2">
+                      <svg
+                        className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0"
+                        fill="currentColor"
+                        viewBox="0 0 20 20">
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <div>
+                        <p className="text-sm font-medium text-blue-800">SVG Format Selected</p>
+                        <p className="text-sm text-blue-700 mt-1">
+                          Size options are disabled because SVG is a vector format that scales infinitely without
+                          quality loss.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              )}
+              </div>
             </div>
           </div>
         </div>
