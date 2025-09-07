@@ -5,7 +5,7 @@
   },
   "extensionName": {
     "description": "Extension name",
-    "message": "QRoar: QR code generator with logo in middle"
+    "message": "QRoar: QR code generator with logo"
   },
   "toggleTheme": {
     "message": "Toggle theme"

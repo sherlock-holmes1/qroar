@@ -5,6 +5,7 @@ import { t } from '@extension/i18n';
 import { useEffect, useState, useRef } from 'react';
 import type { QRCodeBoxHandle } from '@extension/ui';
 import { QRCodeBox, getPathToLogo, FooterButtons } from '@extension/ui';
+import { IS_DEV } from '@extension/env';
 
 const Popup = () => {
   // Get color settings from storage
@@ -84,6 +85,28 @@ const Popup = () => {
     </div>
   );
 
+  // Helper function to get high-quality favicon via background script
+  const getHighQualityFavicon = async (url: string): Promise<string | null> => {
+    if (IS_DEV) console.log('Popup: Requesting favicon for:', url);
+
+    try {
+      if (IS_DEV) console.log('Popup: Sending message to background script');
+      const response = await chrome.runtime.sendMessage({
+        action: 'getFavicon',
+        url: url,
+      });
+      if (IS_DEV) console.log('Popup: Received response from background:', response);
+
+      const favicon = response?.favicon || null;
+      if (IS_DEV) console.log('Popup: Final favicon result:', favicon ? 'SUCCESS' : 'FAILED');
+
+      return favicon;
+    } catch (e) {
+      if (IS_DEV) console.error('Popup: Background favicon request failed:', e);
+      return null;
+    }
+  };
+
   // Populate URL from the active tab on mount
   useEffect(() => {
     if (typeof chrome !== 'undefined' && chrome.tabs) {
@@ -93,16 +116,28 @@ const Popup = () => {
         }
         if (tabs[0]?.favIconUrl && pathToLogo == 'detect') {
           if (tabs[0]?.url) {
-            const url1 = `chrome-extension://${chrome.runtime.id}/_favicon/?pageUrl=${encodeURIComponent(tabs[0]?.url)}&size=48`;
-            const resp = await fetch(url1);
-            const blob = await resp.blob();
-            const reader = new FileReader();
-            reader.onloadend = () => {
-              setFavicon(reader.result as string);
-              // Now you can use the data URL for download, display, etc.
-              console.log('Got favicon data URL:', reader.result);
-            };
-            reader.readAsDataURL(blob);
+            // Try Google's high-quality favicon API first
+            const highQualityFavicon = await getHighQualityFavicon(tabs[0].url);
+
+            if (highQualityFavicon) {
+              setFavicon(highQualityFavicon);
+              if (IS_DEV) console.log('Got high-quality favicon from Google API');
+            } else {
+              // Fallback to Chrome's built-in favicon API
+              try {
+                const url1 = `chrome-extension://${chrome.runtime.id}/_favicon/?pageUrl=${encodeURIComponent(tabs[0].url)}&size=256`;
+                const resp = await fetch(url1);
+                const blob = await resp.blob();
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                  setFavicon(reader.result as string);
+                  if (IS_DEV) console.log('Got fallback favicon from Chrome API');
+                };
+                reader.readAsDataURL(blob);
+              } catch (e) {
+                if (IS_DEV) console.log('Failed to get favicon:', e);
+              }
+            }
           }
         }
       });
