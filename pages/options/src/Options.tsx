@@ -8,6 +8,7 @@ import { t } from '@extension/i18n';
 import { ColorSettings } from './ColorSettings';
 import { LogoSettings } from './LogoSettings';
 import { DownloadSettings as DownloadSettingsComponent } from './DownloadSettings';
+import packageJson from '../../../package.json';
 
 const defaultQRCodeBoxProps: QRCodeBoxProps = {
   qrText: 'https://qroar.com',
@@ -245,7 +246,7 @@ const Options = () => {
             </div>
           </div>
         </div>
-        <FooterButtons />
+        <FooterButtons version={packageJson.version} />
       </aside>
 
       {/* Main Content */}
