@@ -51,8 +51,8 @@ export const DownloadSettings = ({
         {/* Format Selection */}
         <div className="mb-8">
           <div className="flex items-start gap-[150px]">
-            <div className="w-[150px]">
-              <span className="text-base text-gray-900 font-normal text-left">File format</span>
+            <div className="w-[150px] flex items-center justify-start">
+              <span className="text-base text-gray-900 font-normal">File format</span>
               <div className="group relative inline-block ml-2">
                 <svg className="w-4 h-4 text-gray-400 cursor-help" fill="currentColor" viewBox="0 0 20 20">
                   <path
@@ -61,9 +61,9 @@ export const DownloadSettings = ({
                     clipRule="evenodd"
                   />
                 </svg>
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+                <div className="absolute bottom-full left-0 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
                   PNG: Raster format, good for sharing. SVG: Vector format, scalable for print.
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                  <div className="absolute top-full left-4 border-4 border-transparent border-t-gray-900"></div>
                 </div>
               </div>
             </div>
@@ -99,8 +99,8 @@ export const DownloadSettings = ({
         {/* Size Selection */}
         <div className="mb-8">
           <div className="flex items-start gap-[150px]">
-            <div className="w-[150px]">
-              <span className="text-base text-gray-900 font-normal text-left">Size</span>
+            <div className="w-[150px] flex items-center justify-start">
+              <span className="text-base text-gray-900 font-normal">Size</span>
               <div className="group relative inline-block ml-2">
                 <svg className="w-4 h-4 text-gray-400 cursor-help" fill="currentColor" viewBox="0 0 20 20">
                   <path
@@ -109,9 +109,9 @@ export const DownloadSettings = ({
                     clipRule="evenodd"
                   />
                 </svg>
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+                <div className="absolute bottom-full left-0 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
                   Small: Quick sharing. Medium: General use. Large: High-quality print.
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                  <div className="absolute top-full left-4 border-4 border-transparent border-t-gray-900"></div>
                 </div>
               </div>
             </div>
