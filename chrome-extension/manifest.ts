@@ -30,7 +30,7 @@ const manifest = {
   version: packageJson.version,
   description: '__MSG_extensionDescription__',
   permissions: ['storage', 'activeTab', 'favicon'],
-  host_permissions: ['https://www.google.com/*', 'https://*.gstatic.com/*'],
+  host_permissions: ['https://www.google.com/*', 'https://t2.gstatic.com/*'],
   background: {
     service_worker: 'background.js',
     type: 'module',
