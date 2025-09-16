@@ -114,6 +114,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 
   if (IS_DEV) console.log('Background: Unknown message action:', request.action);
+  return false;
 });
 
 console.log('Background loaded');
