@@ -1,6 +1,6 @@
 {
   "name": "qroar-qr-code-generator",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "qroar - 1‑Click QR Code Generator for Marketers",
   "license": "MIT",
   "private": true,
@@ -41,14 +41,14 @@
   "dependencies": {
     "@sentry/browser": "^10.5.0",
     "qr-code-styling": "^1.9.2",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react": "19.2.1",
+    "react-dom": "19.2.1"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.5",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.35.0",
-    "@types/chrome": "0.1.1",
+    "@types/chrome": "0.1.24",
     "@types/eslint-plugin-jsx-a11y": "^6.10.0",
     "@types/eslint__eslintrc": "^2.1.2",
     "@types/eslint__js": "^9.14.0",
