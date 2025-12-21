@@ -181,7 +181,7 @@ const Options = () => {
           height: '100vh',
           alignSelf: 'flex-start',
           flexShrink: 0,
-          overflowY: 'auto',
+          overflowY: 'hidden',
           boxSizing: 'border-box',
         }}>
         <span className="font-bold text-[30px] tracking-wide mb-6 flex items-center gap-2 justify-center">

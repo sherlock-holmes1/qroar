@@ -61,9 +61,18 @@ export const DownloadSettings = ({
                     clipRule="evenodd"
                   />
                 </svg>
-                <div className="absolute bottom-full left-0 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
-                  PNG: Raster format, good for sharing. SVG: Vector format, scalable for print.
-                  <div className="absolute top-full left-4 border-4 border-transparent border-t-gray-900"></div>
+                <div className="absolute bottom-full left-0 mb-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+                  <div className="relative">
+                    <div className="bg-white text-black text-base rounded-lg shadow-lg px-3 py-2 border border-gray-200">
+                      PNG: Raster format, good for sharing. SVG: Vector format, scalable for print.
+                    </div>
+                    <div className="absolute top-full left-4 -mt-2 w-3 h-3 overflow-visible">
+                      <svg width="16" height="8" viewBox="0 0 16 8" className="block mx-auto">
+                        <polygon points="8,0 16,8 0,8" fill="white" />
+                        <polygon points="8,1 15,8 1,8" fill="#e5e7eb" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -109,9 +118,18 @@ export const DownloadSettings = ({
                     clipRule="evenodd"
                   />
                 </svg>
-                <div className="absolute bottom-full left-0 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
-                  Small: Quick sharing. Medium: General use. Large: High-quality print.
-                  <div className="absolute top-full left-4 border-4 border-transparent border-t-gray-900"></div>
+                <div className="absolute bottom-full left-0 mb-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+                  <div className="relative">
+                    <div className="bg-white text-black text-base rounded-lg shadow-lg px-3 py-2 border border-gray-200">
+                      Small: Quick sharing. Medium: General use. Large: High-quality print.
+                    </div>
+                    <div className="absolute top-full left-4 -mt-2 w-3 h-3 overflow-visible">
+                      <svg width="16" height="8" viewBox="0 0 16 8" className="block mx-auto">
+                        <polygon points="8,0 16,8 0,8" fill="white" />
+                        <polygon points="8,1 15,8 1,8" fill="#e5e7eb" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
