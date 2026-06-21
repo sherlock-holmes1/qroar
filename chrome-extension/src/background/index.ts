@@ -6,8 +6,18 @@ addEventListener('unhandledrejection', async event => {
   Analytics.fireErrorEvent(event.reason);
 });
 
-chrome.runtime.onInstalled.addListener(() => {
-  Analytics.fireEvent('install');
+chrome.runtime.onInstalled.addListener(details => {
+  // onInstalled fires on install, update, chrome_update and shared_module_update.
+  // Only a genuine 'install' is an acquisition; firing on every reason inflated the
+  // 'install' count with auto-updates (~2.7 events per user). Note: GA4's native
+  // first_visit/New-users metric is unreachable via Measurement Protocol (first_visit
+  // is a reserved name and isn't auto-generated), so extension_install is the
+  // acquisition signal — mark it as a key event in GA4.
+  if (details.reason === 'install') {
+    Analytics.fireEvent('extension_install');
+  } else if (details.reason === 'update') {
+    Analytics.fireEvent('extension_update', { previous_version: details.previousVersion });
+  }
 });
 
 // Helper function to extract top-level domain
