@@ -30,6 +30,7 @@ const Popup = () => {
   const extension = 'png';
   const qrCodeRef = useRef<QRCodeBoxHandle>(null);
   Analytics.firePageViewEvent(document.title, url);
+  Analytics.startEngagementTracking();
 
   const settingsButton = (
     <div className="relative group">
@@ -186,12 +187,12 @@ const Popup = () => {
         <button
           className="bg-orange-500 text-white border-none rounded-full px-6 py-2.5 mx-2 font-semibold text-base cursor-pointer min-w-[80px]"
           onClick={() => {
-            Analytics.fireEvent('popup_share_qr_click');
-            // Use configured download settings
-            qrCodeRef.current?.download({
-              format: downloadSettings?.format || 'png',
-              size: downloadSettings?.size || 'medium',
-            });
+            const format = downloadSettings?.format || 'png';
+            const size = downloadSettings?.size || 'medium';
+            // Core conversion: the user actually downloads a QR code. Previously
+            // mislabeled as 'popup_share_qr_click'. Mark qr_download as a key event in GA4.
+            Analytics.fireEvent('qr_download', { format, size });
+            qrCodeRef.current?.download({ format, size });
           }}>
           Download QR code
         </button>

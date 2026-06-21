@@ -4,7 +4,12 @@ const GA_DEBUG_ENDPOINT = 'https://www.google-analytics.com/debug/mp/collect';
 // Get via https://developers.google.com/analytics/devguides/collection/protocol/ga4/sending-events?client_type=gtag#recommended_parameters_for_reports
 const MEASUREMENT_ID = process.env.CEB_MEASUREMENT_ID;
 const API_SECRET = process.env.CEB_API_SECRET;
+// Fallback engagement time for contexts without a document (e.g. the background
+// service worker firing install/update). Page contexts send measured time instead.
 const DEFAULT_ENGAGEMENT_TIME_MSEC = 100;
+// Once a session accumulates this much foreground time, GA4 should treat it as an
+// engaged session. gtag sets `session_engaged=1` at 10s; we mirror that for MP.
+const SESSION_ENGAGED_THRESHOLD_MSEC = 10_000;
 
 // Duration of inactivity after which a new session is created
 const SESSION_EXPIRATION_IN_MIN = 30;
@@ -14,8 +19,67 @@ const SESSION_EXPIRATION_IN_MIN = 30;
 class AnalyticsCore {
   private debug: boolean;
 
+  // Engagement tracking (page contexts only — popup / options).
+  // GA4's engagement metrics (engaged sessions, engagement rate, engagement
+  // duration) are driven by `engagement_time_msec`. The Measurement Protocol does
+  // not measure this for us, so we accumulate real foreground time here instead of
+  // sending a hardcoded placeholder (which left every session at 0s / not engaged).
+  private engVisibleSince: number | null = null;
+  private engAccumulatedMsec = 0; // total foreground time this page context
+  private engUnsentMsec = 0; // foreground time not yet attached to an event
+  private engTrackingStarted = false;
+
   constructor(debug = false) {
     this.debug = debug;
+  }
+
+  // Begin measuring foreground engagement time. Call once when a UI page mounts.
+  // No-op in non-document contexts (background service worker) and idempotent.
+  public startEngagementTracking() {
+    if (this.engTrackingStarted || typeof document === 'undefined') {
+      return;
+    }
+    this.engTrackingStarted = true;
+    this.engVisibleSince = document.visibilityState === 'visible' ? Date.now() : null;
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        this.engVisibleSince = Date.now();
+      } else {
+        this.captureVisibleTime();
+        // The page is about to be torn down (popup closing). Flush remaining
+        // engagement time so short open-then-close sessions still register.
+        if (this.engUnsentMsec > 0) {
+          void this.fireEvent('extension_engagement');
+        }
+      }
+    });
+  }
+
+  // Fold the currently-visible interval into the accumulators and reset the clock.
+  private captureVisibleTime() {
+    if (this.engVisibleSince != null) {
+      const now = Date.now();
+      const delta = now - this.engVisibleSince;
+      this.engAccumulatedMsec += delta;
+      this.engUnsentMsec += delta;
+      this.engVisibleSince = now;
+    }
+  }
+
+  // Engagement params to attach to the next outgoing event.
+  private consumeEngagementParams(): Record<string, unknown> {
+    if (!this.engTrackingStarted) {
+      return { engagement_time_msec: DEFAULT_ENGAGEMENT_TIME_MSEC };
+    }
+    this.captureVisibleTime();
+    const params: Record<string, unknown> = {
+      engagement_time_msec: Math.max(1, Math.round(this.engUnsentMsec)),
+    };
+    this.engUnsentMsec = 0;
+    if (this.engAccumulatedMsec >= SESSION_ENGAGED_THRESHOLD_MSEC) {
+      params.session_engaged = '1';
+    }
+    return params;
   }
 
   // Returns the client id, or creates a new one if one doesn't exist.
@@ -70,7 +134,11 @@ class AnalyticsCore {
       params.session_id = await this.getOrCreateSessionId();
     }
     if (!params.engagement_time_msec) {
-      params.engagement_time_msec = DEFAULT_ENGAGEMENT_TIME_MSEC;
+      const eng = this.consumeEngagementParams();
+      params.engagement_time_msec = eng.engagement_time_msec;
+      if (eng.session_engaged && !params.session_engaged) {
+        params.session_engaged = eng.session_engaged;
+      }
     }
 
     try {
@@ -78,6 +146,8 @@ class AnalyticsCore {
         `${this.debug ? GA_DEBUG_ENDPOINT : GA_ENDPOINT}?measurement_id=${MEASUREMENT_ID}&api_secret=${API_SECRET}`,
         {
           method: 'POST',
+          // keepalive lets the on-close engagement flush complete after the popup closes.
+          keepalive: true,
           body: JSON.stringify({
             client_id: await this.getOrCreateClientId(),
             events: [
@@ -120,7 +190,7 @@ class AnalyticsCore {
 
 // build a factory function that’s also a singleton with static methods
 type AnalyticsFactory = ((debug?: boolean) => AnalyticsCore) &
-  Pick<AnalyticsCore, 'fireEvent' | 'firePageViewEvent' | 'fireErrorEvent'>;
+  Pick<AnalyticsCore, 'fireEvent' | 'firePageViewEvent' | 'fireErrorEvent' | 'startEngagementTracking'>;
 
 const defaultInstance = new AnalyticsCore();
 const Analytics = ((debug = false) => new AnalyticsCore(debug)) as AnalyticsFactory;
@@ -129,5 +199,6 @@ const Analytics = ((debug = false) => new AnalyticsCore(debug)) as AnalyticsFact
 Analytics.fireEvent = defaultInstance.fireEvent.bind(defaultInstance);
 Analytics.firePageViewEvent = defaultInstance.firePageViewEvent.bind(defaultInstance);
 Analytics.fireErrorEvent = defaultInstance.fireErrorEvent.bind(defaultInstance);
+Analytics.startEngagementTracking = defaultInstance.startEngagementTracking.bind(defaultInstance);
 
 export { Analytics };

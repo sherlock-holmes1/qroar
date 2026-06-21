@@ -24,6 +24,7 @@ const defaultQRCodeBoxProps: QRCodeBoxProps = {
 
 const Options = () => {
   Analytics.firePageViewEvent('Options', 'Options');
+  Analytics.startEngagementTracking();
 
   const [qrProps, setQrProps] = useState<QRCodeBoxProps>(defaultQRCodeBoxProps);
   const [uploadedLogo, setUploadedLogo] = useState<string | null>(null);
